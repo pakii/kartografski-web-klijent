@@ -8,7 +8,7 @@ import './layer-explorer.scss';
 export default function FeatureInfoControl(props: { on: boolean, toggle: Function }) {
     return (
         <button
-            title="Allow feature info"
+            title={`Turn feature info ${props.on ? 'Off' : 'On'}`}
             className={props.on ? 'mt-1 u-b-success' : 'mt-1 u-b-disabled'}
             onClick={() => props.toggle()}>
             <FontAwesomeIcon icon={faCircleInfo} fontSize={'1.5em'} />

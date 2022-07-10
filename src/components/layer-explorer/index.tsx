@@ -11,7 +11,7 @@ export default function LayerExplorer(props: { show: () => void }) {
             title="Add layers"
             className='layer-explorer m-1'
             onClick={() => props.show()}>
-            <FontAwesomeIcon icon={faFolderPlus} fontSize={'1.5em'}/>
+            +WMS
         </button>
     )
 }

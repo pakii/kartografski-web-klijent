@@ -32,3 +32,9 @@
 .u-fs-default {
     font-size: 16px;
 }
+
+.u-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

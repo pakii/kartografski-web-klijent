@@ -14,11 +14,15 @@ export class LayersList extends Component<{}, { layers: IBaseLayer[] }> {
             layers: []
         }
 
-        mapService.subscribeToLayerAddOrRemove(() => this.updateLayersState());
+        mapService.subscribeToLayerAddOrRemove('LayersList', () => this.updateLayersState());
     }
 
     componentDidMount() {
         this.updateLayersState();
+    }
+
+    componentWillUnmount() {
+        mapService.unsubscribeToLayerAddOrRemove('LayersList');
     }
 
     updateLayersState() {
@@ -74,40 +78,47 @@ export class LayersList extends Component<{}, { layers: IBaseLayer[] }> {
             <ul className='list'>
                 {
                     this.state.layers.map((layer: IBaseLayer, i) => (
-                        <li key={`${i}__${layer.get('title')}`}>
-                            <input type="checkbox"
-                                id={layer.get('title')}
-                                name={layer.get('title')}
-                                checked={layer.getVisible()}
-                                onChange={() => this.toggleLayer(layer)} />
-                            <input
-                                type="number"
-                                step={0.1}
-                                max={1}
-                                min={0}
-                                value={layer.getOpacity()}
-                                onChange={(event) => this.setLayerOpacity(layer, +event.target.value)} />
-                            {i === 0 && <button  onClick={() => this.zoomToLayer(layer)}>
-                                <FontAwesomeIcon icon={faMagnifyingGlassLocation} fontSize={'1.5em'} />
-                            </button>}
-                            <button disabled={i === 0} onClick={() => this.moveLayerUp(i)}>
-                                <FontAwesomeIcon icon={faSortUp} fontSize={'1.5em'}/>
-                            </button>
-                            <button disabled={i === this.state.layers.length - 1} onClick={() => this.moveLayerDown(i)}>
-                                <FontAwesomeIcon icon={faSortDown} fontSize={'1.5em'}/>
-                            </button>
-                            <span>
-                                {layer.get('title')}
-                            </span>
-                            <button onClick={() => this.removeLayer(layer)}>
-                                <FontAwesomeIcon icon={faEraser} fontSize={'1.5em'}/>
-                            </button>
+                        <li key={`${i}__${layer.get('Title')}`}>
+                            <div className='u-ellipsis'>
+                                <input type="checkbox"
+                                    id={layer.get('Title')}
+                                    name={layer.get('Title')}
+                                    checked={layer.getVisible()}
+                                    onChange={() => this.toggleLayer(layer)} />
+                                <span className='m-0 ml-1'>
+                                    <b>
+                                        {layer.get('Title')}
+                                    </b>
+                                </span>
+                            </div>
+                            <div className='pl-1'>
+                                <button disabled={i === 0} onClick={() => this.moveLayerUp(i)}>
+                                    <FontAwesomeIcon icon={faSortUp} fontSize={'1em'} />
+                                </button>
+                                <button className='mr-1' disabled={i === this.state.layers.length - 1} onClick={() => this.moveLayerDown(i)}>
+                                    <FontAwesomeIcon icon={faSortDown} fontSize={'1em'} />
+                                </button>
+                                <input
+                                    type="number"
+                                    step={0.1}
+                                    max={1}
+                                    min={0}
+                                    value={layer.getOpacity()}
+                                    onChange={(event) => this.setLayerOpacity(layer, +event.target.value)} />
+                                <button className='ml-1' onClick={() => this.zoomToLayer(layer)}>
+                                        <FontAwesomeIcon icon={faMagnifyingGlassLocation} />
+                                </button>
+                                <button className='ml-1' onClick={() => this.removeLayer(layer)}>
+                                        <FontAwesomeIcon icon={faEraser} />
+                                </button>
+                            </div>
+                            <hr />
                         </li>
                     ))
                 }
                 {
                     !this.state.layers.length && (
-                        <div>No layers</div>
+                        <div>Oops! No layers. You can import some from WMS.</div>
                     )
                 }
             </ul>

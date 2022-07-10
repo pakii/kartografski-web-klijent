@@ -22,7 +22,7 @@ class App extends React.Component<{}, {
             mapClickSubscriptions: 0
         }
 
-        mapService.subscribeToLayerAddOrRemove(() => {
+        mapService.subscribeToLayerAddOrRemove('AppCmp', () => {
             if (this.state.featureInfoOn) {
                 this.makeFeatureInfoSub();
             }

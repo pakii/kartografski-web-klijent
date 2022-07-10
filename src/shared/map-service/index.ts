@@ -9,7 +9,6 @@ import VectorSource from 'ol/source/Vector';
 import BaseLayer from 'ol/layer/Base';
 import { circular } from 'ol/geom/Polygon';
 import { Point } from 'ol/geom';
-import { GeoJSON } from 'ol/format';
 import { Layer } from '../wms';
 import { toast } from 'react-toastify';
 import { WMS_URL } from '../../constants';
@@ -18,7 +17,7 @@ import { WMS_URL } from '../../constants';
 class MapService {
     private map: Map | null;
     private zIndexCounter = 0;
-    private readonly layerChangeSubscriptions: Function[] = [];
+    private readonly layerChangeSubscriptions: { [key: string]: Function } = {};
     private mapClickSubscription: Function | null = null;
     private readonly baseLayer = new TileLayer({
         zIndex: 0,
@@ -71,7 +70,7 @@ class MapService {
         });
 
         this.map.getLayers().on('change:length', () => {
-            this.layerChangeSubscriptions.forEach((sub) => sub());
+            Object.values(this.layerChangeSubscriptions).forEach((sub) => sub());
         })
     }
 
@@ -171,8 +170,6 @@ class MapService {
         const olLayer = new TileLayer({
             zIndex: this.zIndexCounter + 1,
             properties: {
-                title: layer.Title,
-                name: layer.Name,
                 ...layer
             },
             source
@@ -185,8 +182,12 @@ class MapService {
         this.zIndexCounter++;
     }
 
-    subscribeToLayerAddOrRemove(fn: Function): void {
-        this.layerChangeSubscriptions.push(fn);
+    subscribeToLayerAddOrRemove(key: string, fn: Function): void {
+        this.layerChangeSubscriptions[key] = fn;
+    }
+
+    unsubscribeToLayerAddOrRemove(key: string): void {
+        delete this.layerChangeSubscriptions[key];
     }
 
     subscribeToMapClick(fn: (event: MapBrowserEvent<any>) => void): void {

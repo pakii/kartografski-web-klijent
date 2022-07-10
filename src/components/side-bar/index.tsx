@@ -25,31 +25,34 @@ export class SideBar extends React.Component<Props, State> {
             capabilities: null,
             baseMapId: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         }
-        mapService.subscribeToLayerAddOrRemove(() => this.setLayersState(this.state.capabilities as WMSCapabilities));
+        mapService.subscribeToLayerAddOrRemove('SideBar', () => this.setLayersState(this.state.capabilities as WMSCapabilities));
         this.wrapperRef = React.createRef<any>();
     }
 
     setLayersState(capabilities: WMSCapabilities): void {
         const mapLayers = mapService.getExternalLayers();
-        const layers = (capabilities.Capability.Layer.Layer as Layer[])
-            .map((resLayer) => {
+        const wmsLayers = (capabilities?.Capability?.Layer?.Layer as Layer[]);
+        if (wmsLayers && wmsLayers.length) {
+            const layers = wmsLayers.map((resLayer) => {
+                const added = mapLayers.findIndex((l) => resLayer.Name === l.get('Name')) > -1;
                 return {
                     ...resLayer,
-                    added: mapLayers.findIndex((l) => resLayer.Name === l.get('name')) > -1
+                    added
                 }
             });
 
-        this.setState({
-            currentLayers: layers
-        })
+            this.setState({
+                currentLayers: layers
+            })
+        }
     }
 
     componentDidMount() {
         document.addEventListener("mousedown", this.handleClickOutside);
         wmsService.getCapabilities()
             .then((capa) => {
+                this.setLayersState(capa);
                 this.setState({
-                    currentLayers: capa.Capability.Layer.Layer as Layer[],
                     capabilities: capa,
                     baseMapId: mapService.getCurrentBaseId()
                 })
@@ -58,9 +61,13 @@ export class SideBar extends React.Component<Props, State> {
 
     componentWillUnmount() {
         document.removeEventListener("mousedown", this.handleClickOutside);
+        mapService.unsubscribeToLayerAddOrRemove('SideBar');
     }
 
     onAddLayer(layer: Layer, index: number) {
+        if (layer.added) {
+            return;
+        }
         mapService.addWMSLayer(layer);
         this.setState((prevState) => {
             const copy = [...prevState.currentLayers];
@@ -92,7 +99,7 @@ export class SideBar extends React.Component<Props, State> {
                 ref={this.wrapperRef}>
                 <div>
                     <div className="u-d-flex u-justify-between">
-                        <h3 className='m-0'>Add Layers</h3>
+                        <h3 className='m-0'>Import WMS layers into map</h3>
                         <button
                             title="Close"
                             onClick={() => this.props.hide()}>
@@ -112,13 +119,18 @@ export class SideBar extends React.Component<Props, State> {
                 <ul className='layer-browser u-vertical-scroll'>
                     {this.state.currentLayers && this.state.currentLayers.length && (
                         this.state.currentLayers.map((layer, index) => (
-                            <li key={layer.Title}>
+                            <li key={layer.Title} className='u-ellipsis'>
                                 {!(layer.Layer && layer.Layer.length) &&
                                     <button disabled={layer.added}
+                                        key={layer.Name + '_' + index}
+                                        title='Import'
+                                        className='mr-1'
                                         onClick={() => this.onAddLayer(layer, index)}>
                                         +
                                     </button>}
-                                {layer.Name || layer.Title}
+                                <span onClick={() => this.onAddLayer(layer, index)} className='u-pointer'>
+                                    {layer.Title || layer.Name}
+                                </span>
                             </li>
                         ))
                     )}
@@ -130,7 +142,7 @@ export class SideBar extends React.Component<Props, State> {
                         Object.entries(mapService.baseLayersHash).map(([baseId, value], i) => (
                             <label htmlFor={baseId}
                                 className='u-d-block'
-                                style={{marginTop: '5px'}}
+                                style={{ marginTop: '5px' }}
                                 key={baseId}>
                                 <input
                                     key={baseId}
