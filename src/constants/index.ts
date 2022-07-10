@@ -1,0 +1,1 @@
+export const WMS_URL = 'https://ahocevar.com/geoserver/wms';

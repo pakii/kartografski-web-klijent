@@ -1,0 +1,35 @@
+@import 'ol/ol.css';
+@import 'react-toastify/dist/ReactToastify.css';
+
+@import './ol-override';
+
+@import './components';
+@import './utilities';
+
+* {
+    box-sizing: border-box;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+button {
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+button[disabled] {
+    cursor: not-allowed;
+}
+input + label {
+    cursor: pointer;
+}
+html,
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+        'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

@@ -15,11 +15,13 @@
         "@types/ol": "^6.5.3",
         "@types/react": "^18.0.15",
         "@types/react-dom": "^18.0.6",
+        "kompas": "^0.0.1",
         "ol": "^6.14.1",
         "prettier": "^2.7.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-scripts": "5.0.1",
+        "react-toastify": "^9.0.5",
         "typescript": "^4.7.4",
         "web-vitals": "^2.1.4",
         "workbox-background-sync": "^6.5.3",
@@ -59,5 +61,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "sass": "^1.53.0"
     }
 }
