@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/kartografski-web-klijent/static/css/main.10a83970.css",
+    "main.js": "/kartografski-web-klijent/static/js/main.3d207f22.js",
+    "static/js/27.759446d7.chunk.js": "/kartografski-web-klijent/static/js/27.759446d7.chunk.js",
+    "service-worker.js": "/kartografski-web-klijent/service-worker.js",
+    "index.html": "/kartografski-web-klijent/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.10a83970.css",
+    "static/js/main.3d207f22.js"
+  ]
+}
