@@ -6,12 +6,14 @@ import { ToastContainer } from "react-toastify";
 import { SideBar } from "./components/side-bar";
 import LayerExplorer from "./components/layer-explorer";
 import { FeatureInfo } from "./components/feature-info";
+import { WMS_URL } from './constants/index';
 
 class App extends React.Component<{}, {
-    showSidebar: boolean,
-    featureInfoOn: boolean,
-    featureInfo: string,
-    mapClickSubscriptions: number
+    showSidebar: boolean;
+    featureInfoOn: boolean;
+    featureInfo: string;
+    mapClickSubscriptions: number;
+    wmsUrl: string;
 }> {
     constructor(props: {}) {
         super(props);
@@ -19,7 +21,8 @@ class App extends React.Component<{}, {
             showSidebar: true,
             featureInfoOn: true,
             featureInfo: '',
-            mapClickSubscriptions: 0
+            mapClickSubscriptions: 0,
+            wmsUrl: WMS_URL
         }
 
         mapService.subscribeToLayerAddOrRemove('AppCmp', () => {
@@ -62,8 +65,15 @@ class App extends React.Component<{}, {
             if (prevState.featureInfoOn) {
                 mapService.clearMapClickSubscriptions();
             }
+            else {
+                this.makeFeatureInfoSub();
+            }
             return { featureInfoOn: !prevState.featureInfoOn }
         })
+    }
+
+    onWMSUrlChange = (url: string) => {
+        this.setState({ wmsUrl: url });
     }
 
     render() {
@@ -72,7 +82,7 @@ class App extends React.Component<{}, {
                 <div id="map" style={{ width: window.innerWidth, height: window.innerHeight }}>
                     <ControlsMenu featureInfoOn={this.state.featureInfoOn} toggleFeatureInfo={() => this.toggleFeatureInfo()}></ControlsMenu>
                     <LayerExplorer show={() => this.toggleSideBar()} />
-                    {this.state.showSidebar && <SideBar hide={() => this.toggleSideBar()} />}
+                    {this.state.showSidebar && <SideBar hide={() => this.toggleSideBar()} changeWMSUrl={(e) => this.onWMSUrlChange(e)} wmsUrl={this.state.wmsUrl}/>}
                     {this.state.featureInfoOn && this.state.featureInfo && (
                         <FeatureInfo featureInfo={this.state.featureInfo} hide={() => this.setState({ featureInfo: '' })} />
                     )}

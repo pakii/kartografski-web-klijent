@@ -11,7 +11,6 @@ import { circular } from 'ol/geom/Polygon';
 import { Point } from 'ol/geom';
 import { Layer } from '../wms';
 import { toast } from 'react-toastify';
-import { WMS_URL } from '../../constants';
 
 
 class MapService {
@@ -162,9 +161,9 @@ class MapService {
         });
     }
 
-    addWMSLayer(layer: Layer): void {
+    addWMSLayer(layer: Layer, wmsUrl: string): void {
         const source = new TileWMS({
-            url: WMS_URL,
+            url: wmsUrl,
             params: { LAYERS: layer.Name, VERSION: '1.1.1' }
         });
         const olLayer = new TileLayer({

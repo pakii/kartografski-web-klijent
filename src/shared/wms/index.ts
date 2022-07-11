@@ -1,29 +1,29 @@
 import WMS from 'ol/format/WMSCapabilities';
 import { toast } from 'react-toastify';
-import { WMS_URL } from '../../constants';
 import { WMSCapabilities } from './types';
 
 const wmsc = new WMS();
 
 class WMSService {
-    capabilitiesCache: WMSCapabilities | null;
+    capabilitiesCache: { [key: string]: WMSCapabilities };
     constructor() {
-        this.capabilitiesCache = null;
+        this.capabilitiesCache = {};
     }
 
-    getCapabilities(wmsEndpoint?: string): Promise<WMSCapabilities> {
-        const url = `${wmsEndpoint || WMS_URL}?service=wms&version=1.3.0&REQUEST=getcapabilities`
-        if (this.capabilitiesCache) {
-            return Promise.resolve(this.capabilitiesCache);
+    getCapabilities(wmsEndpoint: string): Promise<WMSCapabilities> {
+        const url = `${wmsEndpoint}?service=wms&version=1.3.0&REQUEST=getcapabilities`
+        if (this.capabilitiesCache[wmsEndpoint]) {
+            return Promise.resolve(this.capabilitiesCache[wmsEndpoint]);
         }
         return fetch(url)
             .then((res) => res.text())
             .then((text) => wmsc.read(text))
             .then((json) => {
-                this.capabilitiesCache = json;
+                this.capabilitiesCache[wmsEndpoint] = json;
                 return json;
             })
             .catch((err) => {
+                console.error(err)
                 toast.error('Error: GetCapabilities request failed.')
             })
     }

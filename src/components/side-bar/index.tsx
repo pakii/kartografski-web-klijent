@@ -1,13 +1,13 @@
 import React from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 import './side-bar.scss'
 import { mapService } from '../../shared/map-service';
 import { Layer, WMSCapabilities, wmsService } from '../../shared/wms';
 
-interface Props { hide: () => void }
+interface Props { hide: () => void, changeWMSUrl: (utl: string) => void, wmsUrl: string }
 interface State {
     currentLayers: Layer[];
     parentList: Layer[];
@@ -23,7 +23,7 @@ export class SideBar extends React.Component<Props, State> {
             currentLayers: [],
             parentList: [],
             capabilities: null,
-            baseMapId: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            baseMapId: 'OSM'
         }
         mapService.subscribeToLayerAddOrRemove('SideBar', () => this.setLayersState(this.state.capabilities as WMSCapabilities));
         this.wrapperRef = React.createRef<any>();
@@ -49,13 +49,21 @@ export class SideBar extends React.Component<Props, State> {
 
     componentDidMount() {
         document.addEventListener("mousedown", this.handleClickOutside);
-        wmsService.getCapabilities()
+        this.getWMSCapabilities();
+    }
+
+    getWMSCapabilities(): void {
+        wmsService.getCapabilities(this.props.wmsUrl)
             .then((capa) => {
+                this.setState(() => {
+                    const newState = {
+                        capabilities: capa,
+                        baseMapId: mapService.getCurrentBaseId()
+                    }
+                    
+                    return newState;
+                });
                 this.setLayersState(capa);
-                this.setState({
-                    capabilities: capa,
-                    baseMapId: mapService.getCurrentBaseId()
-                })
             })
     }
 
@@ -68,7 +76,7 @@ export class SideBar extends React.Component<Props, State> {
         if (layer.added) {
             return;
         }
-        mapService.addWMSLayer(layer);
+        mapService.addWMSLayer(layer, this.props.wmsUrl);
         this.setState((prevState) => {
             const copy = [...prevState.currentLayers];
             copy[index] = {
@@ -84,13 +92,26 @@ export class SideBar extends React.Component<Props, State> {
     onChangeBase(id: string): void {
         mapService.changeBase(id);
         this.setState({ baseMapId: id });
-        this.props.hide();
     }
 
     handleClickOutside = (event: MouseEvent) => {
         if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
             this.props.hide();
         }
+    }
+
+    handleWmsUrlChange(url: string): void {
+        this.props.changeWMSUrl(url);
+    }
+
+    handleWMSCapabilitiesChange(): void {
+        this.setState((prevState) => ({
+            currentLayers: [],
+            parentList: [],
+            capabilities: null,
+            baseMapId: prevState.baseMapId
+        }))
+        this.getWMSCapabilities();
     }
 
     render() {
@@ -106,12 +127,24 @@ export class SideBar extends React.Component<Props, State> {
                             <FontAwesomeIcon icon={faXmark} fontSize={'1.5em'} />
                         </button>
                     </div>
+                    <div className='u-d-flex pt-1'>
+                        <input type="text"
+                            value={this.props.wmsUrl}
+                            className='u-w-100'
+                            onChange={(e) => this.handleWmsUrlChange(e.target.value)} />
+                        <button
+                            title="Change WMS"
+                            className='ml-1'
+                            onClick={() => this.handleWMSCapabilitiesChange()}>
+                            <FontAwesomeIcon icon={faPaperPlane} fontSize={'1.5em'} />
+                        </button>
+                    </div>
 
                     {this.state.capabilities &&
                         <div>
-                            <h4>{this.state.capabilities.Capability.Layer.Title}</h4>
+                            <h4>{this.state.capabilities?.Capability?.Layer?.Title}</h4>
                             <p>
-                                {this.state.capabilities.Capability.Layer.Abstract}
+                                {this.state.capabilities?.Capability?.Layer?.Abstract}
                             </p>
                         </div>
                     }
