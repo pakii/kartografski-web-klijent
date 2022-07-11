@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faPaperPlane, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faPaperPlane, faFolderOpen, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
 import './side-bar.scss'
 import { mapService } from '../../shared/map-service';
@@ -9,18 +9,24 @@ import { Layer, WMSCapabilities, wmsService } from '../../shared/wms';
 
 interface Props { hide: () => void, changeWMSUrl: (utl: string) => void, wmsUrl: string }
 interface State {
-    currentLayers: Layer[];
+    layersLinkedList: LinkedList<Layer[]>;
     parentList: Layer[];
     capabilities: WMSCapabilities | null;
     baseMapId: string;
 }
-
+type LinkedList<T> = {
+    current: T;
+    prev: LinkedList<T> | null
+}
 export class SideBar extends React.Component<Props, State> {
     wrapperRef: React.RefObject<any>;
     constructor(props: Props) {
         super(props);
         this.state = {
-            currentLayers: [],
+            layersLinkedList: {
+                current: [],
+                prev: null
+            },
             parentList: [],
             capabilities: null,
             baseMapId: 'OSM'
@@ -42,7 +48,10 @@ export class SideBar extends React.Component<Props, State> {
             });
 
             this.setState({
-                currentLayers: layers
+                layersLinkedList: {
+                    prev: null,
+                    current: layers
+                }
             })
         }
     }
@@ -76,8 +85,10 @@ export class SideBar extends React.Component<Props, State> {
         if (layer.Layer && layer.Layer.length) {
             this.setState((prevState) => {
                 return {
-                    currentLayers: layer.Layer as Layer[],
-                    parentList: [...prevState.currentLayers]
+                    layersLinkedList: {
+                        prev: { ...prevState.layersLinkedList },
+                        current: layer.Layer
+                    } as LinkedList<Layer[]>
                 }
             });
             return;
@@ -87,13 +98,16 @@ export class SideBar extends React.Component<Props, State> {
         }
         mapService.addWMSLayer(layer, this.props.wmsUrl);
         this.setState((prevState) => {
-            const copy = [...prevState.currentLayers];
+            const copy = [...prevState.layersLinkedList.current];
             copy[index] = {
                 ...layer,
                 added: true
             }
             return {
-                currentLayers: copy
+                layersLinkedList: {
+                    ...prevState.layersLinkedList,
+                    current: copy
+                }
             }
         });
     }
@@ -115,12 +129,25 @@ export class SideBar extends React.Component<Props, State> {
 
     handleWMSCapabilitiesChange(): void {
         this.setState((prevState) => ({
-            currentLayers: [],
+            layersLinkedList: { current: [], prev: null },
             parentList: [],
             capabilities: null,
             baseMapId: prevState.baseMapId
         }))
         this.getWMSCapabilities();
+    }
+
+    goBack(): void {
+        if (this.state.layersLinkedList.prev) {
+            this.setState((prevState) => {
+                return {
+                    layersLinkedList: {
+                        current: prevState.layersLinkedList.prev?.current || [],
+                        prev: prevState.layersLinkedList.prev?.prev || null
+                    }
+                }
+            })
+        }
     }
 
     render() {
@@ -157,23 +184,28 @@ export class SideBar extends React.Component<Props, State> {
                             </p>
                         </div>
                     }
+                    <FontAwesomeIcon
+                        icon={faAngleLeft}
+                        style={{ visibility: this.state.layersLinkedList.prev ? 'visible' : 'hidden', width: '2em' }}
+                        className='u-pointer'
+                        fontSize={'1em'}
+                        onClick={() => this.goBack()} />
                 </div>
                 <ul className='layer-browser u-vertical-scroll'>
-                    {this.state.currentLayers && this.state.currentLayers.length && (
-                        this.state.currentLayers.map((layer, index) => (
+                    {this.state.layersLinkedList && this.state.layersLinkedList.current && this.state.layersLinkedList.current.length && (
+                        this.state.layersLinkedList.current.map((layer, index) => (
                             <li key={layer.Title} className='u-ellipsis'>
                                 {!(layer.Layer && layer.Layer.length) ?
                                     <button disabled={layer.added}
                                         key={layer.Name + '_' + index}
                                         title='Import'
-                                        className='mr-1'
                                         onClick={() => this.onAddLayer(layer, index)}>
                                         +
                                     </button>
                                     :
-                                    <FontAwesomeIcon icon={faFolderOpen} fontSize={'1.5em'} />
-                                    }
-                                <span onClick={() => this.onAddLayer(layer, index)} className='u-pointer'>
+                                    <FontAwesomeIcon icon={faFolderOpen} className='u-pointer' fontSize={'1.5em'} onClick={() => this.onAddLayer(layer, index)}/>
+                                }
+                                <span onClick={() => this.onAddLayer(layer, index)} className='u-pointer ml-1'>
                                     {layer.Title || layer.Name}
                                 </span>
                             </li>
