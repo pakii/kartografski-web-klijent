@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/kartografski-web-klijent/static/css/main.10a83970.css",
-    "main.js": "/kartografski-web-klijent/static/js/main.3d207f22.js",
+    "main.css": "/kartografski-web-klijent/static/css/main.37686d7f.css",
+    "main.js": "/kartografski-web-klijent/static/js/main.a132a2b4.js",
     "static/js/27.759446d7.chunk.js": "/kartografski-web-klijent/static/js/27.759446d7.chunk.js",
     "service-worker.js": "/kartografski-web-klijent/service-worker.js",
     "index.html": "/kartografski-web-klijent/index.html"
   },
   "entrypoints": [
-    "static/css/main.10a83970.css",
-    "static/js/main.3d207f22.js"
+    "static/css/main.37686d7f.css",
+    "static/js/main.a132a2b4.js"
   ]
 }

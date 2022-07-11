@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faPaperPlane, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 
 import './side-bar.scss'
 import { mapService } from '../../shared/map-service';
@@ -60,7 +60,7 @@ export class SideBar extends React.Component<Props, State> {
                         capabilities: capa,
                         baseMapId: mapService.getCurrentBaseId()
                     }
-                    
+
                     return newState;
                 });
                 this.setLayersState(capa);
@@ -73,6 +73,15 @@ export class SideBar extends React.Component<Props, State> {
     }
 
     onAddLayer(layer: Layer, index: number) {
+        if (layer.Layer && layer.Layer.length) {
+            this.setState((prevState) => {
+                return {
+                    currentLayers: layer.Layer as Layer[],
+                    parentList: [...prevState.currentLayers]
+                }
+            });
+            return;
+        }
         if (layer.added) {
             return;
         }
@@ -153,14 +162,17 @@ export class SideBar extends React.Component<Props, State> {
                     {this.state.currentLayers && this.state.currentLayers.length && (
                         this.state.currentLayers.map((layer, index) => (
                             <li key={layer.Title} className='u-ellipsis'>
-                                {!(layer.Layer && layer.Layer.length) &&
+                                {!(layer.Layer && layer.Layer.length) ?
                                     <button disabled={layer.added}
                                         key={layer.Name + '_' + index}
                                         title='Import'
                                         className='mr-1'
                                         onClick={() => this.onAddLayer(layer, index)}>
                                         +
-                                    </button>}
+                                    </button>
+                                    :
+                                    <FontAwesomeIcon icon={faFolderOpen} fontSize={'1.5em'} />
+                                    }
                                 <span onClick={() => this.onAddLayer(layer, index)} className='u-pointer'>
                                     {layer.Title || layer.Name}
                                 </span>
