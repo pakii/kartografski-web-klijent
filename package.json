@@ -27,7 +27,7 @@
         "workbox-streams": "^6.5.3"
     },
     "scripts": {
-        "predeploy": "yarn build",
+        "predeploy": "node ./script/generate-manifest.js && yarn build",
         "deploy": "gh-pages -b develop -d build",
         "start": "react-scripts start",
         "build": "GENERATE_SOURCEMAP=false react-scripts build",
