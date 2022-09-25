@@ -1,19 +1,25 @@
-.u-d-flex {
+.u-flex {
     display: flex;
 }
 
-.u-justify-between {
+.u-jc-between {
     justify-content: space-between;
 }
 
-.u-justify-center {
+.u-jc-center {
     justify-content: center;
 }
 
-.u-align-center {
+.u-al-center {
     align-items: center;
 }
 
 .u-flex-column {
+    display: flex;
     flex-direction: column;
+}
+
+.u-flex-center {
+    display: flex;
+    align-items: center;
 }
