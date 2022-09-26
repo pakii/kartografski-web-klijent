@@ -1,10 +1,9 @@
 import { toast } from 'react-toastify';
-import { get0000DateString, getMonthBefore, getWeekBefore, getYesterday } from '../../util';
-import { GetGlobalEarthquaqesParams, GetGlobalEarthquaqesResponse } from './types';
+import { GetEarthquaqesResponse } from './types';
 
-class GlobalEarthquaqes {
+class EarthquaqesService {
 
-    get(): Promise<GetGlobalEarthquaqesResponse | null> {
+    get(): Promise<GetEarthquaqesResponse | null> {
         return fetch(
             '/data/month.json'
         )
@@ -33,5 +32,5 @@ class GlobalEarthquaqes {
     }
 }
 
-export const globalEarthquaqesService = new GlobalEarthquaqes();
+export const globalEarthquaqesService = new EarthquaqesService();
 export * from './types';

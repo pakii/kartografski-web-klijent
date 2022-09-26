@@ -3,7 +3,7 @@ import React from 'react'
 import { Box, ClickAwayListener, Slide } from '@mui/material';
 
 import { BaseMapOption } from './base-item';
-import { mapService } from '../../map-facade/map';
+import { mapService } from '../../map-facade/map-service';
 import { baseLayersHash, BaseMapId, BaseMapSpec } from '../../shared/constants';
 import { WithRouterProps, withRouter } from '../../shared/router';
 import { MapSettingKeys } from '../../shared/types';

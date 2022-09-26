@@ -1,4 +1,4 @@
-import { EarthquaqeProperties } from '../../../shared/usgs';
+import { EarthquaqeProperties } from '../../../shared/seismo';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box/Box';
 

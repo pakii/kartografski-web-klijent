@@ -11,26 +11,14 @@ import MenuItem from '@mui/material/MenuItem/MenuItem';
 import InputLabel from '@mui/material/InputLabel/InputLabel'
 
 import { withRouter, WithRouterProps } from '../../shared/router';
-import { EarthquaqeProperties, GetGlobalEarthquaqesParams, GetGlobalEarthquaqesResponse, globalEarthquaqesService, Sort } from '../../shared/usgs';
-import { MapDrawEvent, mapService } from '../../map-facade';
+import { EarthquaqeProperties, GetEarthquaqesResponse, globalEarthquaqesService, Sort } from '../../shared/seismo';
+import { mapService } from '../../map-facade';
 import { GeoJSONFeature, GeoJSONPoint, MapSettingKeys } from '../../shared/types';
 import { InfoLink } from '../../widgets/info-link/info-link';
 
-
-enum SpatialSearchOptions {
-    OFF = 'off',
-    CIRCLE = 'Circle',
-    RECTANGLE = 'Rectangle',
-    DRAW_CIRCLE = 'draw-circle',
-    DRAW_RECTANGLE = 'draw-rectangle'
-}
-
 export interface GlobalEarthquaqesDataState {
     loading: boolean;
-    data: GetGlobalEarthquaqesResponse | null;
-    area: string;
-    customTimeRange: { [key: string]: { starttime: Date, endtime: Date } };
-    spatialSearch: string;
+    data: GetEarthquaqesResponse | null;
     sort: Sort;
 }
 interface GlobalEarthquaqesDataProps {
@@ -45,9 +33,6 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
         this.state = {
             loading: false,
             data: null,
-            area: '',
-            customTimeRange: {},
-            spatialSearch: SpatialSearchOptions.OFF,
             sort: 'time'
         }
 
@@ -58,7 +43,6 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
                     const { searchParams, setSearchParams } = this.props.router;
                     searchParams.set(MapSettingKeys.EARTHQUAQES_SELECTED_ID, id.toString());
                     setSearchParams(searchParams);
-                    // this.setState({ selectedId: id.toString() });
                     const index = this.state.data?.features.findIndex((f) => f.id === id);
                     if (index && index > -1) {
                         this.listRef.current.scrollToItem(index);
@@ -71,17 +55,9 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
                 setSearchParams(searchParams);
             }
         });
-
-        mapService.subscribeToDraw('GlobalEarthquaqesCmp', (drawEvent: MapDrawEvent) => {
-
-            const { searchParams, setSearchParams } = this.props.router;
-            searchParams.set(MapSettingKeys.EARTHQUAQES_SPATIAL_SEARCH, JSON.stringify(drawEvent));
-            setSearchParams(searchParams);
-            this.fetchEarthquaqes();
-        });
     }
 
-    fetchEarthquaqes(override: GetGlobalEarthquaqesParams & { skipMapUpdate?: boolean } = {}) {
+    fetchEarthquaqes() {
         this.setState({ loading: true });
         const { searchParams } = this.props.router;
         const selectedId = searchParams.get(MapSettingKeys.EARTHQUAQES_SELECTED_ID);
@@ -90,9 +66,6 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
                 loading: false,
                 data
             });
-            if (override.skipMapUpdate) {
-                return;
-            }
             mapService.setEarthquaqes(data, selectedId);
         })
     }
@@ -109,65 +82,6 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
             id: opts.feature.id,
             multi: opts.multi || false
         });
-    }
-
-    setDataSource(val: string): void {
-        const { searchParams, setSearchParams } = this.props.router;
-        searchParams.set(MapSettingKeys.EARTHQUAQES_SOURCE, val);
-        setSearchParams(searchParams);
-    }
-
-    setMinMagnitude(val: string): void {
-        const { searchParams, setSearchParams } = this.props.router;
-        searchParams.set(MapSettingKeys.EARTHQUAQES_MIN_MAGNITUDE, val);
-        setSearchParams(searchParams);
-        this.fetchEarthquaqes();
-    }
-
-    setTimeRange(val: string): void {
-        const { searchParams, setSearchParams } = this.props.router;
-        searchParams.set(MapSettingKeys.EARTHQUAQES_TIME_RANGE, val);
-        setSearchParams(searchParams);
-        this.fetchEarthquaqes();
-    }
-
-    setCustomTimeRange(starttime: Date, endtime: Date): void {
-        const tr = `${starttime.toLocaleString()} - ${endtime.toLocaleString()}`;
-        this.setState((prev) => {
-            if (prev.customTimeRange[tr]) {
-                return { ...prev }
-            }
-            const newCustomTr = { ...prev.customTimeRange };
-            newCustomTr[tr] = { starttime, endtime };
-            return {
-                customTimeRange: newCustomTr
-            }
-        }, () => {
-            const { searchParams, setSearchParams } = this.props.router;
-            searchParams.set(MapSettingKeys.EARTHQUAQES_TIME_RANGE, tr);
-            setSearchParams(searchParams);
-        });
-        this.fetchEarthquaqes({
-            dateRange: tr
-        });
-    }
-
-    setSpatialSearch(val: string): void {
-        if (val !== SpatialSearchOptions.OFF) {
-            mapService.enableDraw();
-        }
-        else {
-            mapService.clearAndDisableDraw();
-            const { searchParams, setSearchParams } = this.props.router;
-            searchParams.delete(MapSettingKeys.EARTHQUAQES_SPATIAL_SEARCH);
-            setSearchParams(searchParams);
-            this.fetchEarthquaqes();
-        }
-        this.setState({ spatialSearch: val });
-    }
-
-    enableEditSpatialSearch(): void {
-        mapService.editDrawing();
     }
 
     changeSort(value: Sort): void {
@@ -192,7 +106,7 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
         this.setState((prev) => {
             return {
                 data: {
-                    ...prev.data as GetGlobalEarthquaqesResponse,
+                    ...prev.data as GetEarthquaqesResponse,
                     ...prev.data?.features && { features: [...prev.data?.features].sort(compareFn) }
                 },
                 sort: value

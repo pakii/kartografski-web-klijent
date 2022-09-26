@@ -34,8 +34,8 @@ export const ShareControl = (props: {
 
   const open = Boolean(anchorEl);
   const id = open ? 'legenda' : undefined;
-  const shareUrl = 'https://pakii.github.io/openlayers-primeri/';
-  const title = 'TEST';
+  const shareUrl = window.location.href;
+  const title = 'Seizmološka karta';
   return (
     <div className='layers'>
       <Popover

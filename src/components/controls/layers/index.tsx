@@ -5,9 +5,9 @@ import Popper from '@mui/material/Popper/Popper';
 import Paper from '@mui/material/Paper/Paper';
 import LayersIcon from '@mui/icons-material/Layers';
 
-import { LayersList } from './containers/layers-list';
+import { LayersList } from '../../layers-list/layers-list';
 
-export const LayerControl = (props: {
+export const LayersControl = (props: {
   open: boolean,
   onOpen: () => void,
   onClose: () => void,
@@ -56,4 +56,4 @@ export const LayerControl = (props: {
   )
 }
 
-export default LayerControl;
+export default LayersControl;

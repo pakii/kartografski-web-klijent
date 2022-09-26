@@ -5,6 +5,8 @@ import KeyIcon from '@mui/icons-material/Key';
 import Fab from '@mui/material/Fab';
 import Popper from '@mui/material/Popper/Popper';
 import Paper from '@mui/material/Paper/Paper';
+import Box from '@mui/material/Box/Box';
+import { Legend } from '../../legend/legend';
 
 export const LegendControl = (props: {
   open: boolean,
@@ -40,7 +42,7 @@ export const LegendControl = (props: {
         placement='left-start'
       >
         <Paper>
-          Legend
+          <Legend />
         </Paper>
       </Popper>
       <Fab

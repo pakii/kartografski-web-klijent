@@ -11,7 +11,6 @@ export const sideBarWidth = 320;
 
 type SideBarProps = PropsWithChildren & {
     router: WithRouterProps;
-    close: Function;
 };
 type State = {}
 

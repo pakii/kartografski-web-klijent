@@ -6,8 +6,8 @@ import Checkbox from '@mui/material/Checkbox/Checkbox';
 import ListItemText from '@mui/material/ListItemText/ListItemText';
 import Box from '@mui/material/Box/Box';
 
-import { mapService, IBaseLayer, ILayerGroup } from '../../../../../map-facade/map';
-import { InfoLink } from '../../../../../widgets/info-link/info-link';
+import { mapService, IBaseLayer, ILayerGroup } from '../../map-facade/map-service';
+import { InfoLink } from '../../widgets/info-link/info-link';
 
 export const LayersList = () => {
 

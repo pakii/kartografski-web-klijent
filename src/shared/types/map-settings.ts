@@ -10,6 +10,8 @@ export enum MapSettingKeys {
     EARTHQUAQES_TIME_RANGE = 'eqtr',
     EARTHQUAQES_SPATIAL_SEARCH = 'eqss',
     EARTHQUAQES_SELECTED_ID = 'selectedId',
+    CENTER = 'c',
+    ZOOM = 'z',
 }
 
 export type MapSettings = {
@@ -21,4 +23,6 @@ export type MapSettings = {
     [MapSettingKeys.EARTHQUAQES_MIN_MAGNITUDE]: number | undefined;
     [MapSettingKeys.EARTHQUAQES_TIME_RANGE]: 'day' | 'week' | 'month' | Date | undefined;
     [MapSettingKeys.EARTHQUAQES_SELECTED_ID]: string;
+    [MapSettingKeys.CENTER]: string;
+    [MapSettingKeys.ZOOM]: string;
 }
