@@ -6,7 +6,7 @@ import { BaseMapOption } from './base-item';
 import { mapService } from '../../map-facade/map';
 import { baseLayersHash, BaseMapId, BaseMapSpec } from '../../shared/constants';
 import { WithRouterProps, withRouter } from '../../shared/router';
-import { MapSettingKeys } from '../../shared/models';
+import { MapSettingKeys } from '../../shared/types';
 import { sideBarWidth } from '../layout';
 
 type Props = {

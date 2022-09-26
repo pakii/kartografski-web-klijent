@@ -11,21 +11,31 @@ import Style from 'ol/style/Style';
 
 export const getEarthquaqesStyleFn = (highlighted = false) => {
     return (feature: FeatureLike, resolution: number) => {
-        const baseStyle = new Style({
+        const styles = [new Style({
             image: new CircleStyle({
-                radius: 8,
+                radius: 6,
                 stroke: new StrokeStyle({ color: '#fff', width: 2 }),
                 fill: new FillStyle({
-                    color: highlighted ? 'red' : 'blue',
+                    color: highlighted ? 'green' : 'red',
                 }),
             }),
-        });
-        const styles = [baseStyle]
-        if (highlighted) {
+        })];
+        if (feature.get('richterMagnitude') > 2.5) {
+            styles.push(new Style({
+                image: new CircleStyle({
+                    radius: 8,
+                    stroke: new StrokeStyle({ color: highlighted ? 'green' : 'red', width: 2 }),
+                    fill: new FillStyle({
+                        color: 'transparent',
+                    }),
+                }),
+            }))
+        }
+        if (feature.get('richterMagnitude') > 4.5) {
             styles.push(new Style({
                 image: new CircleStyle({
                     radius: 12,
-                    stroke: new StrokeStyle({ color: 'red', width: 2 }),
+                    stroke: new StrokeStyle({ color: highlighted ? 'green' : 'red', width: 2 }),
                     fill: new FillStyle({
                         color: 'transparent',
                     }),
@@ -40,8 +50,13 @@ export const earthquaqesOlLayer = new VectorLayer({
     properties: {
         Title: 'Zemljotresi',
         selectable: true,
-        Type: 'json'
+        InfoLink: 'https://www.seismo.gov.rs/Locirani/Katalog_l.htm'
     },
     source: new VectorSource(),
     style: getEarthquaqesStyleFn()
 });
+
+earthquaqesOlLayer.on('change:visible', (e) => {
+    const isVisible = e.target.getVisible();
+    console.log();
+})

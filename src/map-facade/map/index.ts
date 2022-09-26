@@ -27,12 +27,13 @@ import { FeatureLike } from 'ol/Feature';
 import { earthquaqesOlLayer, getEarthquaqesStyleFn } from '../layer-definitions/earthquaqes';
 import GeoJSON from 'ol/format/GeoJSON';
 import { createPointFeatureFromLonLat } from '../utils/create-point-feature';
-import { GeoJSONPoint } from '../../shared/models';
+import { GeoJSONPoint } from '../../shared/types';
 import { drawOlLayer, drawOlSource, populationDensity, wmsLayersGroup } from '../layer-definitions';
 import { createBox, DrawEvent } from 'ol/interaction/Draw';
 import { MapDrawEvent, RectangleDrawEvent } from './types';
 import Polygon from 'ol/geom/Polygon';
 import LayerGroup from 'ol/layer/Group';
+import { GetGlobalEarthquaqesResponse } from '../../shared/usgs';
 
 class MapService {
     private map: Map | null;
@@ -217,7 +218,7 @@ class MapService {
         });
     }
 
-    setEarthquaqes(data: any): void {
+    setEarthquaqes(data: any, selectedId: string | null = null): void {
         const vectorSource = this.earthquaqesLayer.getSource();
         if (vectorSource) {
             vectorSource.clear()
@@ -226,6 +227,9 @@ class MapService {
                 { dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857' }
             );
             vectorSource.addFeatures(dataFeatures);
+            if (selectedId) {
+                this.selectEarthquaqeFeatureById({ id: selectedId, multi: false })
+            }
         }
     }
 

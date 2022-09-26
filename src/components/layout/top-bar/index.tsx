@@ -10,7 +10,7 @@ import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import OfflineIcon from '@mui/icons-material/SignalWifiConnectedNoInternet4';
 import OnlineIcon from '@mui/icons-material/SignalWifi4Bar';
 import { useSearchParams } from 'react-router-dom';
-import { MapSettingKeys } from '../../../shared/models';
+import { MapSettingKeys } from '../../../shared/types';
 
 
 export const TopBar = (props: { searchChange?: Function }) => {

@@ -16,6 +16,7 @@ import { EarthquaqesList } from "./components/earthquaqes-list";
 import { EarthquaqeProperties } from "./shared/usgs";
 import { EarthquaqeFeatureInfo } from "./components/feature-info/earthquaqe-feature-info-content";
 import { wmsService } from "./map-facade";
+import { MapSettingKeys } from "./shared/types";
 
 export interface AppState {
     showSidebar: boolean;
@@ -112,7 +113,7 @@ class AppComponent extends React.Component<AppProps, AppState> {
                     
                     this.setState({
                         featureInfo: {
-                            title: selected.get('title'),
+                            title: selected.get('regionName'),
                             body: < EarthquaqeFeatureInfo data={data} />
                         }
                     })
@@ -128,6 +129,9 @@ class AppComponent extends React.Component<AppProps, AppState> {
         this.setState({ featureInfo: null });
         mapService.select.getFeatures().clear();
 
+        const { searchParams, setSearchParams } = this.props.router;
+        searchParams.delete(MapSettingKeys.EARTHQUAQES_SELECTED_ID);
+        setSearchParams(searchParams);
     }
 
     toggleFeatureInfo() {

@@ -90,9 +90,11 @@ export const getAccStyleFn = (highlighted = false) => {
 export const accelerographsOlLayer = new VectorLayer({
     source: clusterSource,
     zIndex: Infinity,
+    visible: false,
     properties: {
         Title: 'Akcelerografska mreža Srbije',
-        Type: 'json'
+        Type: 'json',
+        InfoLink: 'https://www.seismo.gov.rs/Akcelerometrijske%20stanice_l.htm'
     },
     style: getAccStyleFn(),
 });

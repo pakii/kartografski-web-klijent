@@ -3,7 +3,7 @@ import { Component, PropsWithChildren } from 'react'
 import Drawer from '@mui/material/Drawer/Drawer';
 
 import { withRouter, WithRouterProps } from '../../../shared/router';
-import { MapSettingKeys } from '../../../shared/models';
+import { MapSettingKeys } from '../../../shared/types';
 import Box from '@mui/material/Box/Box';
 
 export const sideBarWidth = 320;

@@ -7,6 +7,7 @@ import ListItemText from '@mui/material/ListItemText/ListItemText';
 import Box from '@mui/material/Box/Box';
 
 import { mapService, IBaseLayer, ILayerGroup } from '../../../../../map-facade/map';
+import { InfoLink } from '../../../../../widgets/info-link/info-link';
 
 export const LayersList = () => {
 
@@ -41,6 +42,7 @@ export const LayersList = () => {
                             <ListItemText>
                                 {layer.get('Title')}
                             </ListItemText>
+                            {layer.get('InfoLink') && <InfoLink link={layer.get('InfoLink')} />}
                         </ListItem>
                         {
                             layer.get('IsGroup') && layer.getLayersArray().map((layer) => (
@@ -54,6 +56,7 @@ export const LayersList = () => {
                                     <ListItemText>
                                         {layer.get('Title')}
                                     </ListItemText>
+                                    {layer.get('InfoLink') && <InfoLink link={layer.get('InfoLink')} />}
                                 </ListItem>
                             ))
                         }

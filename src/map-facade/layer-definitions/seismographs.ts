@@ -60,7 +60,9 @@ export const seismographsOlLayer = new VectorLayer({
     properties: {
         Title: 'Seizmografske stanice',
         selectable: true,
-        Type: 'json'
+        Type: 'json',
+        InfoLink: 'https://www.seismo.gov.rs/Seizmoloske%20stanice_l.htm'
     },
+    visible: false,
     style: getSeismographsStyleFn()
 })

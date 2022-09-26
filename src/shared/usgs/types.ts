@@ -1,5 +1,5 @@
 import { MapDrawEvent } from "../../map-facade";
-import { GeoJSONFeature, GeoJSONPoint } from "../models";
+import { GeoJSONFeature, GeoJSONPoint } from "../types";
 
 export type Sort = 'time' | 'time-asc' | 'magnitude' | 'magnitude-asc';
 
@@ -14,47 +14,20 @@ export type GetGlobalEarthquaqesParams = {
 }
 
 export type EarthquaqeProperties = {
-    alert: any;
-    cdi: any;
-    code: string;
-    detail: string;
-    dmin: number;
-    felt: any
-    gap: number;
-    ids: string;
-    mag: number;
-    magType: string;
-    mmi: any;
-    net: string;
-    nst: number;
-    place: string;
-    rms: number;
-    sig: number;
-    sources: string;
-    status: string;
-    time: number;
-    title: string;
-    tsunami: number;
-    type: 'earthquake'
-    types: string;
-    tz: any;
-    updated: number;
-    url: string;
-    geometry: {
-        getCoordinates: () => [number, number, number]
-    }
+    date: string,
+    tErrorS: number,
+    lat: string,
+    latErrorKm: string,
+    lon: string,
+    lonErrorKm: string,
+    hypocenterDepthKm: number,
+    richterMagnitude: number,
+    mercalliIntensity: string,
+    regionName: string
 }
 
 export type GetGlobalEarthquaqesResponse = {
-    bbox: [number, number, number, number, number, number];
+    name: string;
     features: GeoJSONFeature<GeoJSONPoint, EarthquaqeProperties>[];
-    metadata: {
-        api: string;
-        count: number;
-        generated: number;
-        status: number;
-        title: string;
-        url: string;
-    }
     type: 'FeatureCollection'
 }
