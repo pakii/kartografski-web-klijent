@@ -20,6 +20,7 @@ import { useSearchParams } from "react-router-dom";
 export const App = () => {
     const wrapperRef = React.useRef(null);
     const [featureInfo, setFeatureInfo] = React.useState<{ title: string; body: any; } | null>(null);
+    const [WMSfeatureInfo, setWMSFeatureInfo] = React.useState<{ title: string; body: any; } | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
 
     React.useEffect(() => {
@@ -54,8 +55,13 @@ export const App = () => {
                 if (!res) {
                     return;
                 }
+                if (res.content.indexOf('<table') === -1) {
+                    setWMSFeatureInfo(null);
+                    return;
+                };
+
                 const { content, Title } = res;
-                setFeatureInfo({
+                setWMSFeatureInfo({
                     title: Title,
                     body: <div dangerouslySetInnerHTML={{ __html: content }}></div>
                 })
@@ -135,6 +141,10 @@ export const App = () => {
                     open={!!featureInfo}
                     content={featureInfo}
                     hide={hideFeatureInfo} />
+                <DraggableModal
+                    open={!!WMSfeatureInfo}
+                    content={WMSfeatureInfo}
+                    hide={() => setWMSFeatureInfo(null)} />
                 <BaseSwitcher />
             </ThemeProvider>
             <ToastContainer />
