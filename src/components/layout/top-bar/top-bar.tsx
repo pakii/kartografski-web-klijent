@@ -15,15 +15,15 @@ import { MapSettingKeys } from '../../../shared/types';
 
 export const TopBar = (props: { searchChange?: Function }) => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const sideBarShown = searchParams.get(MapSettingKeys.SIDE_BAR);
+    const sideBarShown = !searchParams.get(MapSettingKeys.SIDE_BAR);
     const [isOffline, setIsOffline] = React.useState<boolean | null>(!window.navigator.onLine || null);
 
     const handleSideBarState = () => {
         if (!sideBarShown) {
-            searchParams.set(MapSettingKeys.SIDE_BAR, '1');
+            searchParams.delete(MapSettingKeys.SIDE_BAR);
         }
         else {
-            searchParams.delete(MapSettingKeys.SIDE_BAR);
+            searchParams.set(MapSettingKeys.SIDE_BAR, '0');
         }
         setSearchParams(searchParams)
     }

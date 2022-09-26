@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Box, ClickAwayListener, Slide } from '@mui/material';
 
-import { BaseMapOption } from './base-item';
+import { BaseMapOption } from './base-map-option/base-map-option';
 import { mapService } from '../../map-facade/map-service';
 import { baseLayersHash, BaseMapId, BaseMapSpec } from '../../shared/constants';
 import { WithRouterProps, withRouter } from '../../shared/router';
@@ -67,7 +67,7 @@ class BaseSwitcherComponent extends React.Component<Props, State> {
                         position: 'fixed',
                         zIndex: 2,
                         bottom: 0,
-                        ...this.props.router.searchParams.get(MapSettingKeys.SIDE_BAR) && { left: sideBarWidth},
+                        ...!this.props.router.searchParams.get(MapSettingKeys.SIDE_BAR) && { left: sideBarWidth},
                         display: 'flex',
                         maxWidth: '100vw'
                     }}>

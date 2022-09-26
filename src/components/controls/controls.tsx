@@ -1,9 +1,9 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 
-import LayersControl from './layers';
-import LocateControl from './locate';
-import LegendControl from './legend';
+import LayersControl from './layers/layers-control';
+import LocateControl from './locate/locate-control';
+import LegendControl from './legend/legend-control';
 import ShareControl from './share/share-control';
 
 export const ControlsMenu = () => {

@@ -8,6 +8,7 @@ import StrokeStyle from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import IconStyle from 'ol/style/Icon';
 import TextStyle from 'ol/style/Text';
+import { MapSettingKeys } from '../../shared/types';
 
 export type SeismographProperties = {
     number: string;
@@ -58,6 +59,7 @@ export const seismographsOlLayer = new VectorLayer({
     source: vectorSource,
     zIndex: Infinity,
     properties: {
+        Id: MapSettingKeys.SEISMOGRAMS,
         Title: 'Seizmografske stanice',
         selectable: true,
         Type: 'json',

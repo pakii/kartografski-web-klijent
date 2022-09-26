@@ -1,11 +1,13 @@
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
+import { MapSettingKeys } from '../../shared/types';
 
 export const populationDensity = new TileLayer({
     zIndex: 0,
     properties: {
         Title: 'Gustina naseljenosti',
-        Type: 'Tile'
+        Type: 'Tile',
+        Id: MapSettingKeys.POP_DENSITY
     },
     visible: false,
     source: new XYZ({

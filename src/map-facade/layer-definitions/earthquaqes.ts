@@ -7,6 +7,7 @@ import CircleStyle from 'ol/style/Circle';
 import FillStyle from 'ol/style/Fill';
 import StrokeStyle from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
+import { MapSettingKeys } from '../../shared/types';
 
 
 export const getEarthquaqesStyleFn = (highlighted = false) => {
@@ -51,7 +52,8 @@ export const earthquaqesOlLayer = new VectorLayer({
         Title: 'Zemljotresi',
         selectable: true,
         InfoLink: 'https://www.seismo.gov.rs/Locirani/Katalog_l.htm',
-        LegendUrl: '/legends/earthquaqes.png'
+        LegendUrl: '/legends/earthquaqes.png',
+        Id: MapSettingKeys.EARTHQUAQES_LAYER
     },
     source: new VectorSource(),
     style: getEarthquaqesStyleFn()

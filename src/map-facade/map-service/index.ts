@@ -22,7 +22,7 @@ import { FeatureLike } from 'ol/Feature';
 import { earthquaqesOlLayer, getEarthquaqesStyleFn } from '../layer-definitions/earthquaqes';
 import GeoJSON from 'ol/format/GeoJSON';
 import { createPointFeatureFromLonLat } from '../utils/create-point-feature';
-import { populationDensity, wmsLayersGroup } from '../layer-definitions';
+import { populationDensity, hazardLayersGroup, hazard95, hazard475, hazard975 } from '../layer-definitions';
 import LayerGroup from 'ol/layer/Group';
 import BaseEvent from 'ol/events/Event';
 
@@ -61,7 +61,7 @@ class MapService {
             Object.values(this.viewChangeSubscriptions).forEach((sub) => sub(e));
         })
         this.map.on('singleclick', (evt) => {
-            Object.values(this.mapClickSubscriptions).forEach((sub) => sub());
+            Object.values(this.mapClickSubscriptions).forEach((sub) => sub(evt));
         });
         this.map.on('pointermove', (e) => {
             if (this.map) {
@@ -93,7 +93,7 @@ class MapService {
                     this.earthquaqesLayer,
                     this.populationDensityLayer,
                     this.seismographsLayer,
-                    wmsLayersGroup,
+                    hazardLayersGroup,
                 ],
                 interactions: defaultInteractions().extend([
                     this.selectInteraction,
@@ -110,9 +110,9 @@ class MapService {
         return this.map;
     }
 
-    getTopLayerFeatureInfo(evt: MapBrowserEvent<any>): Promise<string | null> {
+    getTopLayerFeatureInfo(evt: MapBrowserEvent<any>): Promise<{ content: string, Title: string } | null> {
         const viewResolution = this.getMap().getView().getResolution();
-        const layers = this.getExternalLayers().filter((l) => l.get('isWMS'));
+        let layers = hazardLayersGroup.getLayersArray().filter(l => l.getVisible());
         if (!(layers && layers.length)) {
             return Promise.resolve(null)
         }
@@ -135,7 +135,7 @@ class MapService {
             return fetch(url)
                 .then((response) => response.text())
                 .then((text) => {
-                    return text || null
+                    return { content: text, Title: layers[index].get('Title') } || null
                 })
                 .catch((err) => {
                     toast.error('ERROR: ' + err.message || 'GetFeatureInfo request failed');
@@ -274,7 +274,7 @@ class MapService {
 
     setCurrentView(params: { center?: [number, number], zoom?: string | number }): void {
         const view = this.getMap().getView();
-        const {center, zoom} = params;
+        const { center, zoom } = params;
         if (center) {
             view.setCenter(center);
         }
@@ -282,6 +282,13 @@ class MapService {
             view.setResolution(+zoom);
         }
     }
+
+    setEarthquaqesVisible(isVisible: boolean) { earthquaqesOlLayer.setVisible(isVisible) }
+    setSeismographsVisible(isVisible: boolean) { seismographsOlLayer.setVisible(isVisible) }
+    setPopDensityVisible(isVisible: boolean) { populationDensity.setVisible(isVisible) }
+    setHazard95Visible(isVisible: boolean) { hazard95.setVisible(isVisible) }
+    setHazard475Visible(isVisible: boolean) { hazard475.setVisible(isVisible) }
+    setHazard975Visible(isVisible: boolean) { hazard975.setVisible(isVisible) }
 }
 
 export const mapService = new MapService();
