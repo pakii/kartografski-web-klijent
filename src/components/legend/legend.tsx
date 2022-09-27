@@ -79,7 +79,7 @@ export const Legend = () => {
                         Seizmografske stanice
                     </Typography>
                     <Box component='div' maxWidth='30px' m='0 auto'>
-                        <img src="/map-icons/sesmograph.png" alt="" />
+                        <img src="map-icons/sesmograph.png" alt="" />
                     </Box>
                 </Box>
             }
