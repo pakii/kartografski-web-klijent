@@ -1,11 +1,12 @@
 import { toast } from 'react-toastify';
+import { BASE_URL } from '../constants';
 import { GetEarthquaqesResponse } from './types';
 
 class EarthquaqesService {
 
     get(): Promise<GetEarthquaqesResponse | null> {
         return fetch(
-            '/data/month.json'
+            'data/month.json'
         )
             .then((response) => response.json())
             .then((response) => {

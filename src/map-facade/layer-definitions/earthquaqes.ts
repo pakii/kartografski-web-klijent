@@ -52,7 +52,7 @@ export const earthquaqesOlLayer = new VectorLayer({
         Title: 'Zemljotresi',
         selectable: true,
         InfoLink: 'https://www.seismo.gov.rs/Locirani/Katalog_l.htm',
-        LegendUrl: '/legends/earthquaqes.png',
+        LegendUrl: 'legends/earthquaqes.png',
         Id: MapSettingKeys.EARTHQUAQES_LAYER
     },
     source: new VectorSource(),

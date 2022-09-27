@@ -31,7 +31,7 @@ export const getSeismographsStyleFn = (highlighted = false): ((feature: FeatureL
 
         return new Style({
             image: new IconStyle({
-                src: '/map-icons/sesmograph.png',
+                src: 'map-icons/sesmograph.png',
                 ...highlighted && { color: 'green' }
             }),
             text: resolution < 1000 ? new TextStyle({
@@ -52,7 +52,7 @@ export const getSeismographsStyleFn = (highlighted = false): ((feature: FeatureL
 const format = new GeoJSON();
 const vectorSource = new VectorSource({
     format,
-    url: '/data/seis.json'
+    url: 'data/seis.json'
 });
 
 export const seismographsOlLayer = new VectorLayer({
@@ -64,7 +64,7 @@ export const seismographsOlLayer = new VectorLayer({
         selectable: true,
         Type: 'json',
         InfoLink: 'https://www.seismo.gov.rs/Seizmoloske%20stanice_l.htm',
-        LegendUrl: '/map-icons/sesmograph.png'
+        LegendUrl: 'map-icons/sesmograph.png'
     },
     visible: false,
     style: getSeismographsStyleFn()
