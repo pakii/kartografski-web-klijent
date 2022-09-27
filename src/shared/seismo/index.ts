@@ -1,5 +1,4 @@
 import { toast } from 'react-toastify';
-import { BASE_URL } from '../constants';
 import { GetEarthquaqesResponse } from './types';
 
 class EarthquaqesService {
