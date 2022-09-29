@@ -43,7 +43,7 @@ export const intensityHazard95 = new TileLayer({
     properties: {
         ...wmsLayerDefs[0]
     },
-    zIndex: 2,
+    zIndex: 3,
     visible: false,
     source: new TileWMS({
         url: WMS_URL,
@@ -54,7 +54,7 @@ export const intensityHazard475 = new TileLayer({
     properties: {
         ...wmsLayerDefs[1]
     },
-    zIndex: 3,
+    zIndex: 2,
     visible: false,
     source: new TileWMS({
         url: WMS_URL,

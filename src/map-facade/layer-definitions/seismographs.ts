@@ -57,10 +57,10 @@ const vectorSource = new VectorSource({
 
 export const seismographsOlLayer = new VectorLayer({
     source: vectorSource,
-    zIndex: 3,
+    zIndex: 4,
     properties: {
         Id: MapSettingKeys.SEISMOGRAMS,
-        Title: 'Seizmografske stanice',
+        Title: 'Seizmološke stanice',
         selectable: true,
         Type: 'json',
         InfoLink: 'https://www.seismo.gov.rs/Seizmoloske%20stanice_l.htm',

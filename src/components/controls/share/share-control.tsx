@@ -1,11 +1,23 @@
 import React from 'react'
 
 import ShareIcon from '@mui/icons-material/Share';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import Fab from '@mui/material/Fab';
 import Popover from '@mui/material/Popover/Popover';
 import Box from '@mui/material/Box/Box';
-import { FacebookShareButton, FacebookIcon, WhatsappShareButton, WhatsappIcon, ViberShareButton, ViberIcon, EmailShareButton, EmailIcon } from "react-share";
+import IconButton from '@mui/material/IconButton/IconButton';
+import Tooltip from '@mui/material/Tooltip/Tooltip';
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+  ViberShareButton,
+  ViberIcon,
+  EmailShareButton,
+  EmailIcon
+} from "react-share";
 
 export const ShareControl = (props: {
   open: boolean,
@@ -52,7 +64,7 @@ export const ShareControl = (props: {
           horizontal: 'right',
         }}
       >
-        <Box p={1}>
+        <Box p={1} className='u-flex-center'>
           <FacebookShareButton
             url={shareUrl}
             quote={title}
@@ -82,6 +94,13 @@ export const ShareControl = (props: {
           >
             <EmailIcon size={32} round />
           </EmailShareButton>
+          <Tooltip disableFocusListener title="Kopirajte trenutni URL aplikacije">
+            <IconButton
+              color='primary'
+              onClick={() => { navigator.clipboard.writeText(window.location.href) }}>
+              <ContentCopyIcon sx={{ fontSize: '1.2rem' }} />
+            </IconButton>
+          </Tooltip>
         </Box>
       </Popover>
       <Fab

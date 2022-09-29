@@ -47,7 +47,7 @@ export const getEarthquaqesStyleFn = (highlighted = false) => {
     }
 }
 export const earthquaqesOlLayer = new VectorLayer({
-    zIndex: 4,
+    zIndex: 5,
     properties: {
         Title: 'Zemljotresi',
         selectable: true,
