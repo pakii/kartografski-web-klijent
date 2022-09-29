@@ -1,44 +1,36 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-import { Box, ClickAwayListener, Slide } from '@mui/material';
+import { Box, ClickAwayListener, Slide, useMediaQuery } from '@mui/material';
 
 import { BaseMapOption } from './base-map-option/base-map-option';
 import { mapService } from '../../map-facade/map-service';
 import { baseLayersHash, BaseMapId, BaseMapSpec } from '../../shared/constants';
-import { WithRouterProps, withRouter } from '../../shared/router';
 import { MapSettingKeys } from '../../shared/types';
 import { sideBarWidth } from '../layout';
+import { useSearchParams } from 'react-router-dom';
+import { useTheme } from '@emotion/react';
+import { edgeHeight } from '../../widgets/swipeble-edge/swipeble-edge';
 
-type Props = {
-    router: WithRouterProps
-};
-type State = {
-    currentBaseMap: BaseMapSpec;
-    expanded: boolean;
-}
 
-class BaseSwitcherComponent extends React.Component<Props, State> {
-    containerRef: React.RefObject<any>;
-    private baseMapOptions: BaseMapSpec[];
+export const BaseSwitcher = () => {
+    const containerRef = React.useRef(null);
+    const baseMapOptions = Object.values(baseLayersHash);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const currentBaseMapId = (searchParams.get(MapSettingKeys.BASE_MAP) || mapService.getCurrentBaseMapId()) as BaseMapId;
+    const [currentBaseMap, setCurrentBaseMap] = React.useState(baseLayersHash[currentBaseMapId]);
+    const [expanded, setExpanded] = React.useState(false);
 
-    constructor(props: Props) {
-        super(props);
-        this.containerRef = React.createRef<any>();
-        this.baseMapOptions = Object.values(baseLayersHash);
-        const currentBaseMapId = (this.props.router.searchParams.get(MapSettingKeys.BASE_MAP) || mapService.getCurrentBaseMapId()) as BaseMapId;
-        this.state = {
-            currentBaseMap: baseLayersHash[currentBaseMapId],
-            expanded: false
-        }
-    }
+    const theme = useTheme();
+    //@ts-ignore
+    const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
-    componentDidMount() {
-        const currentBaseMapId = (this.props.router.searchParams.get(MapSettingKeys.BASE_MAP) || mapService.getCurrentBaseMapId()) as BaseMapId;
-        this.changeBaseMap(baseLayersHash[currentBaseMapId]);
-    }
 
-    changeBaseMap(mapSpec: BaseMapSpec): void {
-        const { searchParams, setSearchParams } = this.props.router;
+    useEffect(() => {
+        const currentBaseMapId = (searchParams.get(MapSettingKeys.BASE_MAP) || mapService.getCurrentBaseMapId()) as BaseMapId;
+        changeBaseMap(baseLayersHash[currentBaseMapId]);
+    }, [])
+
+    const changeBaseMap = (mapSpec: BaseMapSpec): void => {
         if (mapSpec.id === 'EWS') {
             searchParams.delete(MapSettingKeys.BASE_MAP)
         }
@@ -50,49 +42,47 @@ class BaseSwitcherComponent extends React.Component<Props, State> {
         if (mapSpec.id === currentBaseMapId) {
             return;
         }
-        this.setState({ currentBaseMap: mapSpec });
+        setCurrentBaseMap(mapSpec);
         mapService.changeBaseMap(mapSpec.id);
     }
 
-    toggleExpanded(): void {
-        this.setState((prev) => ({ expanded: !prev.expanded }));
-    }
-
-    render() {
-        return (
-            <ClickAwayListener onClickAway={() => this.setState({ expanded: false })}>
-                <Box
-                    ref={this.containerRef}
-                    sx={{
-                        position: 'fixed',
-                        zIndex: 2,
-                        bottom: 0,
-                        ...!this.props.router.searchParams.get(MapSettingKeys.SIDE_BAR) && { left: sideBarWidth},
+    const shouldMoveLeft = !isSmall && !searchParams.get(MapSettingKeys.SIDE_BAR);
+    return (
+        <ClickAwayListener onClickAway={() => setExpanded(false)}>
+            <Box
+                ref={containerRef}
+                sx={(theme) => ({
+                    position: 'absolute',
+                    zIndex: 0,
+                    bottom: {
+                        xs: edgeHeight,
+                        sm: 0
+                    },
+                    ...shouldMoveLeft && { left: sideBarWidth },
+                    display: 'flex',
+                    maxWidth: '100vw'
+                })}>
+                {!expanded &&
+                    <BaseMapOption item={currentBaseMap}
+                        selected={false}
+                        clicked={() => setExpanded(!expanded)} />}
+                <Slide direction='right'
+                    in={expanded}
+                    container={containerRef.current}>
+                    <Box sx={{
                         display: 'flex',
-                        maxWidth: '100vw'
+                        maxWidth: '100vw',
+                        overflowX: 'auto'
                     }}>
-                    {!this.state.expanded &&
-                        <BaseMapOption item={this.state.currentBaseMap}
-                            selected={false}
-                            clicked={() => this.toggleExpanded()} />}
-                    <Slide direction='right' in={this.state.expanded} container={this.containerRef.current}>
-                        <Box sx={{
-                            display: 'flex',
-                            maxWidth: '100vw',
-                            overflowX: 'auto'
-                        }}>
-                            {this.baseMapOptions.map((item) => (
-                                <BaseMapOption item={item}
-                                    key={item.id}
-                                    selected={item.id === this.state.currentBaseMap.id}
-                                    clicked={() => this.changeBaseMap(item)} />
-                            ))}
-                        </Box>
-                    </Slide>
-                </Box>
-            </ClickAwayListener>
-        )
-    }
+                        {baseMapOptions.map((item) => (
+                            <BaseMapOption item={item}
+                                key={item.id}
+                                selected={item.id === currentBaseMap.id}
+                                clicked={() => changeBaseMap(item)} />
+                        ))}
+                    </Box>
+                </Slide>
+            </Box>
+        </ClickAwayListener >
+    )
 }
-
-export const BaseSwitcher = withRouter(BaseSwitcherComponent);

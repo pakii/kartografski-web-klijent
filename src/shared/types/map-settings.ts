@@ -7,9 +7,9 @@ export enum MapSettingKeys {
     CENTER = 'c',
     ZOOM = 'z',
     EARTHQUAQES_LAYER = 'eq',
-    HAZARDS_95 = 'h-95',
-    HAZARDS_475 = 'h-475',
-    HAZARDS_975 = 'h-975',
+    I_HAZARDS_95 = 'ih-95',
+    I_HAZARDS_475 = 'ih-475',
+    I_HAZARDS_975 = 'ih-975',
     POP_DENSITY = 'pd',
     SEISMOGRAMS = 'seismo',
 }
@@ -21,9 +21,9 @@ export type MapSettings = {
     [MapSettingKeys.CENTER]: string;
     [MapSettingKeys.ZOOM]: string;
     [MapSettingKeys.EARTHQUAQES_LAYER]: '0' | undefined;
-    [MapSettingKeys.HAZARDS_95]: '1' | undefined;
-    [MapSettingKeys.HAZARDS_475]: '1' | undefined;
-    [MapSettingKeys.HAZARDS_975]: '1' | undefined;
+    [MapSettingKeys.I_HAZARDS_95]: '1' | undefined;
+    [MapSettingKeys.I_HAZARDS_475]: '1' | undefined;
+    [MapSettingKeys.I_HAZARDS_975]: '1' | undefined;
     [MapSettingKeys.POP_DENSITY]: '1' | undefined;
     [MapSettingKeys.SEISMOGRAMS]: '1' | undefined;
 }

@@ -8,13 +8,13 @@ import { MapSettingKeys } from '../../shared/types';
 
 export const hazardLayersGroup = new LayerGroup({
     properties: {
-        Title: 'Seizmički hazardi',
+        Title: 'Seizmički hazardi po parametru inteziteta',
         IsGroup: true
     }
 });
 const wmsLayerDefs = [
     {
-        Id: MapSettingKeys.HAZARDS_95,
+        Id: MapSettingKeys.I_HAZARDS_95,
         isWms: true,
         Name: 'povrsina_lokalnosti_95_region',
         Title: 'Povratni period od 95 godina',
@@ -22,7 +22,7 @@ const wmsLayerDefs = [
         LegendUrl: 'http://osgl.grf.bg.ac.rs:80/geoserver/osgl_3/ows?service=WMS&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=povrsina_lokalnosti_95_region'
     },
     {
-        Id: MapSettingKeys.HAZARDS_475,
+        Id: MapSettingKeys.I_HAZARDS_475,
         isWms: true,
         Name: 'povrsina_lokalnosti_475_region',
         Title: 'Povratni period od 475 godina',
@@ -31,7 +31,7 @@ const wmsLayerDefs = [
     },
     {
         isWms: true,
-        Id: MapSettingKeys.HAZARDS_975,
+        Id: MapSettingKeys.I_HAZARDS_975,
         Name: 'povrsina_lokalnosti_975_region',
         Title: 'Povratni period od 975 godina',
         InfoLink: 'http://osgl.grf.bg.ac.rs/geonetwork/srv/eng/catalog.search#/metadata/2812a2dd-da8e-48b1-b0d8-d27a05f4fd55',
@@ -39,7 +39,7 @@ const wmsLayerDefs = [
     },
 ]
 
-export const hazard95 = new TileLayer({
+export const intensityHazard95 = new TileLayer({
     properties: {
         ...wmsLayerDefs[0]
     },
@@ -50,7 +50,7 @@ export const hazard95 = new TileLayer({
         params: { LAYERS: wmsLayerDefs[0].Name, VERSION: '1.1.1' }
     })
 });
-export const hazard475 = new TileLayer({
+export const intensityHazard475 = new TileLayer({
     properties: {
         ...wmsLayerDefs[1]
     },
@@ -61,17 +61,17 @@ export const hazard475 = new TileLayer({
         params: { LAYERS: wmsLayerDefs[1].Name, VERSION: '1.1.1' }
     })
 });
-export const hazard975 = new TileLayer({
+export const intensityHazard975 = new TileLayer({
     properties: {
         ...wmsLayerDefs[2]
     },
-    zIndex: 3,
+    zIndex: 1,
     visible: false,
     source: new TileWMS({
         url: WMS_URL,
         params: { LAYERS: wmsLayerDefs[2].Name, VERSION: '1.1.1' }
     })
 });
-const layers = [hazard95, hazard475, hazard975];
+const layers = [intensityHazard95, intensityHazard475, intensityHazard975];
 
 hazardLayersGroup.setLayers(new Collection(layers));

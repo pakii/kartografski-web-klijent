@@ -22,7 +22,7 @@ import { FeatureLike } from 'ol/Feature';
 import { earthquaqesOlLayer, getEarthquaqesStyleFn } from '../layer-definitions/earthquaqes';
 import GeoJSON from 'ol/format/GeoJSON';
 import { createPointFeatureFromLonLat } from '../utils/create-point-feature';
-import { populationDensity, hazardLayersGroup, hazard95, hazard475, hazard975 } from '../layer-definitions';
+import { populationDensity, hazardLayersGroup, intensityHazard95, intensityHazard475, intensityHazard975 } from '../layer-definitions';
 import LayerGroup from 'ol/layer/Group';
 import BaseEvent from 'ol/events/Event';
 
@@ -91,7 +91,6 @@ class MapService {
                     this.baseLayer,
                     this.userLocationLayer,
                     this.earthquaqesLayer,
-                    this.populationDensityLayer,
                     this.seismographsLayer,
                     hazardLayersGroup,
                 ],
@@ -256,15 +255,17 @@ class MapService {
         const earthquaqesSource = this.earthquaqesLayer.getSource();
         const selectedEarthquaqe = earthquaqesSource?.getFeatureById(opts.id);
         if (selectedEarthquaqe) {
-            const clone = selectedEarthquaqe.clone();
-            clone.setId(opts.id);
+            const featureClone = selectedEarthquaqe.clone();
+            featureClone.setId(opts.id);
             earthquaqesSource?.removeFeature(selectedEarthquaqe);
-            earthquaqesSource?.addFeature(clone);
-            selectedFeatures.push(clone);
+            earthquaqesSource?.addFeature(featureClone);
+            selectedFeatures.push(featureClone);
             Object.values(this.vectorFeatureClickSubscriptions).forEach((s) => s({
-                selected: [clone]
+                selected: [featureClone]
             }));
-            this.getMap().getView().setCenter(clone.getGeometry()?.getExtent())
+            //@ts-ignore
+            // TODO
+            this.getMap().getView().fit(featureClone.getGeometry()?.flatCoordinates)
         }
     }
 
@@ -286,9 +287,9 @@ class MapService {
     setEarthquaqesVisible(isVisible: boolean) { earthquaqesOlLayer.setVisible(isVisible) }
     setSeismographsVisible(isVisible: boolean) { seismographsOlLayer.setVisible(isVisible) }
     setPopDensityVisible(isVisible: boolean) { populationDensity.setVisible(isVisible) }
-    setHazard95Visible(isVisible: boolean) { hazard95.setVisible(isVisible) }
-    setHazard475Visible(isVisible: boolean) { hazard475.setVisible(isVisible) }
-    setHazard975Visible(isVisible: boolean) { hazard975.setVisible(isVisible) }
+    setHazard95Visible(isVisible: boolean) { intensityHazard95.setVisible(isVisible) }
+    setHazard475Visible(isVisible: boolean) { intensityHazard475.setVisible(isVisible) }
+    setHazard975Visible(isVisible: boolean) { intensityHazard975.setVisible(isVisible) }
 }
 
 export const mapService = new MapService();

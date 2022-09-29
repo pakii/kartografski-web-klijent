@@ -3,7 +3,7 @@ import XYZ from 'ol/source/XYZ';
 import { MapSettingKeys } from '../../shared/types';
 
 export const populationDensity = new TileLayer({
-    zIndex: 0,
+    zIndex: 2,
     properties: {
         Title: 'Gustina naseljenosti',
         Type: 'Tile',

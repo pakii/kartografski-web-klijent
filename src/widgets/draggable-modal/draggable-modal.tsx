@@ -25,6 +25,8 @@ export const DraggableModal = (props: {
     open: boolean,
     hide: Function,
     disableEscClose?: boolean,
+    bottom?: number,
+    right?: number,
     content: {
         title: string;
         body: JSX.Element;
@@ -42,8 +44,8 @@ export const DraggableModal = (props: {
                 justifyContent: 'space-between',
                 position: 'fixed',
                 margin: 2,
-                bottom: 0,
-                right: 0,
+                bottom: props.bottom || 0,
+                right: props.right || 0,
                 zIndex: 3
             }}>
             <Box p={2}>

@@ -5,7 +5,7 @@ import { ControlsMenu } from "./components/controls/controls";
 import { ToastContainer } from "react-toastify";
 import { BaseSwitcher } from "./components/base-map-switcher/base-map-switcher";
 import { SideBar, TopBar } from "./components/layout";
-import { ThemeProvider } from "@mui/material";
+import { ThemeProvider, useMediaQuery } from "@mui/material";
 import { theme } from "./styles/theme";
 import { SeismographProperties } from "./map-facade/layer-definitions/seismographs";
 import { SeismogramFeatureInfo } from "./components/feature-info/seismogram-feature-info-content";
@@ -15,6 +15,7 @@ import { EarthquaqeProperties } from "./shared/seismo";
 import { EarthquaqeFeatureInfo } from "./components/feature-info/earthquaqe-feature-info-content";
 import { MapSettingKeys } from "./shared/types";
 import { useSearchParams } from "react-router-dom";
+import { edgeHeight, SwipeableEdgeDrawer } from "./widgets/swipeble-edge/swipeble-edge";
 
 
 export const App = () => {
@@ -23,21 +24,32 @@ export const App = () => {
     const [WMSfeatureInfo, setWMSFeatureInfo] = React.useState<{ title: string; body: any; } | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
 
+    const isBigScreen = useMediaQuery(theme.breakpoints.up('sm'));
+
     React.useEffect(() => {
+        initMap();
         makeMapViewChangeSub();
         makeMapClickSub();
-        initMap();
         makeVectorFeatureInfoSub();
-    });
+    },[]);
+
+    React.useEffect(() => {
+        const centerParam = searchParams.get(MapSettingKeys.CENTER);
+        const zoomParam = searchParams.get(MapSettingKeys.ZOOM);
+        const center = centerParam ? JSON.parse(decodeURIComponent(centerParam)) as [number, number] : undefined;
+        mapService.setCurrentView({ center, zoom: zoomParam || undefined });
+    })
+
+    const earthquaqesListContainerOpen = !searchParams.get(MapSettingKeys.SIDE_BAR);
+    React.useEffect(() => {
+        const map = mapService.getMap()
+        map.updateSize();
+    }, [earthquaqesListContainerOpen]);
 
     const initMap = (): void => {
         const map = mapService.getMap();
         map.setTarget(wrapperRef.current as unknown as HTMLDivElement);
 
-        const centerParam = searchParams.get(MapSettingKeys.CENTER);
-        const zoomParam = searchParams.get(MapSettingKeys.ZOOM);
-        const center = centerParam ? JSON.parse(decodeURIComponent(centerParam)) as [number, number] : undefined;
-        mapService.setCurrentView({ center, zoom: zoomParam || undefined });
         handleLayersInitialVisibility();
     }
 
@@ -51,6 +63,10 @@ export const App = () => {
 
     const makeMapClickSub = () => {
         mapService.subscribeToMapClick('AppCmp', (event) => {
+            if (!isBigScreen) {
+                searchParams.set(MapSettingKeys.SIDE_BAR, '0');
+                setSearchParams(searchParams);
+            }
             mapService.getTopLayerFeatureInfo(event).then((res) => {
                 if (!res) {
                     return;
@@ -105,14 +121,14 @@ export const App = () => {
         if (searchParams.get(MapSettingKeys.EARTHQUAQES_LAYER)) {
             mapService.setEarthquaqesVisible(!Boolean(searchParams.get(MapSettingKeys.EARTHQUAQES_LAYER)))
         }
-        if (searchParams.get(MapSettingKeys.HAZARDS_95)) {
-            mapService.setHazard95Visible(Boolean(searchParams.get(MapSettingKeys.HAZARDS_95)))
+        if (searchParams.get(MapSettingKeys.I_HAZARDS_95)) {
+            mapService.setHazard95Visible(Boolean(searchParams.get(MapSettingKeys.I_HAZARDS_95)))
         }
-        if (searchParams.get(MapSettingKeys.HAZARDS_475)) {
-            mapService.setHazard475Visible(Boolean(searchParams.get(MapSettingKeys.HAZARDS_475)))
+        if (searchParams.get(MapSettingKeys.I_HAZARDS_475)) {
+            mapService.setHazard475Visible(Boolean(searchParams.get(MapSettingKeys.I_HAZARDS_475)))
         }
-        if (searchParams.get(MapSettingKeys.HAZARDS_975)) {
-            mapService.setHazard975Visible(Boolean(searchParams.get(MapSettingKeys.HAZARDS_975)))
+        if (searchParams.get(MapSettingKeys.I_HAZARDS_975)) {
+            mapService.setHazard975Visible(Boolean(searchParams.get(MapSettingKeys.I_HAZARDS_975)))
         }
         if (searchParams.get(MapSettingKeys.POP_DENSITY)) {
             mapService.setPopDensityVisible(Boolean(searchParams.get(MapSettingKeys.POP_DENSITY)))
@@ -121,18 +137,25 @@ export const App = () => {
             mapService.setSeismographsVisible(Boolean(searchParams.get(MapSettingKeys.SEISMOGRAMS)))
         }
     }
+
+    const EarthquaqesListContainer = isBigScreen ? SideBar : SwipeableEdgeDrawer;
+    let mapHeight = `calc(100vh - ${isBigScreen ? theme.mixins.toolbar.height : edgeHeight}px)`;
+    if (!isBigScreen && earthquaqesListContainerOpen) {
+        mapHeight = '50vh';
+    }
     return (
         <>
             <ThemeProvider theme={theme}>
                 <TopBar />
-                <SideBar>
-                    <EarthquaqesList />
-                </SideBar>
+                <EarthquaqesListContainer>
+                    < EarthquaqesList />
+                </EarthquaqesListContainer>
                 <div ref={wrapperRef}
                     id="map" style={{
                         width: '100%',
-                        height: `calc(100vh - ${theme.mixins.toolbar.height}px)`,
-                        marginTop: theme.mixins.toolbar.height,
+                        height: mapHeight,
+                        marginBottom: isBigScreen ? 0 : edgeHeight,
+                        marginTop: isBigScreen ? theme.mixins.toolbar.height : 0,
                         boxSizing: 'border-box'
                     }}>
                     <ControlsMenu />
@@ -142,6 +165,8 @@ export const App = () => {
                     content={featureInfo}
                     hide={hideFeatureInfo} />
                 <DraggableModal
+                    bottom={10}
+                    right={10}
                     open={!!WMSfeatureInfo}
                     content={WMSfeatureInfo}
                     hide={() => setWMSFeatureInfo(null)} />

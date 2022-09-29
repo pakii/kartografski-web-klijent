@@ -6,6 +6,9 @@ import Paper from '@mui/material/Paper/Paper';
 import LayersIcon from '@mui/icons-material/Layers';
 
 import { LayersList } from '../../layers-list/layers-list';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import { useMediaQuery } from '@mui/material';
+import { theme } from '../../../styles/theme';
 
 export const LayersControl = (props: {
   open: boolean,
@@ -14,6 +17,7 @@ export const LayersControl = (props: {
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const ref = React.useRef<HTMLButtonElement>(null);
+  const isBigScreen = useMediaQuery(theme.breakpoints.up('sm'));
 
   const handleClick = () => {
     if (!anchorEl) {
@@ -34,25 +38,29 @@ export const LayersControl = (props: {
   }, [props.open]);
 
   return (
-    <div className='layers'>
-      <Popper
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-        placement='left-start'
-      >
-        <Paper>
-          <LayersList />
-        </Paper>
-      </Popper>
-      <Fab
-        ref={ref}
-        size='small'
-        color='primary'
-        variant='extended'
-        onClick={handleClick}>
-        <LayersIcon />
-      </Fab>
-    </div>
+    <ClickAwayListener onClickAway={() => !isBigScreen && Boolean(anchorEl) && setAnchorEl(null)}>
+      <div>
+        <Popper
+          open={Boolean(anchorEl)}
+          anchorEl={anchorEl}
+          placement='left-start'
+          sx={{
+            maxWidth: 'calc(100vw - 48px)'
+          }}>
+          <Paper>
+            <LayersList />
+          </Paper>
+        </Popper>
+        <Fab
+          ref={ref}
+          size='small'
+          color='primary'
+          variant='extended'
+          onClick={handleClick}>
+          <LayersIcon />
+        </Fab>
+      </div>
+    </ClickAwayListener>
   )
 }
 

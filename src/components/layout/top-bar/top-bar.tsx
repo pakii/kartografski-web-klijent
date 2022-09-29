@@ -11,12 +11,18 @@ import OfflineIcon from '@mui/icons-material/SignalWifiConnectedNoInternet4';
 import OnlineIcon from '@mui/icons-material/SignalWifi4Bar';
 import { useSearchParams } from 'react-router-dom';
 import { MapSettingKeys } from '../../../shared/types';
+import { useTheme } from '@emotion/react';
+import { useMediaQuery } from '@mui/material';
 
 
 export const TopBar = (props: { searchChange?: Function }) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const sideBarShown = !searchParams.get(MapSettingKeys.SIDE_BAR);
     const [isOffline, setIsOffline] = React.useState<boolean | null>(!window.navigator.onLine || null);
+
+    const theme = useTheme();
+    //@ts-ignore
+    const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
     const handleSideBarState = () => {
         if (!sideBarShown) {
@@ -47,45 +53,56 @@ export const TopBar = (props: { searchChange?: Function }) => {
         return () => clearTimeout(timer);
     }, [isOffline]);
 
-    return (
-        <AppBar position="fixed"
-            sx={(theme) => ({
-                zIndex: theme.zIndex.drawer + 1
+    const offlineNotice = isOffline === false ?
+        (<Box className="u-flex-center"
+            p={0.5}
+            sx={(t) => ({
+                backgroundColor: t.palette.primary.main,
+                color: 'green'
             })}>
-            <Toolbar className='u-flex-center u-jc-between'>
-                <Box className="u-flex-center">
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleSideBarState}
-                        edge="start"
-                        sx={{ mr: 2 }}
-                    >
-                        <ManageSearchIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Seizmološka karta
-                    </Typography>
-                </Box>
-                {isOffline && (
-                    <Box sx={{ color: 'red', maxWidth: '300px' }}
-                        className="u-flex-center">
-                        <OfflineIcon className='mr-1' />
-                        <Typography variant="body2" component="div">
-                            Radite u oflajn režimu.<br /> Neke funkcije možda neće raditi.
+            <OnlineIcon className='mr-1' fontSize='small' />
+            <Typography variant="body2" component="div" fontSize='0.8rem'>
+                Ponovo na mreži!
+            </Typography>
+        </Box>
+        ) : isOffline === true ? (
+            <Box className="u-flex-center"
+                p={0.5}
+                sx={(t) => ({
+                    backgroundColor: t.palette.primary.main,
+                    color: 'red'
+                })}>
+                <OfflineIcon className='mr-1' fontSize='small' />
+                <Typography variant="body2" component="div" fontSize='0.8rem'>
+                    Radite u oflajn režimu.{!isSmall && <br />}Neke funkcije možda neće raditi.
+                </Typography>
+            </Box>) : null;
+
+    return (
+        !isSmall ?
+            <AppBar position="fixed"
+                sx={(theme) => ({
+                    zIndex: theme.zIndex.drawer + 1
+                })}>
+                <Toolbar className='u-flex-center u-jc-between'>
+                    <Box className="u-flex-center">
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleSideBarState}
+                            edge="start"
+                            sx={{ mr: 2 }}
+                        >
+                            <ManageSearchIcon />
+                        </IconButton>
+                        <Typography variant="h6" noWrap component="div">
+                            Seizmološka karta
                         </Typography>
                     </Box>
-                )}
-                {isOffline === false && (
-                    <Box sx={{ color: 'green', maxWidth: '300px' }}
-                        className="u-flex-center">
-                        <OnlineIcon className='mr-1' />
-                        <Typography variant="body2" component="div">
-                            Ponovo na mreži!
-                        </Typography>
-                    </Box>
-                )}
-            </Toolbar>
-        </AppBar>
+                    {offlineNotice}
+                </Toolbar>
+            </AppBar>
+            :
+            offlineNotice
     )
 }

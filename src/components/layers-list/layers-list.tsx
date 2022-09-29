@@ -35,25 +35,25 @@ export const LayersList = () => {
                     searchParams.delete(MapSettingKeys.EARTHQUAQES_LAYER)
                 }
                 break;
-            case MapSettingKeys.HAZARDS_95:
+            case MapSettingKeys.I_HAZARDS_95:
                 if (nextValue) {
-                    searchParams.set(MapSettingKeys.HAZARDS_95, '1')
+                    searchParams.set(MapSettingKeys.I_HAZARDS_95, '1')
                 } else {
-                    searchParams.delete(MapSettingKeys.HAZARDS_95)
+                    searchParams.delete(MapSettingKeys.I_HAZARDS_95)
                 }
                 break;
-            case MapSettingKeys.HAZARDS_475:
+            case MapSettingKeys.I_HAZARDS_475:
                 if (nextValue) {
-                    searchParams.set(MapSettingKeys.HAZARDS_475, '1')
+                    searchParams.set(MapSettingKeys.I_HAZARDS_475, '1')
                 } else {
-                    searchParams.delete(MapSettingKeys.HAZARDS_475)
+                    searchParams.delete(MapSettingKeys.I_HAZARDS_475)
                 }
                 break;
-            case MapSettingKeys.HAZARDS_975:
+            case MapSettingKeys.I_HAZARDS_975:
                 if (nextValue) {
-                    searchParams.set(MapSettingKeys.HAZARDS_975, '1')
+                    searchParams.set(MapSettingKeys.I_HAZARDS_975, '1')
                 } else {
-                    searchParams.delete(MapSettingKeys.HAZARDS_975)
+                    searchParams.delete(MapSettingKeys.I_HAZARDS_975)
                 }
                 break;
             case MapSettingKeys.POP_DENSITY:
@@ -65,11 +65,10 @@ export const LayersList = () => {
                 break;
             case MapSettingKeys.SEISMOGRAMS:
                 if (nextValue) {
-                    searchParams.set(MapSettingKeys.SEISMOGRAMS, '1')
-                    
+                    searchParams.set(MapSettingKeys.SEISMOGRAMS, '1');
+                    searchParams.set(MapSettingKeys.CENTER, JSON.stringify([2309877.637116859, 5227657.470871826]));
                 } else {
                     searchParams.delete(MapSettingKeys.SEISMOGRAMS)
-                    
                 }
                 break;
             default:

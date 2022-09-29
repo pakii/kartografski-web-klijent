@@ -1,11 +1,10 @@
 import React from 'react';
-import AutoSizer from "react-virtualized-auto-sizer";
 import Box from '@mui/material/Box/Box';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import { FixedSizeList as List, ListChildComponentProps } from "react-window";
-import Typography from '@mui/material/Typography';
-import FormControl from '@mui/material/FormControl';
+import List from '@mui/material/List/List';
+import ListItem from '@mui/material/ListItem/ListItem';
+import ListItemButton from '@mui/material/ListItemButton/ListItemButton';
+import Typography from '@mui/material/Typography/Typography';
+import FormControl from '@mui/material/FormControl/FormControl';
 import Select from '@mui/material/Select/Select';
 import MenuItem from '@mui/material/MenuItem/MenuItem';
 import InputLabel from '@mui/material/InputLabel/InputLabel'
@@ -45,7 +44,7 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
                     setSearchParams(searchParams);
                     const index = this.state.data?.features.findIndex((f) => f.id === id);
                     if (index && index > -1) {
-                        this.listRef.current.scrollToItem(index);
+                        this.listRef.current.scrollTo(0, index * 60);
                     }
                 }
             }
@@ -119,10 +118,16 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
         return (
             <>
                 <Box p={1} color="secondary">
-                    <Typography component='h2' variant='h6' mb={1}>
-                        Katalog lociranih zemljotresa - tekući mesec
-                        <InfoLink link='https://www.seismo.gov.rs/Locirani/Katalog_l.htm'/>
-                    </Typography>
+                    <Box className='u-flex-center'>
+                        <Typography component='h2'
+                            sx={{
+                                fontSize: { xs: '16px', md: '20px' },
+                                fontWeight: 'bold'
+                            }}>
+                            Katalog lociranih zemljotresa - tekući mesec
+                        </Typography>
+                        <InfoLink link='https://www.seismo.gov.rs/Locirani/Katalog_l.htm' />
+                    </Box>
                     <Box p={1} className='u-flex-center'>
                         {this.state.data && (
                             <Typography component='p' variant='caption'>
@@ -130,7 +135,7 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
                             </Typography>
                         )}
 
-                        <FormControl sx={{ m: 1, minWidth: this.selectMinWidth }} size="small">
+                        <FormControl sx={{ m: 1, minWidth: this.selectMinWidth, fontSize: '12px' }} size="small">
                             <InputLabel id="poredjaj-po">Poređaj po</InputLabel>
                             <Select
                                 fullWidth
@@ -149,25 +154,48 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
                 </Box>
                 {
                     this.state.data ?
-                        <Box sx={{ flexGrow: 1 }}>
-                            <AutoSizer>
-                                {({ height, width }) => (
-                                    <List
-                                        height={height}
-                                        itemCount={this.state.data?.features.length as number}
-                                        itemSize={60}
-                                        itemData={{
-                                            features: this.state.data?.features,
-                                            selectedId,
-                                            selectFeature: this.selectFeature
-                                        }}
-                                        width={width}
-                                        ref={this.listRef}>
-                                        {this._rowRenderer}
-                                    </List>
-                                )}
-                            </AutoSizer>
-                        </Box>
+                        <List sx={{ overflowY: 'scroll', flexGrow: 1 }} ref={this.listRef}>
+                            {this.state.data.features.map((item) => (
+
+                                <ListItem
+                                    key={item.id}
+                                    component="div"
+                                    disablePadding
+                                    sx={(t) => ({
+                                        borderTop: '1px solid',
+                                        borderTopColor: t.palette.primary.light,
+                                        ...selectedId === item.id && { background: 'gainsboro' }
+                                    })}>
+                                    <ListItemButton
+                                        onClick={() => this.selectFeature({ feature: item })}
+                                        sx={{ padding: 1 }}>
+                                        <Box
+                                            component='div'
+                                            sx={{ minWidth: '2.5em', position: 'absolute' }}>
+                                            <Typography
+                                                noWrap
+                                                component='p'
+                                                variant='subtitle1'
+                                                mr={1}
+                                                fontWeight={item?.properties.richterMagnitude > 4.5 ? 'bold' : 'normal'}
+                                                textAlign='center'>
+                                                {item?.properties.richterMagnitude.toFixed(1)}
+                                            </Typography>
+                                        </Box>
+                                        <Box
+                                            component='div'
+                                            sx={{ paddingLeft: '2.5em', width: '100%' }}>
+                                            <Typography noWrap fontWeight={item?.properties.richterMagnitude > 4.5 ? 'bold' : 'normal'}>
+                                                {item?.properties.regionName}
+                                            </Typography>
+                                            <Typography component='p' variant='caption'>
+                                                {new Date(item?.properties.date).toLocaleString()}
+                                            </Typography>
+                                        </Box>
+                                    </ListItemButton>
+                                </ListItem>
+                            ))}
+                        </List>
                         :
                         <Typography noWrap fontWeight='bold'>
                             Nema podataka
@@ -176,51 +204,6 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
             </>
         );
     }
-
-    _rowRenderer = ({ index, data, style }: ListChildComponentProps) => {
-        const item = data.features[index] as GeoJSONFeature<GeoJSONPoint, EarthquaqeProperties>;
-
-        return (
-            <ListItem
-                style={{ ...style }}
-                key={item.id}
-                component="div"
-                disablePadding
-                sx={(t) => ({
-                    borderTop: '1px solid',
-                    borderTopColor: t.palette.primary.light,
-                    ...data.selectedId === item.id && { background: 'gainsboro' }
-                })}>
-                <ListItemButton
-                    onClick={() => data.selectFeature({ feature: item })}
-                    sx={{ padding: 1 }}>
-                    <Box
-                        component='div'
-                        sx={{ minWidth: '2.5em', position: 'absolute' }}>
-                        <Typography
-                            noWrap
-                            component='p'
-                            variant='subtitle1'
-                            mr={1}
-                            fontWeight={item?.properties.richterMagnitude > 4.5 ? 'bold' : 'normal'}
-                            textAlign='center'>
-                            {item?.properties.richterMagnitude.toFixed(1)}
-                        </Typography>
-                    </Box>
-                    <Box
-                        component='div'
-                        sx={{ paddingLeft: '2.5em', width: '100%' }}>
-                        <Typography noWrap fontWeight={item?.properties.richterMagnitude > 4.5 ? 'bold' : 'normal'}>
-                            {item?.properties.regionName}
-                        </Typography>
-                        <Typography component='p' variant='caption'>
-                            {new Date(item?.properties.date).toLocaleString()}
-                        </Typography>
-                    </Box>
-                </ListItemButton>
-            </ListItem>
-        );
-    };
 }
 
 export const EarthquaqesList = withRouter(GlobalEarthquaqesCmp);
