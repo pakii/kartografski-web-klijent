@@ -10,9 +10,9 @@ export const Legend = () => {
         .filter(l => l.getVisible())
         .sort((p, n) => n.getZIndex() - p.getZIndex());
     const hasEarthquaqes = layers.find(l => l.get('Title') === 'Zemljotresi');
-    const hasHazards = layers.find(l => l.get('Title') === 'Seizmički hazardi')?.getLayersArray()
+    const hasHazards = layers.find(l => l.get('Title') === 'Seizmički hazardi po parametru inteziteta')?.getLayersArray()
         .some(l => l.getVisible());
-    const hasSeismographs = layers.find(l => l.get('Title') === 'Seizmografske stanice');
+    const hasSeismographs = layers.find(l => l.get('Title') === 'Seizmološke stanice');
     return (
         <Box p={2} sx={{
             display: 'flex',
