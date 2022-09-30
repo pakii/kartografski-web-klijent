@@ -1,11 +1,12 @@
 {
-    "short_name": "Kartografski klijent",
-    "name": "Kartografski klijent 1.0.0",
+    "short_name": "Seizmološka karta",
+    "name": "Seizmološka karta 1.0.0",
     "icons": [
         {
             "src": "favicon.ico",
-            "sizes": "64x64 32x32 24x24 16x16",
-            "type": "image/x-icon"
+            "sizes": "64x64",
+            "type": "image/x-icon",
+            "purpose": "maskable"
         },
         {
             "src": "logo192.png",
