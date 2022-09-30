@@ -2,13 +2,14 @@ const fs = require('fs');
 const { version } = require('../package.json');
 
 const manifest = {
-    short_name: "Kartografski klijent",
-    name: `Kartografski klijent ${version}`,
+    short_name: "Seizmološka karta",
+    name: `Seizmološka karta ${version}`,
     icons: [
         {
             src: "favicon.ico",
-            sizes: "64x64 32x32 24x24 16x16",
-            type: "image/x-icon"
+            sizes: "64x64",
+            type: "image/x-icon",
+            purpose: "maskable"
         },
         {
             src: "logo192.png",
