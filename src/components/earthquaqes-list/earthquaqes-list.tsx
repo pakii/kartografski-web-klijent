@@ -26,7 +26,7 @@ interface GlobalEarthquaqesDataProps {
 
 class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, GlobalEarthquaqesDataState> {
     listRef = React.createRef<any>();
-    private readonly selectMinWidth = 190;
+    private readonly selectMinWidth = 200;
     constructor(props: GlobalEarthquaqesDataProps) {
         super(props);
         this.state = {
@@ -144,10 +144,10 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
                                 value={this.state.sort}
                                 label="poredjaj-po"
                                 onChange={(e) => this.changeSort(e.target.value as Sort)}>
-                                <MenuItem aria-label='time' value='time'>novi ka starim</MenuItem>
-                                <MenuItem aria-label='time-asc' value='time-asc'>stari ka novim</MenuItem>
-                                <MenuItem aria-label='magnitude' value='magnitude'>jači ka slabijim</MenuItem>
-                                <MenuItem aria-label='magnitude-asc' value='magnitude-asc'>slabiji ka jačim</MenuItem>
+                                <MenuItem aria-label='time' value='time'>Vremenu (novi prvo)</MenuItem>
+                                <MenuItem aria-label='time-asc' value='time-asc'>Vremenu (stari prvo)</MenuItem>
+                                <MenuItem aria-label='magnitude-asc' value='magnitude-asc'>Magnitudi rastuće</MenuItem>
+                                <MenuItem aria-label='magnitude' value='magnitude'>Magnitudi opadajuće</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>

@@ -84,11 +84,6 @@ registerRoute(
     new StaleWhileRevalidate({ cacheName: "osglWMS" })
 );
 
-registerRoute(
-    ({ url }) =>
-        url.href.startsWith('https://earthquake.usgs.gov/arcgis/rest/services/eq/pager_landscan2018bin/MapServer/tile'),
-    new StaleWhileRevalidate({ cacheName: "popDensity" })
-);
 
 registerRoute(
     ({ url }) =>

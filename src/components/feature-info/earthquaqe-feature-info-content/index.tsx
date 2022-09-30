@@ -19,6 +19,9 @@ export const EarthquaqeFeatureInfo = ({ data }: { data: EarthquaqeProperties }) 
             <Typography component='div' variant='body2'>
                 Lokacija: <b>{data.lon}, {data.lat}</b>
             </Typography>
+            <Typography component='div' variant='body2'>
+                Dubina hipocentra: <b>{data.hypocenterDepthKm} km</b>
+            </Typography>
         </Box>
     )
 }

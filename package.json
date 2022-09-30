@@ -1,6 +1,6 @@
 {
     "name": "kartografski-web-klijent",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "private": true,
     "homepage": "https://pakii.github.io/kartografski-web-klijent",
     "dependencies": {
@@ -8,10 +8,7 @@
         "@emotion/styled": "^11.9.3",
         "@mui/icons-material": "^5.8.4",
         "@mui/material": "^5.9.0",
-        "@mui/x-date-pickers": "^5.0.0-beta.3",
         "@types/react-router-dom": "^5.3.3",
-        "date-fns": "^2.29.1",
-        "moment": "^2.29.4",
         "ol": "^6.14.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
@@ -20,9 +17,6 @@
         "react-scripts": "5.0.1",
         "react-share": "^4.4.0",
         "react-toastify": "^9.0.5",
-        "react-virtualized": "^9.22.3",
-        "react-virtualized-auto-sizer": "^1.0.6",
-        "react-window": "^1.8.7",
         "web-vitals": "^2.1.4",
         "workbox-background-sync": "^6.5.3",
         "workbox-broadcast-update": "^6.5.3",

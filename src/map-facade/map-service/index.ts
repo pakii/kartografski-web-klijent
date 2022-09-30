@@ -70,9 +70,6 @@ class MapService {
                 (this.map.getTarget() as HTMLElement).style.cursor = hit ? 'pointer' : '';
             }
         });
-        this.map.getLayers().on('change:length', () => {
-            Object.values(this.layerChangeSubscriptions).forEach((sub) => sub());
-        });
         this.selectInteraction.addEventListener('select', (evt) => {
             console.log('select event: ', evt as SelectEvent);
             Object.values(this.vectorFeatureClickSubscriptions).forEach((sub) => sub(evt));

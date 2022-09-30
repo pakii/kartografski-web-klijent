@@ -31,13 +31,9 @@ export const App = () => {
         makeMapViewChangeSub();
         makeMapClickSub();
         makeVectorFeatureInfoSub();
-    },[]);
+    });
 
     React.useEffect(() => {
-        const centerParam = searchParams.get(MapSettingKeys.CENTER);
-        const zoomParam = searchParams.get(MapSettingKeys.ZOOM);
-        const center = centerParam ? JSON.parse(decodeURIComponent(centerParam)) as [number, number] : undefined;
-        mapService.setCurrentView({ center, zoom: zoomParam || undefined });
     })
 
     const earthquaqesListContainerOpen = !searchParams.get(MapSettingKeys.SIDE_BAR);
@@ -50,6 +46,10 @@ export const App = () => {
         const map = mapService.getMap();
         map.setTarget(wrapperRef.current as unknown as HTMLDivElement);
 
+        const centerParam = searchParams.get(MapSettingKeys.CENTER);
+        const zoomParam = searchParams.get(MapSettingKeys.ZOOM);
+        const center = centerParam ? JSON.parse(decodeURIComponent(centerParam)) as [number, number] : undefined;
+        mapService.setCurrentView({ center, zoom: zoomParam || undefined });
         handleLayersInitialVisibility();
     }
 
