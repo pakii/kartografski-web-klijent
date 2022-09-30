@@ -58,7 +58,7 @@ registerRoute(
 registerRoute(
     // Add in any other file extensions or routing criteria as needed.
     ({ url }) =>
-        url.origin === self.location.origin && url.pathname.endsWith(".png"),
+        url.origin === self.location.origin && (url.pathname.endsWith(".png") || url.pathname.endsWith(".ico")),
     // Customize this strategy as needed, e.g., by changing to CacheFirst.
     new StaleWhileRevalidate({
         cacheName: "images",
@@ -79,19 +79,21 @@ self.addEventListener("message", (event) => {
 });
 
 registerRoute(
-    ({ url }) =>
-    url.origin === self.location.origin && url.pathname.endsWith("month.json"),
+    ({ url }) => url.origin === self.location.origin && url.pathname.endsWith("month.json"),
     new NetworkFirst({ cacheName: "earthquaqes" })
 );
 
 registerRoute(
-    ({ url }) =>
-    url.pathname.startsWith("https://www.seismo.gov.rs/seismograms"),
-    new NetworkFirst({ cacheName: "seismograms" })
+    ({ url }) => url.pathname.startsWith("https://www.seismo.gov.rs"),
+    new NetworkFirst({ cacheName: "seismo.gov.rs" })
 );
 
 registerRoute(
-    ({ url }) =>
-    url.origin === self.location.origin && url.pathname.endsWith("seis.json"),
+    ({ url }) => url.origin === self.location.origin && url.pathname.endsWith("seis.json"),
     new CacheFirst({ cacheName: "seis" })
+);
+
+registerRoute(
+    ({ url }) => url.pathname.startsWith("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile"),
+    new StaleWhileRevalidate({ cacheName: "World_Street_Map" })
 );
