@@ -85,7 +85,12 @@ registerRoute(
 
 registerRoute(
     ({ url }) => url.pathname.startsWith("https://www.seismo.gov.rs"),
-    new NetworkFirst({ cacheName: "seismo.gov.rs" })
+    new NetworkFirst({
+        cacheName: "seismo.gov.rs",
+        fetchOptions: {
+            mode: 'no-cors'
+        }
+    }),
 );
 
 registerRoute(
@@ -95,5 +100,10 @@ registerRoute(
 
 registerRoute(
     ({ url }) => url.pathname.startsWith("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile"),
-    new StaleWhileRevalidate({ cacheName: "World_Street_Map" })
+    new StaleWhileRevalidate({
+        cacheName: "World_Street_Map",
+        fetchOptions: {
+            mode: 'no-cors'
+        }
+    })
 );
