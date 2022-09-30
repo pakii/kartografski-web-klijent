@@ -95,9 +95,3 @@ registerRoute(
     url.origin === self.location.origin && url.pathname.endsWith("seis.json"),
     new CacheFirst({ cacheName: "seis" })
 );
-
-registerRoute(
-    ({ url }) =>
-        url.href.startsWith('http://osgl.grf.bg.ac.rs/geoserver/osgl_3/wms'),
-    new CacheFirst({ cacheName: "osglWMS" })
-);
