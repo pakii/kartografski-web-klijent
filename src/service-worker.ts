@@ -12,7 +12,7 @@ import { clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import { NetworkFirst, StaleWhileRevalidate, } from "workbox-strategies";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate, } from "workbox-strategies";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -80,13 +80,24 @@ self.addEventListener("message", (event) => {
 
 registerRoute(
     ({ url }) =>
-        url.href.startsWith('http://osgl.grf.bg.ac.rs/geoserver/osgl_3/wms'),
-    new StaleWhileRevalidate({ cacheName: "osglWMS" })
+    url.origin === self.location.origin && url.pathname.endsWith("month.json"),
+    new NetworkFirst({ cacheName: "earthquaqes" })
 );
-
 
 registerRoute(
     ({ url }) =>
-    url.origin === self.location.origin && url.pathname.endsWith("month.json"),
-    new NetworkFirst({ cacheName: "earthquaqes" })
+    url.pathname.startsWith("https://www.seismo.gov.rs/seismograms"),
+    new NetworkFirst({ cacheName: "seismograms" })
+);
+
+registerRoute(
+    ({ url }) =>
+    url.origin === self.location.origin && url.pathname.endsWith("seis.json"),
+    new CacheFirst({ cacheName: "seis" })
+);
+
+registerRoute(
+    ({ url }) =>
+        url.href.startsWith('http://osgl.grf.bg.ac.rs/geoserver/osgl_3/wms'),
+    new CacheFirst({ cacheName: "osglWMS" })
 );

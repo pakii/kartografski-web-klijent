@@ -1,40 +1,41 @@
 import React from "react";
-import { mapService } from './map-facade/map-service';
+import { mapService } from './openlayers/map-service/map-service';
 
 import { ControlsMenu } from "./components/controls/controls";
 import { ToastContainer } from "react-toastify";
 import { BaseSwitcher } from "./components/base-map-switcher/base-map-switcher";
-import { SideBar, TopBar } from "./components/layout";
+import { SideBar, TopBar } from "./layout";
 import { ThemeProvider, useMediaQuery } from "@mui/material";
 import { theme } from "./styles/theme";
-import { SeismographProperties } from "./map-facade/layer-definitions/seismographs";
-import { SeismogramFeatureInfo } from "./components/feature-info/seismogram-feature-info-content";
-import { DraggableModal } from "./widgets/draggable-modal/draggable-modal";
+import { SeismographProperties } from "./openlayers/layer-definitions/seismographs-layer";
+import { SeismogramFeatureInfo } from "./components/info-windows/seismogram-feature-info-content";
+import { InfoWindowContainer } from "./components/info-windows/info-window-container/info-window-container";
 import { EarthquaqesList } from "./components/earthquaqes-list/earthquaqes-list";
-import { EarthquaqeProperties } from "./shared/seismo";
-import { EarthquaqeFeatureInfo } from "./components/feature-info/earthquaqe-feature-info-content";
+import { EarthquaqeProperties } from "./shared/data-service";
+import { EarthquaqeFeatureInfo } from "./components/info-windows/earthquaqe-feature-info-content";
 import { MapSettingKeys } from "./shared/types";
 import { useSearchParams } from "react-router-dom";
-import { edgeHeight, SwipeableEdgeDrawer } from "./widgets/swipeble-edge/swipeble-edge";
+import { edgeHeight, BottomBar } from "./layout/bottom-bar/swipeble-edge";
+import BaseEvent from "ol/events/Event";
+import { View } from "ol";
+import { SelectEvent } from "ol/interaction/Select";
 
 
 export const App = () => {
     const wrapperRef = React.useRef(null);
-    const [featureInfo, setFeatureInfo] = React.useState<{ title: string; body: any; } | null>(null);
-    const [WMSfeatureInfo, setWMSFeatureInfo] = React.useState<{ title: string; body: any; } | null>(null);
+    const [featureInfo, showFeatureInfo] = React.useState<{ title: string; body: any; } | null>(null);
+    const [WMSfeatureInfo, showWMSFeatureInfo] = React.useState<{ title: string; body: any; } | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
 
     const isBigScreen = useMediaQuery(theme.breakpoints.up('sm'));
 
     React.useEffect(() => {
-        initMap();
-        makeMapViewChangeSub();
         makeMapClickSub();
         makeVectorFeatureInfoSub();
-    });
+        initMap();
+        makeMapViewChangeSub();
+    }, []);
 
-    React.useEffect(() => {
-    })
 
     const earthquaqesListContainerOpen = !searchParams.get(MapSettingKeys.SIDE_BAR);
     React.useEffect(() => {
@@ -47,22 +48,22 @@ export const App = () => {
         map.setTarget(wrapperRef.current as unknown as HTMLDivElement);
 
         const centerParam = searchParams.get(MapSettingKeys.CENTER);
-        const zoomParam = searchParams.get(MapSettingKeys.ZOOM);
+        const zoomParam = searchParams.get(MapSettingKeys.RESOLUTION);
         const center = centerParam ? JSON.parse(decodeURIComponent(centerParam)) as [number, number] : undefined;
         mapService.setCurrentView({ center, zoom: zoomParam || undefined });
         handleLayersInitialVisibility();
     }
 
     const makeMapViewChangeSub = () => {
-        mapService.subscribeToViewChange('AppCmp', (evt) => {
+        mapService.subscribeToViewChange('AppCmp', (evt: BaseEvent & {target: View}) => {
             searchParams.set(MapSettingKeys.CENTER, JSON.stringify(evt.target.getCenter()));
-            searchParams.set(MapSettingKeys.ZOOM, evt.target.getResolution().toString());
+            searchParams.set(MapSettingKeys.RESOLUTION, evt.target.getResolution().toString());
             setSearchParams(searchParams);
         })
     }
 
     const makeMapClickSub = () => {
-        mapService.subscribeToMapClick('AppCmp', (event) => {
+        mapService.getMap().on('singleclick', (event) => {
             if (!isBigScreen) {
                 searchParams.set(MapSettingKeys.SIDE_BAR, '0');
                 setSearchParams(searchParams);
@@ -72,12 +73,12 @@ export const App = () => {
                     return;
                 }
                 if (res.content.indexOf('<table') === -1) {
-                    setWMSFeatureInfo(null);
+                    showWMSFeatureInfo(null);
                     return;
                 };
 
                 const { content, Title } = res;
-                setWMSFeatureInfo({
+                showWMSFeatureInfo({
                     title: Title,
                     body: <div dangerouslySetInnerHTML={{ __html: content }}></div>
                 })
@@ -86,32 +87,39 @@ export const App = () => {
     }
 
     const makeVectorFeatureInfoSub = () => {
-        mapService.subscribeToVectorFeatureClick('AppCmp', (evt) => {
-            const [selected] = evt?.selected || [];
+
+        mapService.selectInteraction.addEventListener('select', (evt) => {
+            const [selected] = (evt as SelectEvent).selected;
             if (selected) {
                 if (selected.get('type') === 'seismograph') {
                     const data: SeismographProperties = selected.getProperties() as SeismographProperties;
-                    setFeatureInfo({
+                    showFeatureInfo({
                         title: `Ime stanice: ${selected.get('name')}`,
                         body: < SeismogramFeatureInfo data={data} />
                     })
                 }
                 else if (selected.get('type') === 'earthquake') {
+
+                    searchParams.set(MapSettingKeys.EARTHQUAQES_SELECTED_ID, (selected.getId() as string).toString());
+                    setSearchParams(searchParams);
                     const data: EarthquaqeProperties = selected.getProperties() as EarthquaqeProperties;
-                    setFeatureInfo({
+                    showFeatureInfo({
                         title: selected.get('regionName'),
-                        body: < EarthquaqeFeatureInfo data={data} />
+                        body: <EarthquaqeFeatureInfo data={data} />
                     })
                 }
             }
             else {
-                setFeatureInfo(null);
+                showFeatureInfo(null);
+                searchParams.delete(MapSettingKeys.EARTHQUAQES_SELECTED_ID);
+                setSearchParams(searchParams);
             }
         });
+
     }
 
     const hideFeatureInfo = () => {
-        setFeatureInfo(null);
+        showFeatureInfo(null);
         mapService.select.getFeatures().clear();
         searchParams.delete(MapSettingKeys.EARTHQUAQES_SELECTED_ID);
         setSearchParams(searchParams);
@@ -130,15 +138,12 @@ export const App = () => {
         if (searchParams.get(MapSettingKeys.I_HAZARDS_975)) {
             mapService.setHazard975Visible(Boolean(searchParams.get(MapSettingKeys.I_HAZARDS_975)))
         }
-        if (searchParams.get(MapSettingKeys.POP_DENSITY)) {
-            mapService.setPopDensityVisible(Boolean(searchParams.get(MapSettingKeys.POP_DENSITY)))
-        }
         if (searchParams.get(MapSettingKeys.SEISMOGRAMS)) {
             mapService.setSeismographsVisible(Boolean(searchParams.get(MapSettingKeys.SEISMOGRAMS)))
         }
     }
 
-    const EarthquaqesListContainer = isBigScreen ? SideBar : SwipeableEdgeDrawer;
+    const EarthquaqesListContainer = isBigScreen ? SideBar : BottomBar;
     let mapHeight = `calc(100vh - ${isBigScreen ? theme.mixins.toolbar.height : edgeHeight}px)`;
     if (!isBigScreen && earthquaqesListContainerOpen) {
         mapHeight = '50vh';
@@ -160,16 +165,16 @@ export const App = () => {
                     }}>
                     <ControlsMenu />
                 </div>
-                <DraggableModal
+                <InfoWindowContainer
                     open={!!featureInfo}
                     content={featureInfo}
                     hide={hideFeatureInfo} />
-                <DraggableModal
+                <InfoWindowContainer
                     bottom={10}
                     right={10}
                     open={!!WMSfeatureInfo}
                     content={WMSfeatureInfo}
-                    hide={() => setWMSFeatureInfo(null)} />
+                    hide={() => showWMSFeatureInfo(null)} />
                 <BaseSwitcher />
             </ThemeProvider>
             <ToastContainer />

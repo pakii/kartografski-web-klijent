@@ -5,7 +5,7 @@ import KeyIcon from '@mui/icons-material/Key';
 import Fab from '@mui/material/Fab';
 import Popper from '@mui/material/Popper/Popper';
 import Paper from '@mui/material/Paper/Paper';
-import { Legend } from '../../legend/legend';
+import { Legend } from './legend/legend';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { useMediaQuery } from '@mui/material';
 import { theme } from '../../../styles/theme';

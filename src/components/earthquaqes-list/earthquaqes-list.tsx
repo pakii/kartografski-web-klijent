@@ -9,9 +9,9 @@ import Select from '@mui/material/Select/Select';
 import MenuItem from '@mui/material/MenuItem/MenuItem';
 import InputLabel from '@mui/material/InputLabel/InputLabel'
 
-import { withRouter, WithRouterProps } from '../../shared/router';
-import { EarthquaqeProperties, GetEarthquaqesResponse, globalEarthquaqesService, Sort } from '../../shared/seismo';
-import { mapService } from '../../map-facade';
+import { withRouter, WithRouterProps } from '../../shared/hoc/with-router';
+import { EarthquaqeProperties, GetEarthquaqesResponse, globalEarthquaqesService, Sort } from '../../shared/data-service';
+import { mapService } from '../../openlayers';
 import { GeoJSONFeature, GeoJSONPoint, MapSettingKeys } from '../../shared/types';
 import { InfoLink } from '../../widgets/info-link/info-link';
 
@@ -34,26 +34,6 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
             data: null,
             sort: 'time'
         }
-
-        mapService.subscribeToVectorFeatureClick('GlobalEarthquaqesCmp', (e) => {
-            if (e.selected.length) {
-                const id = e.selected[0].getId();
-                if (id) {
-                    const { searchParams, setSearchParams } = this.props.router;
-                    searchParams.set(MapSettingKeys.EARTHQUAQES_SELECTED_ID, id.toString());
-                    setSearchParams(searchParams);
-                    const index = this.state.data?.features.findIndex((f) => f.id === id);
-                    if (index && index > -1) {
-                        this.listRef.current.scrollTo(0, index * 60);
-                    }
-                }
-            }
-            else {
-                const { searchParams, setSearchParams } = this.props.router;
-                searchParams.delete(MapSettingKeys.EARTHQUAQES_SELECTED_ID);
-                setSearchParams(searchParams);
-            }
-        });
     }
 
     fetchEarthquaqes() {
@@ -115,6 +95,11 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
 
     render() {
         const selectedId = this.props.router.searchParams.get(MapSettingKeys.EARTHQUAQES_SELECTED_ID);
+
+        const index = this.state.data?.features.findIndex((f) => f.id === selectedId);
+        if (index && index > -1) {
+            this.listRef?.current?.scrollTo(0, index * 60);
+        }
         return (
             <>
                 <Box p={1} color="secondary">

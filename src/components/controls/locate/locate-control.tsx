@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import Fab from '@mui/material/Fab';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 
-import { mapService } from '../../../map-facade/map-service';
+import { mapService } from '../../../openlayers/map-service/map-service';
 
 import './locate-control.scss';
 

@@ -5,7 +5,7 @@ import Popper from '@mui/material/Popper/Popper';
 import Paper from '@mui/material/Paper/Paper';
 import LayersIcon from '@mui/icons-material/Layers';
 
-import { LayersList } from '../../layers-list/layers-list';
+import { LayerManager } from './layer-manager/layer-manager';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { useMediaQuery } from '@mui/material';
 import { theme } from '../../../styles/theme';
@@ -48,7 +48,7 @@ export const LayersControl = (props: {
             maxWidth: 'calc(100vw - 48px)'
           }}>
           <Paper>
-            <LayersList />
+            <LayerManager />
           </Paper>
         </Popper>
         <Fab

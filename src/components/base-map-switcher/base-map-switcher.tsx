@@ -3,13 +3,13 @@ import React, { useEffect } from 'react'
 import { Box, ClickAwayListener, Slide, useMediaQuery } from '@mui/material';
 
 import { BaseMapOption } from './base-map-option/base-map-option';
-import { mapService } from '../../map-facade/map-service';
+import { mapService } from '../../openlayers/map-service/map-service';
 import { baseLayersHash, BaseMapId, BaseMapSpec } from '../../shared/constants';
 import { MapSettingKeys } from '../../shared/types';
-import { sideBarWidth } from '../layout';
+import { sideBarWidth } from '../../layout';
 import { useSearchParams } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
-import { edgeHeight } from '../../widgets/swipeble-edge/swipeble-edge';
+import { edgeHeight } from '../../layout/bottom-bar/swipeble-edge';
 
 
 export const BaseSwitcher = () => {
