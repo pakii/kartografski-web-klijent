@@ -12,7 +12,7 @@ import { clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate, } from "workbox-strategies";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -58,7 +58,7 @@ registerRoute(
 registerRoute(
     // Add in any other file extensions or routing criteria as needed.
     ({ url }) =>
-        url.origin === self.location.origin && url.pathname.endsWith(".png"),
+        url.origin === self.location.origin && (url.pathname.endsWith(".png") || url.pathname.endsWith(".ico")),
     // Customize this strategy as needed, e.g., by changing to CacheFirst.
     new StaleWhileRevalidate({
         cacheName: "images",
@@ -78,4 +78,26 @@ self.addEventListener("message", (event) => {
     }
 });
 
-// Any other custom service worker logic can go here.
+registerRoute(
+    ({ url }) => url.origin === self.location.origin && url.pathname.endsWith("current-month-earthquaqes.json"),
+    new NetworkFirst({ cacheName: "current_month_earthquaqes" })
+);
+
+registerRoute(
+    ({ url }) => url.origin === self.location.origin && url.pathname.endsWith("seismo-stations.json"),
+    new StaleWhileRevalidate({ cacheName: "seismo_stations" })
+);
+
+registerRoute(
+    /^https:\/\/server.arcgisonline.com\/ArcGIS\/rest\/services\/World_Street_Map\/MapServer\/tile*/,
+    new StaleWhileRevalidate({
+        cacheName: "World_Street_Map_Tiles"
+    })
+);
+
+registerRoute(
+    /^http:\/\/osgl.grf.bg.ac.rs\/geoserver\/osgl_3\/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap*/,
+    new StaleWhileRevalidate({
+        cacheName: "osgl_3_WMS_Tiles",
+    }),
+);

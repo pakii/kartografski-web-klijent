@@ -1,0 +1,45 @@
+$sizes: 0, 0.5em, 1em, 2em, 3em, 4em !default;
+@function size($i) {
+    @return nth($sizes, $i);
+}
+
+@mixin spaces {
+    // Generate the classes by iterating through the array
+    //  $i becomes the index, which we will interpolate for
+    //  the class name and the index for each function call
+    @for $i from 1 through length($sizes) {
+        .p-#{$i - 1} {
+            padding: size($i);
+        }
+        .pt-#{$i - 1} {
+            padding-top: size($i);
+        }
+        .pr-#{$i - 1} {
+            padding-right: size($i);
+        }
+        .pb-#{$i - 1} {
+            padding-bottom: size($i);
+        }
+        .pl-#{$i - 1} {
+            padding-left: size($i);
+        }
+        .m-#{$i - 1} {
+            margin: size($i);
+        }
+        .mt-#{$i - 1} {
+            margin-top: size($i);
+        }
+        .mr-#{$i - 1} {
+            margin-right: size($i);
+        }
+        .mb-#{$i - 1} {
+            margin-bottom: size($i);
+        }
+        .ml-#{$i - 1} {
+            margin-left: size($i);
+        }
+    }
+}
+
+// Output the mixin's classes
+@include spaces;

@@ -1,0 +1,318 @@
+{
+    "type": "FeatureCollection",
+    "name": "Regional earthquakes - current month",
+    "features": [
+        {
+            "type": "Feature",
+            "id": "55d34f04-069b-47b9-836f-9c3fdea2b95f",
+            "properties": {
+                "date": "2022-10-13T01:03:51.700Z",
+                "tErrorS": 0.4,
+                "lat": "42.977",
+                "latErrorKm": "+/-1.535",
+                "lon": "22.062",
+                "lonErrorKm": "+/-1.512",
+                "hypocenterDepthKm": 10,
+                "richterMagnitude": 2,
+                "mercalliIntensity": "III",
+                "regionName": "Leskovac",
+                "type": "earthquake"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.062,
+                    42.977
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cfdf2ec9-06bf-4f45-bb35-84a95259c4c2",
+            "properties": {
+                "date": "2022-10-11T20:26:28.200Z",
+                "tErrorS": 0.2,
+                "lat": "43.737",
+                "latErrorKm": "+/-1.169",
+                "lon": "20.673",
+                "lonErrorKm": "+/-1.093",
+                "hypocenterDepthKm": 3,
+                "richterMagnitude": 1.5,
+                "mercalliIntensity": "",
+                "regionName": "Kraljevo",
+                "type": "earthquake"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.673,
+                    43.737
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "0de2fcf4-2505-4ed1-938e-4815bfd0c63b",
+            "properties": {
+                "date": "2022-10-11T10:35:05.100Z",
+                "tErrorS": 0.4,
+                "lat": "44.475",
+                "latErrorKm": "+/-1.098",
+                "lon": "22.228",
+                "lonErrorKm": "+/-1.773",
+                "hypocenterDepthKm": 4,
+                "richterMagnitude": 1.5,
+                "mercalliIntensity": "",
+                "regionName": "Donji Milanovac",
+                "type": "earthquake"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.228,
+                    44.475
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "80d22337-0cd3-40c3-b505-4d3b48e537c3",
+            "properties": {
+                "date": "2022-10-10T01:56:23.900Z",
+                "tErrorS": 0.4,
+                "lat": "44.187",
+                "latErrorKm": "+/-1.740",
+                "lon": "17.901",
+                "lonErrorKm": "+/-1.731",
+                "hypocenterDepthKm": 2,
+                "richterMagnitude": 1.7,
+                "mercalliIntensity": "",
+                "regionName": "Bosna i Herzegovina",
+                "type": "earthquake"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    17.901,
+                    44.187
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "649ea004-8302-4255-a281-2bc6f0c8cfc7",
+            "properties": {
+                "date": "2022-10-09T12:54:34.100Z",
+                "tErrorS": 0.3,
+                "lat": "41.170",
+                "latErrorKm": "+/-1.154",
+                "lon": "20.046",
+                "lonErrorKm": "+/-1.838",
+                "hypocenterDepthKm": 10,
+                "richterMagnitude": 3.3,
+                "mercalliIntensity": "V",
+                "regionName": "Albanija",
+                "type": "earthquake"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.046,
+                    41.17
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "55b8445d-b131-4c54-8f8e-94aec00393b0",
+            "properties": {
+                "date": "2022-10-09T00:50:27.200Z",
+                "tErrorS": 0.3,
+                "lat": "44.680",
+                "latErrorKm": "+/-1.837",
+                "lon": "17.863",
+                "lonErrorKm": "+/-1.558",
+                "hypocenterDepthKm": 1,
+                "richterMagnitude": 1.5,
+                "mercalliIntensity": "",
+                "regionName": "Bosna i Herzegovina",
+                "type": "earthquake"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    17.863,
+                    44.68
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "c443108d-276d-46ca-b358-b9dac7834cb7",
+            "properties": {
+                "date": "2022-10-06T10:32:31.900Z",
+                "tErrorS": 0.4,
+                "lat": "44.229",
+                "latErrorKm": "+/-1.125",
+                "lon": "19.659",
+                "lonErrorKm": "+/-1.463",
+                "hypocenterDepthKm": 9,
+                "richterMagnitude": 2.7,
+                "mercalliIntensity": "III-IV",
+                "regionName": "Ljubovija, 18km JZ od Valjeva",
+                "type": "earthquake"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.659,
+                    44.229
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "5bbd0440-7f4c-470a-936d-528bf2972805",
+            "properties": {
+                "date": "2022-10-05T09:47:11.100Z",
+                "tErrorS": 0.3,
+                "lat": "41.408",
+                "latErrorKm": "+/-1.124",
+                "lon": "19.949",
+                "lonErrorKm": "+/-1.820",
+                "hypocenterDepthKm": 19,
+                "richterMagnitude": 3.2,
+                "mercalliIntensity": "IV-V",
+                "regionName": "Albanija",
+                "type": "earthquake"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.949,
+                    41.408
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ab6ccb39-c789-4098-9691-4ec8c5e30a5a",
+            "properties": {
+                "date": "2022-10-04T12:36:21.700Z",
+                "tErrorS": 0.4,
+                "lat": "45.234",
+                "latErrorKm": "+/-1.879",
+                "lon": "23.309",
+                "lonErrorKm": "+/-1.719",
+                "hypocenterDepthKm": 4,
+                "richterMagnitude": 1.9,
+                "mercalliIntensity": "",
+                "regionName": "Rumunija",
+                "type": "earthquake"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.309,
+                    45.234
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "259b4773-55f3-4df2-b961-02808b753832",
+            "properties": {
+                "date": "2022-10-04T00:04:28.500Z",
+                "tErrorS": 0.2,
+                "lat": "43.331",
+                "latErrorKm": "+/-1.017",
+                "lon": "20.639",
+                "lonErrorKm": "+/-0.857",
+                "hypocenterDepthKm": 1,
+                "richterMagnitude": 2,
+                "mercalliIntensity": "III",
+                "regionName": "Raška",
+                "type": "earthquake"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.639,
+                    43.331
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "d02026ed-26cf-4e24-ad51-b96cb67728e5",
+            "properties": {
+                "date": "2022-10-03T18:28:12.000Z",
+                "tErrorS": 0.2,
+                "lat": "42.847",
+                "latErrorKm": "+/-1.192",
+                "lon": "22.812",
+                "lonErrorKm": "+/-1.326",
+                "hypocenterDepthKm": 10,
+                "richterMagnitude": 2.1,
+                "mercalliIntensity": "III",
+                "regionName": "Bugarska",
+                "type": "earthquake"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.812,
+                    42.847
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "96bb6638-4247-4a5d-8a57-9742dd5fb335",
+            "properties": {
+                "date": "2022-10-03T15:44:07.300Z",
+                "tErrorS": 0.7,
+                "lat": "45.894",
+                "latErrorKm": "+/-4.444",
+                "lon": "27.049",
+                "lonErrorKm": "+/-4.765",
+                "hypocenterDepthKm": 140,
+                "richterMagnitude": 3.5,
+                "mercalliIntensity": "V",
+                "regionName": "Rumunija",
+                "type": "earthquake"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.049,
+                    45.894
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "a34a3754-1145-4f36-a739-4a3277692200",
+            "properties": {
+                "date": "2022-10-03T05:26:18.700Z",
+                "tErrorS": 0.8,
+                "lat": "42.857",
+                "latErrorKm": "+/-2.575",
+                "lon": "21.053",
+                "lonErrorKm": "+/-2.114",
+                "hypocenterDepthKm": 4,
+                "richterMagnitude": 1.5,
+                "mercalliIntensity": "",
+                "regionName": "Kosovska Mitrovica",
+                "type": "earthquake"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.053,
+                    42.857
+                ]
+            }
+        }
+    ]
+}
