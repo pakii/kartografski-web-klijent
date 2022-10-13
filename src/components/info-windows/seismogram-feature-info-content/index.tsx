@@ -9,11 +9,24 @@ import InputLabel from '@mui/material/InputLabel/InputLabel'
 import Skeleton from '@mui/material/Skeleton/Skeleton'
 
 export const SeismogramFeatureInfo = ({ data }: { data: SeismographProperties }) => {
+    const [isOffline, setIsOffline] = React.useState<boolean | null>(!window.navigator.onLine || null);
+
+
+    React.useEffect(() => {
+        window.addEventListener('online', () => setIsOffline(false));
+        window.addEventListener('offline', () => setIsOffline(true));
+
+        return () => {
+            window.removeEventListener('online', () => { });
+            window.removeEventListener('offline', () => { });
+        }
+    }, []);
+
     const [daysAgo, setSeismogramDaysAgo] = useState('active');
     const [loading, setLoading] = useState(true);
     return (
         <Box component='div'>
-            <FormControl sx={{ m: 1, minWidth: 120, display: 'block' }} size="small">
+            <FormControl sx={{ m: 1, display: 'block' }} size="small">
                 <InputLabel>Seizmogram za</InputLabel>
                 <Select
                     value={daysAgo}
@@ -33,12 +46,30 @@ export const SeismogramFeatureInfo = ({ data }: { data: SeismographProperties })
                     <MenuItem aria-label='9 dana ranije' value={'9'}>9 dana ranije</MenuItem>
                 </Select>
             </FormControl>
-            <Box sx={{ maxWidth: '25em' }}>
+            <Box sx={{
+                width: {
+                    xs: '16em',
+                    sm: '20em'
+                },
+                height: {
+                    xs: '12em',
+                    sm: '15em'
+                }
+            }}>
                 <img src={`https://www.seismo.gov.rs/seismograms${!!(+daysAgo) ? '1' : ''}/${data.code}.${daysAgo}.gif`}
                     onLoad={() => { setLoading(false) }}
                     style={{ display: loading ? 'none' : 'block' }}
                     alt={`Seizmogram ${data.name}`} />
-                <Skeleton variant="rectangular" width={'25em'} height={305} sx={{ display: loading ? 'block' : 'none' }} />
+                <Skeleton variant="rectangular" sx={{
+                    display: loading ? 'block' : 'none',
+                    width: '100%',
+                    height: '100%',
+                }}>
+                    {isOffline &&
+                        <Typography component='div' variant='body2' visibility='visible' p={1} color='red'>
+                            Povežite se na internet da biste videli seizmogram.
+                        </Typography>}
+                </Skeleton>
             </Box>
 
             <Typography component='div' variant='body2'>

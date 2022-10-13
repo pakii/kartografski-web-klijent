@@ -23,7 +23,11 @@ export default function Opacity(props: { layer: IBaseLayer, setOpacity: Function
 
     const handleClose = () => {
         setAnchorEl(null);
-        props.setOpacity(opacity);
+    };
+
+    const handleChange = (e: any, val: any): any => {
+        setLocalOpacity(val);
+        props.setOpacity(val);
     };
 
     const open = Boolean(anchorEl);
@@ -31,7 +35,7 @@ export default function Opacity(props: { layer: IBaseLayer, setOpacity: Function
 
     return (
         <div>
-            <OpacityIcon ref={ref} className='u-pointer' onClick={() => setAnchorEl(ref.current)} />
+            <OpacityIcon ref={ref} className='u-pointer' onMouseEnter={() => setAnchorEl(ref.current)} />
 
             <Popover
                 id={id}
@@ -39,16 +43,17 @@ export default function Opacity(props: { layer: IBaseLayer, setOpacity: Function
                 anchorEl={anchorEl}
                 onClose={handleClose}
                 anchorOrigin={{
-                    vertical: 'bottom',
+                    vertical: 'top',
                     horizontal: 'left',
                 }}
             >
-                <Box sx={{ width: 150, py: 1, px: 2 }}>
+                <Box sx={{ width: 150, py: 1, px: 2 }} onMouseLeave={handleClose}>
                     <Slider
                         aria-label="layer opacity"
                         value={opacity}
                         step={0.1}
-                        onChange={(e, val) => setLocalOpacity(val as number)}
+                        onChangeCommitted={handleChange}
+                        onChange={handleChange}
                         min={0}
                         max={1}
                         marks
@@ -70,7 +75,8 @@ export const LayerManager = () => {
     }, []);
 
     const updateLayersState = () => {
-        setLayers(mapService.getExternalLayers().sort((p, n) => n.getZIndex() - p.getZIndex()));
+        setLayers(mapService.getManageableLayers()
+            .sort((p, n) => n.getZIndex() - p.getZIndex()));
     }
 
     const updateHazardsLayersState = () => {
@@ -113,19 +119,12 @@ export const LayerManager = () => {
                     searchParams.delete(MapSettingKeys.I_HAZARDS_975)
                 }
                 break;
-            case MapSettingKeys.POP_DENSITY:
+            case MapSettingKeys.SEISMOGRAPHS:
                 if (nextValue) {
-                    searchParams.set(MapSettingKeys.POP_DENSITY, '1')
-                } else {
-                    searchParams.delete(MapSettingKeys.POP_DENSITY)
-                }
-                break;
-            case MapSettingKeys.SEISMOGRAMS:
-                if (nextValue) {
-                    searchParams.set(MapSettingKeys.SEISMOGRAMS, '1');
+                    searchParams.set(MapSettingKeys.SEISMOGRAPHS, '1');
                     searchParams.set(MapSettingKeys.CENTER, JSON.stringify([2309877.637116859, 5227657.470871826]));
                 } else {
-                    searchParams.delete(MapSettingKeys.SEISMOGRAMS)
+                    searchParams.delete(MapSettingKeys.SEISMOGRAPHS)
                 }
                 break;
             default:
@@ -164,8 +163,6 @@ export const LayerManager = () => {
                         <ListItem key={`${i}__${layer.get('Title')}`} sx={{ py: 0 }}>
                             <Checkbox
                                 size='small'
-                                disabled={layer.get('IsGroup')}
-                                className={layer.get('IsGroup') ? 'u-invisible' : ''}
                                 checked={layer.getVisible()}
                                 onChange={() => toggleLayer(layer)}
                                 inputProps={{ 'aria-label': layer.get('Title') }}

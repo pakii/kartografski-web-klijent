@@ -79,31 +79,25 @@ self.addEventListener("message", (event) => {
 });
 
 registerRoute(
-    ({ url }) => url.origin === self.location.origin && url.pathname.endsWith("month.json"),
-    new NetworkFirst({ cacheName: "earthquaqes" })
+    ({ url }) => url.origin === self.location.origin && url.pathname.endsWith("current-month-earthquaqes.json"),
+    new NetworkFirst({ cacheName: "current_month_earthquaqes" })
 );
 
 registerRoute(
-    ({ url }) => url.pathname.startsWith("https://www.seismo.gov.rs"),
-    new NetworkFirst({
-        cacheName: "seismo.gov.rs",
-        fetchOptions: {
-            mode: 'no-cors'
-        }
-    }),
+    ({ url }) => url.origin === self.location.origin && url.pathname.endsWith("seismo-stations.json"),
+    new StaleWhileRevalidate({ cacheName: "seismo_stations" })
 );
 
 registerRoute(
-    ({ url }) => url.origin === self.location.origin && url.pathname.endsWith("seis.json"),
-    new CacheFirst({ cacheName: "seis" })
-);
-
-registerRoute(
-    ({ url }) => url.pathname.startsWith("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile"),
+    /^https:\/\/server.arcgisonline.com\/ArcGIS\/rest\/services\/World_Street_Map\/MapServer\/tile*/,
     new StaleWhileRevalidate({
-        cacheName: "World_Street_Map",
-        fetchOptions: {
-            mode: 'no-cors'
-        }
+        cacheName: "World_Street_Map_Tiles"
     })
+);
+
+registerRoute(
+    /^http:\/\/osgl.grf.bg.ac.rs\/geoserver\/osgl_3\/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap*/,
+    new StaleWhileRevalidate({
+        cacheName: "osgl_3_WMS_Tiles",
+    }),
 );

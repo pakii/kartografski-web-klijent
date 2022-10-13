@@ -5,14 +5,10 @@ import Box from '@mui/material/Box/Box';
 import { mapService } from '../../../../openlayers/map-service/map-service';
 
 export const Legend = () => {
-
-    const layers = mapService.getExternalLayers()
-        .filter(l => l.getVisible())
-        .sort((p, n) => n.getZIndex() - p.getZIndex());
-    const hasEarthquaqes = layers.find(l => l.get('Title') === 'Zemljotresi');
-    const hasHazards = layers.find(l => l.get('Title') === 'Seizmički hazardi po parametru inteziteta')?.getLayersArray()
+    const hasEarthquaqes = mapService.earthquaqesLayer.getVisible();
+    const hasHazards = mapService.hazardLayersGroup.getLayersArray()
         .some(l => l.getVisible());
-    const hasSeismographs = layers.find(l => l.get('Title') === 'Seizmološke stanice');
+    const hasSeismographs = mapService.seismographsLayer.getVisible();
     return (
         <Box p={2} sx={{
             display: 'flex',
@@ -34,20 +30,20 @@ export const Legend = () => {
                     <Box></Box>
                     <Box>
                         <svg viewBox="0 0 100 100" width="100%">
-                            <circle cx="50" cy="50" r="10" fill="#ff0000" strokeWidth="0.5" stroke="#ffffff" />
+                            <circle cx="50" cy="50" r="12" fill="#ff0000" strokeWidth="3" stroke="#ffffff" />
                         </svg>
                     </Box>
                     <Box>
                         <svg viewBox="0 0 100 100" width="100%">
-                            <circle cx="50" cy="50" r="20" strokeWidth="5" stroke="#ff0000" fill="#fff" />
-                            <circle cx="50" cy="50" r="10" fill="#ff0000" strokeWidth="0.5" stroke="#ffffff" />
+                            <circle cx="50" cy="50" r="12" fill="#ff0000" strokeWidth="3" stroke="#ffffff" />
+                            <circle cx="50" cy="50" r="20" strokeWidth="5" stroke="#ff0000" fill="#00000000" />
                         </svg>
                     </Box>
                     <Box>
                         <svg viewBox="0 0 100 100" width="100%">
-                            <circle cx="50" cy="50" r="30" strokeWidth="5" stroke="#ff0000" fill="#fff" />
-                            <circle cx="50" cy="50" r="20" strokeWidth="5" stroke="#ff0000" fill="#fff" />
-                            <circle cx="50" cy="50" r="10" fill="#ff0000" strokeWidth="0.5" stroke="#ffffff" />
+                            <circle cx="50" cy="50" r="12" fill="#ff0000" strokeWidth="3" stroke="#ffffff" />
+                            <circle cx="50" cy="50" r="30" strokeWidth="5" stroke="#ff0000" fill="#00000000" />
+                            <circle cx="50" cy="50" r="20" strokeWidth="5" stroke="#ff0000" fill="#00000000" />
                         </svg>
                     </Box>
                     <Box>

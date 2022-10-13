@@ -1,4 +1,6 @@
-import { Feature, Map, MapBrowserEvent, View } from 'ol';
+import { Map, MapBrowserEvent, View } from 'ol';
+import Feature from "ol/Feature";
+import Point from "ol/geom/Point";
 import { fromLonLat } from 'ol/proj';
 import XYZ from 'ol/source/XYZ';
 import {
@@ -17,61 +19,46 @@ import { SelectEvent } from 'ol/interaction/Select';
 import { FeatureLike } from 'ol/Feature';
 import { earthquaqesOlLayer, getEarthquaqesStyleFunction } from '../layer-definitions/earthquaqes-layer';
 import GeoJSON from 'ol/format/GeoJSON';
-import { createPointFeatureFromLonLat } from '../utils/create-point-feature';
 import { hazardLayersGroup, intensityHazard95, intensityHazard475, intensityHazard975 } from '../layer-definitions';
 import LayerGroup from 'ol/layer/Group';
-import BaseEvent from 'ol/events/Event';
 
 class MapService {
     private map: Map | null;
-    private readonly mapClickSubscriptions: { [key: string]: Function } = {};
-    private readonly viewChangeSubscriptions: { [key: string]: Function } = {};
-    private readonly vectorFeatureClickSubscriptions: { [key: string]: Function } = {};
     private readonly baseLayer = baseOlLayer;
     private readonly userLocationLayer = userLocationOlLayer;
-    private readonly earthquaqesLayer = earthquaqesOlLayer;
-    private readonly seismographsLayer = seismographsOlLayer;
-    public readonly selectInteraction =
 
-        new Select({
-            condition: (evt) => evt.type === 'singleclick',
-            layers: [this.seismographsLayer, this.earthquaqesLayer],
-            style: (feature: FeatureLike, resolution: number) => {
-                if (feature.get('type') === 'seismograph') {
-                    return getSeismographsStyleFunction({ highlighted: true })(feature, resolution);
-                }
-                if (feature.get('type') === 'earthquake') {
-                    return getEarthquaqesStyleFunction({ highlighted: true })(feature, resolution);
-                }
-                return undefined
+    public readonly earthquaqesLayer = earthquaqesOlLayer;
+    public readonly seismographsLayer = seismographsOlLayer;
+    public readonly hazardLayersGroup = hazardLayersGroup;
+    public readonly selectInteraction = new Select({
+        condition: (evt) => evt.type === 'singleclick',
+        layers: [this.seismographsLayer, this.earthquaqesLayer],
+        style: (feature: FeatureLike, resolution: number) => {
+            if (feature.get('type') === 'seismograph') {
+                return getSeismographsStyleFunction({ highlighted: true })(feature, resolution);
             }
-        });
-
+            if (feature.get('type') === 'earthquake') {
+                return getEarthquaqesStyleFunction({ highlighted: true })(feature, resolution);
+            }
+            return undefined
+        }
+    });
 
     constructor() {
         this.map = this.getMap();
-
-        this.map.getView().on('change', (e) => {
-            Object.values(this.viewChangeSubscriptions).forEach((sub) => sub(e));
-        })
-        this.map.on('singleclick', (evt) => {
-            Object.values(this.mapClickSubscriptions).forEach((sub) => sub(evt));
-        });
         this.map.on('pointermove', (e) => {
-            if (this.map) {
-                const pixel = this.map.getEventPixel(e.originalEvent);
-                const hit = this.map.hasFeatureAtPixel(pixel, { layerFilter: (l) => !![this.seismographsLayer, this.earthquaqesLayer].find((sl) => l.get('Title') === sl.get('Title')) });
-                (this.map.getTarget() as HTMLElement).style.cursor = hit ? 'pointer' : '';
+            if (e.dragging) {
+                return;
             }
-        });
-        this.selectInteraction.addEventListener('select', (evt) => {
-            console.log('select event: ', evt as SelectEvent);
-            Object.values(this.vectorFeatureClickSubscriptions).forEach((sub) => sub(evt));
-        });
-    }
 
-    get select(): Select {
-        return this.selectInteraction;
+            const vectorHit = this.getMap().hasFeatureAtPixel(e.pixel, {
+                layerFilter: (l) => [
+                    this.seismographsLayer,
+                    this.earthquaqesLayer
+                ].some((sl) => l.get('Title') === sl.get('Title'))
+            });
+            (this.getMap().getTarget() as HTMLElement).style.cursor = vectorHit ? 'pointer' : ''
+        });
     }
 
     getMap(): Map {
@@ -82,7 +69,7 @@ class MapService {
                     this.userLocationLayer,
                     this.earthquaqesLayer,
                     this.seismographsLayer,
-                    hazardLayersGroup,
+                    this.hazardLayersGroup,
                 ],
                 interactions: defaultInteractions().extend([
                     this.selectInteraction,
@@ -119,7 +106,7 @@ class MapService {
         const getFeatureInfoUrl = topWMSLayer.get('source').getFeatureInfoUrl(
             event.coordinate,
             viewResolution,
-            'EPSG:3857',
+            this.getMap().getView().getProjection(),
             { 'INFO_FORMAT': 'text/html' }
         );
 
@@ -131,7 +118,7 @@ class MapService {
                     return { content: text, Title: layers[index].get('Title') }
                 })
                 .catch((err) => {
-                    toast.error('ERROR: ' + err.message || 'GetFeatureInfo request failed');
+                    toast.error(`Greška pri učitavanju informacija o sloju ${topWMSLayer.get('Name')}.`);
                     return null;
                 });
         }
@@ -140,7 +127,7 @@ class MapService {
         }
     }
 
-    getExternalLayers(): BaseLayer[] {
+    getManageableLayers(): BaseLayer[] {
         return this.getMap()
             .getLayers()
             .getArray()
@@ -161,11 +148,13 @@ class MapService {
             new Feature(
                 accuracyCircle.transform('EPSG:4326', map.getView().getProjection())
             ),
-            createPointFeatureFromLonLat(coords),
+            new Feature({
+                geometry: new Point(fromLonLat(coords))
+            }),
         ]);
 
         map.getView().fit(source.getExtent(), {
-            maxZoom: 18,
+            maxZoom: 16,
             duration: 500,
         });
     }
@@ -178,52 +167,8 @@ class MapService {
         );
         vectorSource?.addFeatures(dataFeatures);
         if (selectedId) {
-            this.selectEarthquaqeFeatureById({ id: selectedId, multi: false })
+            this.selectEarthquaqeFeatureById(selectedId);
         }
-    }
-
-    // addWMSLayer(layer: Layer, wmsUrl: string): void {
-    //     const source = new TileWMS({
-    //         url: wmsUrl,
-    //         params: { LAYERS: layer.Name, VERSION: '1.1.1' }
-    //     });
-    //     const olLayer = new TileLayer({
-    //         zIndex: this.zIndexCounter + 1,
-    //         properties: {
-    //             ...layer
-    //         },
-    //         source
-    //     });
-
-    //     const map = this.getMap();
-    //     map.addLayer(olLayer);
-    //     this.zoomToLayer(olLayer);
-
-    //     this.zIndexCounter++;
-    // }
-
-    subscribeToMapClick(key: string, fn: (event: MapBrowserEvent<any>) => void): void {
-        this.mapClickSubscriptions[key] = fn;
-    }
-
-    unsubscribeToMapClick(key: string): void {
-        delete this.mapClickSubscriptions[key];
-    }
-
-    subscribeToVectorFeatureClick(key: string, fn: (event: SelectEvent) => void): void {
-        this.vectorFeatureClickSubscriptions[key] = fn;
-    }
-
-    unsubscribeToVectorFeatureClick(key: string): void {
-        delete this.vectorFeatureClickSubscriptions[key];
-    }
-
-    zoomToLayer(layer: BaseLayer): void {
-        const [ax, ay, bx, by] = layer.get('EX_GeographicBoundingBox');
-
-        this.getMap().getView().fit([...fromLonLat([ax, ay]), ...fromLonLat([bx, by])], {
-            duration: 500,
-        });
     }
 
     changeBaseMap(id: BaseMapId): void {
@@ -238,16 +183,15 @@ class MapService {
         return this.baseLayer.get('baseId');
     }
 
-    selectEarthquaqeFeatureById(opts: { id: string, multi: boolean }): void {
-        const selectedFeatures = this.select.getFeatures();
-        if (!opts.multi) {
-            selectedFeatures.clear();
-        }
+    selectEarthquaqeFeatureById(id: string): void {
+        const selectedFeatures = this.selectInteraction.getFeatures();
+        selectedFeatures.clear();
         const earthquaqesSource = this.earthquaqesLayer.getSource();
-        const selectedEarthquaqe = earthquaqesSource?.getFeatureById(opts.id);
+        const selectedEarthquaqe = earthquaqesSource?.getFeatureById(id);
         if (selectedEarthquaqe) {
+            this.setEarthquaqesVisible(true);
             const featureClone = selectedEarthquaqe.clone();
-            featureClone.setId(opts.id);
+            featureClone.setId(id);
             earthquaqesSource?.removeFeature(selectedEarthquaqe);
             earthquaqesSource?.addFeature(featureClone);
             selectedFeatures.push(featureClone);
@@ -257,12 +201,14 @@ class MapService {
                 [],
                 new MapBrowserEvent('singleclick', this.getMap(), new UIEvent("pointerdown"))
             );
-            this.select.dispatchEvent(event);
-        }
-    }
+            this.selectInteraction.dispatchEvent(event);
 
-    subscribeToViewChange(key: string, fn: (evt: BaseEvent) => void): void {
-        this.viewChangeSubscriptions[key] = fn;
+            //@ts-ignore
+            const coords = selectedEarthquaqe.getGeometry()?.getCoordinates()
+            const view = this.getMap().getView() as View;
+            
+            view.animate({zoom: view.getZoom()}, {center: coords});
+        }
     }
 
     setCurrentView(params: { center?: [number, number], zoom?: string | number }): void {

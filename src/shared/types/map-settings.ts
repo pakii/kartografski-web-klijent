@@ -10,8 +10,7 @@ export enum MapSettingKeys {
     I_HAZARDS_95 = 'ih-95',
     I_HAZARDS_475 = 'ih-475',
     I_HAZARDS_975 = 'ih-975',
-    POP_DENSITY = 'pd',
-    SEISMOGRAMS = 'seismo',
+    SEISMOGRAPHS = 'seismo',
 }
 
 export type MapSettings = {
@@ -24,6 +23,5 @@ export type MapSettings = {
     [MapSettingKeys.I_HAZARDS_95]: '1' | undefined;
     [MapSettingKeys.I_HAZARDS_475]: '1' | undefined;
     [MapSettingKeys.I_HAZARDS_975]: '1' | undefined;
-    [MapSettingKeys.POP_DENSITY]: '1' | undefined;
-    [MapSettingKeys.SEISMOGRAMS]: '1' | undefined;
+    [MapSettingKeys.SEISMOGRAPHS]: '1' | undefined;
 }

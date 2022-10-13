@@ -52,12 +52,12 @@ export const getSeismographsStyleFunction = ({ highlighted = false }: { highligh
 export const seismographsOlLayer = new VectorLayer({
     source: new VectorSource({
         format: new GeoJSON(),
-        url: 'data/seis.json'
+        url: 'data/seismo-stations.json'
     }),
     zIndex: 4,
     visible: false,
     properties: {
-        Id: MapSettingKeys.SEISMOGRAMS,
+        Id: MapSettingKeys.SEISMOGRAPHS,
         Title: 'Seizmološke stanice',
         selectable: true,
         Type: 'json',

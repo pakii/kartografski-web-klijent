@@ -53,14 +53,11 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
         this.fetchEarthquaqes()
     }
 
-    selectFeature = (opts: { feature: GeoJSONFeature<GeoJSONPoint, EarthquaqeProperties>, multi?: boolean }): void => {
+    selectFeature = (feature: GeoJSONFeature<GeoJSONPoint, EarthquaqeProperties>): void => {
         const { searchParams, setSearchParams } = this.props.router;
-        searchParams.set(MapSettingKeys.EARTHQUAQES_SELECTED_ID, opts.feature.id.toString());
+        searchParams.set(MapSettingKeys.EARTHQUAQES_SELECTED_ID, feature.id.toString());
         setSearchParams(searchParams);
-        mapService.selectEarthquaqeFeatureById({
-            id: opts.feature.id,
-            multi: opts.multi || false
-        });
+        mapService.selectEarthquaqeFeatureById(feature.id);
     }
 
     changeSort(value: Sort): void {
@@ -152,7 +149,7 @@ class GlobalEarthquaqesCmp extends React.Component<GlobalEarthquaqesDataProps, G
                                         ...selectedId === item.id && { background: 'gainsboro' }
                                     })}>
                                     <ListItemButton
-                                        onClick={() => this.selectFeature({ feature: item })}
+                                        onClick={() => this.selectFeature(item)}
                                         sx={{ padding: 1 }}>
                                         <Box
                                             component='div'

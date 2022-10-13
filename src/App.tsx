@@ -28,6 +28,7 @@ export const App = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const isBigScreen = useMediaQuery(theme.breakpoints.up('sm'));
+    const earthquaqesListContainerOpen = !searchParams.get(MapSettingKeys.SIDE_BAR);
 
     React.useEffect(() => {
         makeMapClickSub();
@@ -37,7 +38,6 @@ export const App = () => {
     }, []);
 
 
-    const earthquaqesListContainerOpen = !searchParams.get(MapSettingKeys.SIDE_BAR);
     React.useEffect(() => {
         const map = mapService.getMap()
         map.updateSize();
@@ -47,15 +47,17 @@ export const App = () => {
         const map = mapService.getMap();
         map.setTarget(wrapperRef.current as unknown as HTMLDivElement);
 
-        const centerParam = searchParams.get(MapSettingKeys.CENTER);
-        const zoomParam = searchParams.get(MapSettingKeys.RESOLUTION);
+        const currentSearchParams = new URLSearchParams(window.location.search);
+        const centerParam = currentSearchParams.get(MapSettingKeys.CENTER);
+        const zoomParam = currentSearchParams.get(MapSettingKeys.RESOLUTION);
         const center = centerParam ? JSON.parse(decodeURIComponent(centerParam)) as [number, number] : undefined;
         mapService.setCurrentView({ center, zoom: zoomParam || undefined });
         handleLayersInitialVisibility();
     }
 
     const makeMapViewChangeSub = () => {
-        mapService.subscribeToViewChange('AppCmp', (evt: BaseEvent & {target: View}) => {
+        mapService.getMap().getView().on('change', (evt: BaseEvent & {target: View}) => {
+            const searchParams = new URLSearchParams(window.location.search);
             searchParams.set(MapSettingKeys.CENTER, JSON.stringify(evt.target.getCenter()));
             searchParams.set(MapSettingKeys.RESOLUTION, evt.target.getResolution().toString());
             setSearchParams(searchParams);
@@ -64,6 +66,7 @@ export const App = () => {
 
     const makeMapClickSub = () => {
         mapService.getMap().on('singleclick', (event) => {
+            const searchParams = new URLSearchParams(window.location.search);
             if (!isBigScreen) {
                 searchParams.set(MapSettingKeys.SIDE_BAR, '0');
                 setSearchParams(searchParams);
@@ -89,6 +92,7 @@ export const App = () => {
     const makeVectorFeatureInfoSub = () => {
 
         mapService.selectInteraction.addEventListener('select', (evt) => {
+            const searchParams = new URLSearchParams(window.location.search);
             const [selected] = (evt as SelectEvent).selected;
             if (selected) {
                 if (selected.get('type') === 'seismograph') {
@@ -101,8 +105,8 @@ export const App = () => {
                 else if (selected.get('type') === 'earthquake') {
 
                     searchParams.set(MapSettingKeys.EARTHQUAQES_SELECTED_ID, (selected.getId() as string).toString());
-                    setSearchParams(searchParams);
                     const data: EarthquaqeProperties = selected.getProperties() as EarthquaqeProperties;
+                    setSearchParams(searchParams);
                     showFeatureInfo({
                         title: selected.get('regionName'),
                         body: <EarthquaqeFeatureInfo data={data} />
@@ -119,8 +123,9 @@ export const App = () => {
     }
 
     const hideFeatureInfo = () => {
+        const searchParams = new URLSearchParams(window.location.search);
         showFeatureInfo(null);
-        mapService.select.getFeatures().clear();
+        mapService.selectInteraction.getFeatures().clear();
         searchParams.delete(MapSettingKeys.EARTHQUAQES_SELECTED_ID);
         setSearchParams(searchParams);
     }
@@ -138,8 +143,8 @@ export const App = () => {
         if (searchParams.get(MapSettingKeys.I_HAZARDS_975)) {
             mapService.setHazard975Visible(Boolean(searchParams.get(MapSettingKeys.I_HAZARDS_975)))
         }
-        if (searchParams.get(MapSettingKeys.SEISMOGRAMS)) {
-            mapService.setSeismographsVisible(Boolean(searchParams.get(MapSettingKeys.SEISMOGRAMS)))
+        if (searchParams.get(MapSettingKeys.SEISMOGRAPHS)) {
+            mapService.setSeismographsVisible(Boolean(searchParams.get(MapSettingKeys.SEISMOGRAPHS)))
         }
     }
 

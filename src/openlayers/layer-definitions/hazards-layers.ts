@@ -46,7 +46,7 @@ export const intensityHazard95 = new TileLayer({
     visible: false,
     source: new TileWMS({
         url: WMS_URL,
-        params: { LAYERS: wmsLayerDefs[0].Name, VERSION: '1.1.1' }
+        params: { LAYERS: wmsLayerDefs[0].Name }
     })
 });
 export const intensityHazard475 = new TileLayer({
@@ -57,28 +57,20 @@ export const intensityHazard475 = new TileLayer({
     visible: false,
     source: new TileWMS({
         url: WMS_URL,
-        params: { LAYERS: wmsLayerDefs[1].Name, VERSION: '1.1.1' }
+        params: { LAYERS: wmsLayerDefs[1].Name }
     })
 });
-export const intensityHazard975 = 
-
-    new TileLayer({
-        properties: {
-            isWms: true,
-            Id: MapSettingKeys.I_HAZARDS_975,
-            Name: 'povrsina_lokalnosti_975_region',
-            Title: 'Povratni period od 975 godina',
-            InfoLink: 'http://osgl.grf.bg.ac.rs/geonetwork/srv/eng/catalog.search#/metadata/2812a2dd-da8e-48b1-b0d8-d27a05f4fd55'
-        },
-        zIndex: 1,
-        visible: false,
-        source: new TileWMS({
-            url: WMS_URL,
-            params: { LAYERS: 'povrsina_lokalnosti_975_region', VERSION: '1.1.1' }
-        })
-    });
-
-
+export const intensityHazard975 = new TileLayer({
+    properties: {
+        ...wmsLayerDefs[2]
+    },
+    zIndex: 1,
+    visible: false,
+    source: new TileWMS({
+        url: WMS_URL,
+        params: { LAYERS: wmsLayerDefs[2].Name }
+    })
+});
 const layers = [intensityHazard95, intensityHazard475, intensityHazard975];
 
 hazardLayersGroup.setLayers(new Collection(layers));

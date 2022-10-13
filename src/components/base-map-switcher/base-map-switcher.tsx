@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 
-import { Box, ClickAwayListener, Slide, useMediaQuery } from '@mui/material';
+import Box from '@mui/material/Box/Box';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Slide from '@mui/material/Slide/Slide';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { BaseMapOption } from './base-map-option/base-map-option';
 import { mapService } from '../../openlayers/map-service/map-service';
@@ -24,6 +27,17 @@ export const BaseSwitcher = () => {
     //@ts-ignore
     const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
+
+    const [isOffline, setIsOffline] = React.useState<boolean | null>(!window.navigator.onLine || null);
+    React.useEffect(() => {
+        window.addEventListener('online', () => setIsOffline(false));
+        window.addEventListener('offline', () => setIsOffline(true));
+
+        return () => {
+            window.removeEventListener('online', () => { });
+            window.removeEventListener('offline', () => { });
+        }
+    }, []);
 
     useEffect(() => {
         const currentBaseMapId = (searchParams.get(MapSettingKeys.BASE_MAP) || mapService.getCurrentBaseMapId()) as BaseMapId;
@@ -63,9 +77,12 @@ export const BaseSwitcher = () => {
                     maxWidth: '100vw'
                 })}>
                 {!expanded &&
-                    <BaseMapOption item={currentBaseMap}
-                        selected={false}
-                        clicked={() => setExpanded(!expanded)} />}
+                    
+                        <BaseMapOption item={currentBaseMap}
+                            selected={false}
+                            disabled={!!isOffline}
+                            clicked={() => setExpanded(!expanded)} />
+                    }
                 <Slide direction='right'
                     in={expanded}
                     container={containerRef.current}>
