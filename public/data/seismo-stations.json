@@ -576,6 +576,31 @@
                     43.56244
                 ]
             }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "24",
+                "code": "PRVS",
+                "name": "Prvonek-Vranje",
+                "latLonAlt": "42.50759\n22.07616\n620",
+                "seismographType": "BB",
+                "components": "3C",
+                "sensors": "PBB-200S",
+                "dataAcquisition": "Q330",
+                "realTimeDataTransfer": "Wireless link",
+                "type": "seismograph",
+                "lat": "42.50759",
+                "lon": "22.07616",
+                "altitude": "620"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.07616,
+                    42.50759
+                ]
+            }
         }
     ]
 }
