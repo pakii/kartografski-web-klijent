@@ -4,7 +4,6 @@
     "features": [
         {
             "type": "Feature",
-            "id": "d347a054-e825-4f5d-9933-b95c835ea9b6",
             "properties": {
                 "number": "01",
                 "code": "BEO",
@@ -30,7 +29,6 @@
         },
         {
             "type": "Feature",
-            "id": "342669bb-60b5-4f0b-8725-b1aedc89eaf7",
             "properties": {
                 "number": "02",
                 "code": "BARS",
@@ -56,7 +54,6 @@
         },
         {
             "type": "Feature",
-            "id": "52d7c7ff-2672-4a31-b116-f31453fc8802",
             "properties": {
                 "number": "03",
                 "code": "DJES",
@@ -82,7 +79,6 @@
         },
         {
             "type": "Feature",
-            "id": "e75dd667-3c87-4ea3-8677-4335e1b6e6c9",
             "properties": {
                 "number": "04",
                 "code": "SELS",
@@ -108,7 +104,6 @@
         },
         {
             "type": "Feature",
-            "id": "9c05afc2-2f86-4dea-b56c-aa77e1747b06",
             "properties": {
                 "number": "05",
                 "code": "BBLS",
@@ -134,7 +129,6 @@
         },
         {
             "type": "Feature",
-            "id": "5db21c8c-2aa7-4b9c-acd4-775c40902a63",
             "properties": {
                 "number": "06",
                 "code": "FRGS",
@@ -160,7 +154,6 @@
         },
         {
             "type": "Feature",
-            "id": "b74c7152-2104-428b-9c5e-d1e7867758b4",
             "properties": {
                 "number": "07",
                 "code": "SVIS",
@@ -186,7 +179,6 @@
         },
         {
             "type": "Feature",
-            "id": "b417dac2-5e2b-46ab-8281-bb7360e468ae",
             "properties": {
                 "number": "08",
                 "code": "DIVS",
@@ -212,7 +204,6 @@
         },
         {
             "type": "Feature",
-            "id": "716e65e1-7ea2-497d-99b0-a0e78fe3611d",
             "properties": {
                 "number": "09",
                 "code": "GRUS",
@@ -238,7 +229,6 @@
         },
         {
             "type": "Feature",
-            "id": "84ab7193-1f1e-46a2-8dbe-480548d72ff2",
             "properties": {
                 "number": "10",
                 "code": "SJES",
@@ -264,7 +254,6 @@
         },
         {
             "type": "Feature",
-            "id": "e8adbe92-d8a1-4701-b846-b3f76b199628",
             "properties": {
                 "number": "11",
                 "code": "BORS",
@@ -290,7 +279,6 @@
         },
         {
             "type": "Feature",
-            "id": "49563b97-f051-4cc3-8bb7-645cc32d8828",
             "properties": {
                 "number": "12",
                 "code": "ZAPS",
@@ -316,7 +304,6 @@
         },
         {
             "type": "Feature",
-            "id": "0ceb9e5b-0b5a-4aca-9e07-1dd04bc94bed",
             "properties": {
                 "number": "13",
                 "code": "TRUS",
@@ -342,7 +329,6 @@
         },
         {
             "type": "Feature",
-            "id": "52eb6124-f178-4479-ae8e-e54708f1b534",
             "properties": {
                 "number": "14",
                 "code": "IVAS",
@@ -368,7 +354,6 @@
         },
         {
             "type": "Feature",
-            "id": "2c951edf-1ec2-4b38-93f0-e7da2cdb26e8",
             "properties": {
                 "number": "15",
                 "code": "TEKS",
@@ -394,7 +379,6 @@
         },
         {
             "type": "Feature",
-            "id": "a37d2048-3735-477e-aa32-254d15bd5acf",
             "properties": {
                 "number": "16",
                 "code": "KUBS",
@@ -420,7 +404,6 @@
         },
         {
             "type": "Feature",
-            "id": "981d9132-e476-4330-a03a-ce4edd6eff7a",
             "properties": {
                 "number": "17",
                 "code": "BOVS",
@@ -446,7 +429,6 @@
         },
         {
             "type": "Feature",
-            "id": "991760b8-64dd-4434-be7a-963a113dc56a",
             "properties": {
                 "number": "18",
                 "code": "BOSS",
@@ -472,7 +454,6 @@
         },
         {
             "type": "Feature",
-            "id": "d958159b-0e46-4f02-b398-77d478e6da61",
             "properties": {
                 "number": "19",
                 "code": "ZAGS",
@@ -498,7 +479,6 @@
         },
         {
             "type": "Feature",
-            "id": "21fb37c4-1a5d-4dbd-9d64-e3828ab86765",
             "properties": {
                 "number": "20",
                 "code": "SUBS",
@@ -524,7 +504,6 @@
         },
         {
             "type": "Feature",
-            "id": "67c8ec95-4ffb-4504-a5f2-89a8993ae8a4",
             "properties": {
                 "number": "21",
                 "code": "AVAS",
@@ -550,7 +529,6 @@
         },
         {
             "type": "Feature",
-            "id": "8ce07709-a3f6-4a07-899b-58c296817c40",
             "properties": {
                 "number": "22",
                 "code": "VRSS",
@@ -576,7 +554,6 @@
         },
         {
             "type": "Feature",
-            "id": "502ce994-9167-463a-a09d-5a67b0eb7282",
             "properties": {
                 "number": "23",
                 "code": "GOCS",
@@ -597,32 +574,6 @@
                 "coordinates": [
                     20.87342,
                     43.56244
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "id": "aac5e6cc-fe9f-4e9b-b95a-dd8ad482102b",
-            "properties": {
-                "number": "24",
-                "code": "PRVS",
-                "name": "Prvonek-Vranje",
-                "latLonAlt": "42.50759\n22.07616\n620",
-                "seismographType": "BB",
-                "components": "3C",
-                "sensors": "PBB-200S",
-                "dataAcquisition": "Q330",
-                "realTimeDataTransfer": "Wireless link",
-                "type": "seismograph",
-                "lat": "42.50759",
-                "lon": "22.07616",
-                "altitude": "620"
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    22.07616,
-                    42.50759
                 ]
             }
         }
