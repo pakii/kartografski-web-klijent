@@ -4,6 +4,7 @@
     "features": [
         {
             "type": "Feature",
+            "id": "d240b90c-ef05-4383-97a6-fa557a064e23",
             "properties": {
                 "date": "2024-09-10T06:33:32.800Z",
                 "tErrorS": 0.3,
@@ -26,6 +27,7 @@
         },
         {
             "type": "Feature",
+            "id": "f7b43761-9155-499e-a9ed-92a12d9f3efd",
             "properties": {
                 "date": "2024-09-09T18:52:46.500Z",
                 "tErrorS": 0.3,
@@ -48,6 +50,7 @@
         },
         {
             "type": "Feature",
+            "id": "a5aed24e-d8d3-4ada-8e50-20a20138b3a1",
             "properties": {
                 "date": "2024-09-08T22:23:37.900Z",
                 "tErrorS": 0.3,
@@ -70,6 +73,7 @@
         },
         {
             "type": "Feature",
+            "id": "f3e5b707-5956-406a-9bb6-42053616a09e",
             "properties": {
                 "date": "2024-09-07T06:06:21.800Z",
                 "tErrorS": 0.5,
@@ -92,6 +96,7 @@
         },
         {
             "type": "Feature",
+            "id": "18f12c4f-5239-4fc4-96db-e6f9f10d561e",
             "properties": {
                 "date": "2024-09-04T04:41:11.600Z",
                 "tErrorS": 0.2,
@@ -114,6 +119,7 @@
         },
         {
             "type": "Feature",
+            "id": "f41a3faa-a93f-4fab-be66-7b015c3af0eb",
             "properties": {
                 "date": "2024-09-03T19:18:28.900Z",
                 "tErrorS": 0.3,
@@ -136,6 +142,7 @@
         },
         {
             "type": "Feature",
+            "id": "dd97427a-e6fb-4c23-81a7-e01221a266d8",
             "properties": {
                 "date": "2024-09-03T03:25:41.900Z",
                 "tErrorS": 0.7,
