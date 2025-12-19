@@ -1,0 +1,798 @@
+{
+    "type": "FeatureCollection",
+    "name": "Accelerograph stations - Serbia",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "01",
+                "code": "BEO1",
+                "name": "Beograd RSZ",
+                "lat": "44.8093",
+                "lon": "20.4715",
+                "altitude": "128",
+                "accelerograph": "ETNA",
+                "groundType": "B",
+                "realTimeDataTransfer": "local network",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.4715,
+                    44.8093
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "02",
+                "code": "CELA",
+                "name": "Ćelije",
+                "lat": "43.4186",
+                "lon": "21.1962",
+                "altitude": "284",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "cable link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.1962,
+                    43.4186
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "03",
+                "code": "VRUA",
+                "name": "Vrutci",
+                "lat": "43.8492",
+                "lon": "19.7098",
+                "altitude": "660",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "ADSL link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.7098,
+                    43.8492
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "04",
+                "code": "CACA",
+                "name": "Čačak",
+                "lat": "43.8980",
+                "lon": "20.1863",
+                "altitude": "243",
+                "accelerograph": "ETNA",
+                "groundType": "E",
+                "realTimeDataTransfer": "cable link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.1863,
+                    43.898
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "05",
+                "code": "SABA",
+                "name": "Šabac-Tekeriš",
+                "lat": "44.5493",
+                "lon": "19.5281",
+                "altitude": "249",
+                "accelerograph": "ETNA",
+                "groundType": "E",
+                "realTimeDataTransfer": "wireless link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.5281,
+                    44.5493
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "06",
+                "code": "LAZA",
+                "name": "Žagubica-Laznica",
+                "lat": "44.2409",
+                "lon": "21.8069",
+                "altitude": "368",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "GSM link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.8069,
+                    44.2409
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "07",
+                "code": "JAGA",
+                "name": "Jagodina",
+                "lat": "43.9710",
+                "lon": "21.2600",
+                "altitude": "121",
+                "accelerograph": "ETNA",
+                "groundType": "C-E",
+                "realTimeDataTransfer": "wireless link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.26,
+                    43.971
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "08",
+                "code": "BBLS",
+                "name": "Lazići",
+                "lat": "43.8649",
+                "lon": "19.4055",
+                "altitude": "861",
+                "accelerograph": "EPI",
+                "groundType": "A",
+                "realTimeDataTransfer": "satelite link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.4055,
+                    43.8649
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "09",
+                "code": "BDVA",
+                "name": "Banatski Dvor",
+                "lat": "45.5376",
+                "lon": "20.4744",
+                "altitude": "73",
+                "accelerograph": "ETNA",
+                "groundType": "Е",
+                "realTimeDataTransfer": "wireless link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.4744,
+                    45.5376
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "10",
+                "code": "ZAGA",
+                "name": "Zaječar-Grlište",
+                "lat": "43.8125",
+                "lon": "22.2331",
+                "altitude": "204",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "satelite link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.2331,
+                    43.8125
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "11",
+                "code": "VALA",
+                "name": "Valjevo",
+                "lat": "44.2726",
+                "lon": "19.8830",
+                "altitude": "188",
+                "accelerograph": "ETNA",
+                "groundType": "B-E",
+                "realTimeDataTransfer": "wireless link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.883,
+                    44.2726
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "12",
+                "code": "PAZA",
+                "name": "Novi Pazar",
+                "lat": "43.1576",
+                "lon": "20.5451",
+                "altitude": "542",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "wireless link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.5451,
+                    43.1576
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "13",
+                "code": "SVIA",
+                "name": "Svilajnac",
+                "lat": "44.2654",
+                "lon": "21.2151",
+                "altitude": "123",
+                "accelerograph": "EPI",
+                "groundType": "Е",
+                "realTimeDataTransfer": "wireless link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.2151,
+                    44.2654
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "14",
+                "code": "GRUA",
+                "name": "Gruža",
+                "lat": "43.8887",
+                "lon": "20.7152",
+                "altitude": "279",
+                "accelerograph": "EPI",
+                "groundType": "A",
+                "realTimeDataTransfer": "satelite link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.7152,
+                    43.8887
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "15",
+                "code": "SELA",
+                "name": "Selova",
+                "lat": "43.2143",
+                "lon": "21.1210",
+                "altitude": "526",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "satelite link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.121,
+                    43.2143
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "16",
+                "code": "FRGA",
+                "name": "Fruška Gora",
+                "lat": "45.1576",
+                "lon": "19.8102",
+                "altitude": "499",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "wireless link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.8102,
+                    45.1576
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "17",
+                "code": "SJEA",
+                "name": "Sjenica",
+                "lat": "43.2614",
+                "lon": "19.9726",
+                "altitude": "1242",
+                "accelerograph": "EPI",
+                "groundType": "A",
+                "realTimeDataTransfer": "wireless link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.9726,
+                    43.2614
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "18",
+                "code": "BOVA",
+                "name": "Bovan",
+                "lat": "43.6351",
+                "lon": "21.7057",
+                "altitude": "271",
+                "accelerograph": "EPI",
+                "groundType": "A",
+                "realTimeDataTransfer": "ADSL link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.7057,
+                    43.6351
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "19",
+                "code": "КRAA",
+                "name": "Kraljevo",
+                "lat": "43.7248",
+                "lon": "20.6878",
+                "altitude": "207",
+                "accelerograph": "ETNA",
+                "groundType": "E",
+                "realTimeDataTransfer": "cable link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.6878,
+                    43.7248
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "20",
+                "code": "KMIA",
+                "name": "Kosovska Mitrovica",
+                "lat": "43.1277",
+                "lon": "21.1263",
+                "altitude": "500",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "wireless link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.1263,
+                    43.1277
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "21",
+                "code": "BOLA",
+                "name": "Boljevac",
+                "lat": "43.8289",
+                "lon": "21.9532",
+                "altitude": "327",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "ADSL link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.9532,
+                    43.8289
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "22",
+                "code": "ZAPA",
+                "name": "Завој-Пирот",
+                "lat": "43.2735",
+                "lon": "22.6335",
+                "altitude": "638",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "local network",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.6335,
+                    43.2735
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "01",
+                "code": "RUDA",
+                "name": "Rudnik",
+                "lat": "44.1050",
+                "lon": "20.4833",
+                "altitude": "437",
+                "accelerograph": "ETNA",
+                "groundType": "B-C",
+                "realTimeDataTransfer": "wireless link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.4833,
+                    44.105
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "02-1",
+                "code": "PERA array1",
+                "name": "Perućac",
+                "lat": "43.9646",
+                "lon": "19.4104",
+                "altitude": "250",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "cable link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.4104,
+                    43.9646
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "02-2",
+                "code": "PERA array2",
+                "name": "Perućac",
+                "lat": "43.9646",
+                "lon": "19.4104",
+                "altitude": "250",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "local network",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.4104,
+                    43.9646
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "02-3",
+                "code": "PERA array3",
+                "name": "Perućac",
+                "lat": "43.9646",
+                "lon": "19.4104",
+                "altitude": "250",
+                "accelerograph": "SSA2",
+                "groundType": "A",
+                "realTimeDataTransfer": "no data transfer",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.4104,
+                    43.9646
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "03-1",
+                "code": "DJES array1",
+                "name": "Đerdap",
+                "lat": "44.6711",
+                "lon": "22.5289",
+                "altitude": "52",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "cable link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.5289,
+                    44.6711
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "03-2",
+                "code": "DJES array2",
+                "name": "Đerdap",
+                "lat": "44.6698",
+                "lon": "22.5278",
+                "altitude": "52",
+                "accelerograph": "SSA2",
+                "groundType": "A",
+                "realTimeDataTransfer": "no data transfer",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.5278,
+                    44.6698
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "03-3",
+                "code": "DJES array3",
+                "name": "Đerdap",
+                "lat": "44.6671",
+                "lon": "22.5196",
+                "altitude": "116",
+                "accelerograph": "EPI",
+                "groundType": "A",
+                "realTimeDataTransfer": "wireless link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.5196,
+                    44.6671
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "04-1",
+                "code": "BAR array1",
+                "name": "Barje",
+                "lat": "42.8178",
+                "lon": "21.8163",
+                "altitude": "370",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "satelite link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.8163,
+                    42.8178
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "04-2",
+                "code": "BAR array2",
+                "name": "Barje",
+                "lat": "42.8165",
+                "lon": "21.8176",
+                "altitude": "370",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "local network",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.8176,
+                    42.8165
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "04-3",
+                "code": "BAR array3",
+                "name": "Barje",
+                "lat": "42.8156",
+                "lon": "21.8176",
+                "altitude": "370",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "local network",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.8176,
+                    42.8156
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "04-4",
+                "code": "BAR array4",
+                "name": "Barje",
+                "lat": "42.8171",
+                "lon": "21.8191",
+                "altitude": "370",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "local network",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.8191,
+                    42.8171
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "04-5",
+                "code": "BAR array5",
+                "name": "Barje",
+                "lat": "42.8165",
+                "lon": "21.8153",
+                "altitude": "370",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "local network",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.8153,
+                    42.8165
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "05-1",
+                "code": "ROVA array1",
+                "name": "Rovni",
+                "lat": "44.2417",
+                "lon": "19.7530",
+                "altitude": "408",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "wireless link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.753,
+                    44.2417
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "05-2",
+                "code": "ROVA array2",
+                "name": "Rovni",
+                "lat": "44.2418",
+                "lon": "19.7572",
+                "altitude": "338",
+                "accelerograph": "ETNA",
+                "groundType": "A",
+                "realTimeDataTransfer": "wireless link",
+                "type": "accelerograph"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.7572,
+                    44.2418
+                ]
+            }
+        }
+    ]
+}

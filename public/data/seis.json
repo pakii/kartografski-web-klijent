@@ -1,0 +1,581 @@
+{
+    "type": "FeatureCollection",
+    "name": "Seismological stations - Serbia",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "01",
+                "code": "BEO",
+                "name": "Beograd",
+                "latLonAlt": "44.809297\n20.471419\n129",
+                "seismographType": "LP",
+                "components": "3C",
+                "sensors": "SKD",
+                "dataAcquisition": "WAVE24",
+                "realTimeDataTransfer": "Optical link",
+                "type": "seismograph",
+                "lat": "44.809297",
+                "lon": "20.471419",
+                "altitude": "129"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.471419,
+                    44.809297
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "02",
+                "code": "BARS",
+                "name": "Barje-Leskovac",
+                "latLonAlt": "42.816477\n21.815340\n392",
+                "seismographType": "BB",
+                "components": "3C",
+                "sensors": "STS-2",
+                "dataAcquisition": "Q330",
+                "realTimeDataTransfer": "Optical link",
+                "type": "seismograph",
+                "lat": "42.816477",
+                "lon": "21.815340",
+                "altitude": "392"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.81534,
+                    42.816477
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "03",
+                "code": "DJES",
+                "name": "Đerdap-Kladovo",
+                "latLonAlt": "44.667165\n22.519669\n116",
+                "seismographType": "LP",
+                "components": "3C",
+                "sensors": "SKD",
+                "dataAcquisition": "WAVE24",
+                "realTimeDataTransfer": "Wireless link",
+                "type": "seismograph",
+                "lat": "44.667165",
+                "lon": "22.519669",
+                "altitude": "116"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.519669,
+                    44.667165
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "04",
+                "code": "SELS",
+                "name": "Selova-Kuršumlija",
+                "latLonAlt": "43.214253\n21.120913\n524",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "LE-3D/5s MKIII",
+                "dataAcquisition": "WAVE32",
+                "realTimeDataTransfer": "3G mobile net",
+                "type": "seismograph",
+                "lat": "43.214253",
+                "lon": "21.120913",
+                "altitude": "524"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.120913,
+                    43.214253
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "05",
+                "code": "BBLS",
+                "name": "Bajina Bašta-Lazići",
+                "latLonAlt": "43.865157\n19.406053\n871",
+                "seismographType": "BB",
+                "components": "3C",
+                "sensors": "STS-2",
+                "dataAcquisition": "Q330HR",
+                "realTimeDataTransfer": "Optical link",
+                "type": "seismograph",
+                "lat": "43.865157",
+                "lon": "19.406053",
+                "altitude": "871"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.406053,
+                    43.865157
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "06",
+                "code": "FRGS",
+                "name": "Fruška Gora",
+                "latLonAlt": "45.157300\n19.809800\n501",
+                "seismographType": "BB",
+                "components": "3C",
+                "sensors": "STS-2",
+                "dataAcquisition": "Q330",
+                "realTimeDataTransfer": "Cable link",
+                "type": "seismograph",
+                "lat": "45.157300",
+                "lon": "19.809800",
+                "altitude": "501"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.8098,
+                    45.1573
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "07",
+                "code": "SVIS",
+                "name": "Svilajnac",
+                "latLonAlt": "44.265486\n21.215175\n123",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "S-5-S",
+                "dataAcquisition": "K2",
+                "realTimeDataTransfer": "Wireless link",
+                "type": "seismograph",
+                "lat": "44.265486",
+                "lon": "21.215175",
+                "altitude": "123"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.215175,
+                    44.265486
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "08",
+                "code": "DIVS",
+                "name": "Divčibare",
+                "latLonAlt": "44.098236\n19.991711\n1000",
+                "seismographType": "VBB",
+                "components": "3C",
+                "sensors": "STS-1",
+                "dataAcquisition": "Q680",
+                "realTimeDataTransfer": "ADSL link",
+                "type": "seismograph",
+                "lat": "44.098236",
+                "lon": "19.991711",
+                "altitude": "1000"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.991711,
+                    44.098236
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "09",
+                "code": "GRUS",
+                "name": "Gruža",
+                "latLonAlt": "43.888764\n20.715084\n282",
+                "seismographType": "BB",
+                "components": "3C",
+                "sensors": "STS-2",
+                "dataAcquisition": "Q330HR",
+                "realTimeDataTransfer": "ADSL link",
+                "type": "seismograph",
+                "lat": "43.888764",
+                "lon": "20.715084",
+                "altitude": "282"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.715084,
+                    43.888764
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "10",
+                "code": "SJES",
+                "name": "Sjenica",
+                "latLonAlt": "43.261405\n19.973146\n1240",
+                "seismographType": "BB",
+                "components": "3C",
+                "sensors": "STS-2",
+                "dataAcquisition": "Q330HR",
+                "realTimeDataTransfer": "Wireless link",
+                "type": "seismograph",
+                "lat": "43.261405",
+                "lon": "19.973146",
+                "altitude": "1240"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.973146,
+                    43.261405
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "11",
+                "code": "BORS",
+                "name": "Bor",
+                "latLonAlt": "44.09043\n22.01765\n440",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "LE-3D/5s MKIII",
+                "dataAcquisition": "WAVE32",
+                "realTimeDataTransfer": "ADSL link",
+                "type": "seismograph",
+                "lat": "44.09043",
+                "lon": "22.01765",
+                "altitude": "440"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.01765,
+                    44.09043
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "12",
+                "code": "ZAPS",
+                "name": "Zavoj-Pirot",
+                "latLonAlt": "43.273577\n22.633529\n638",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "SS-1",
+                "dataAcquisition": "WAVE32",
+                "realTimeDataTransfer": "Satelite link",
+                "type": "seismograph",
+                "lat": "43.273577",
+                "lon": "22.633529",
+                "altitude": "638"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.633529,
+                    43.273577
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "13",
+                "code": "TRUS",
+                "name": "Trudelj",
+                "latLonAlt": "44.223525\n20.406266\n340",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "LE-3D/5s MKIII",
+                "dataAcquisition": "WAVE32",
+                "realTimeDataTransfer": "ADSL link",
+                "type": "seismograph",
+                "lat": "44.223525",
+                "lon": "20.406266",
+                "altitude": "340"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.406266,
+                    44.223525
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "14",
+                "code": "IVAS",
+                "name": "Ivanjica",
+                "latLonAlt": "43.576676\n20.152395\n791",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "SM-3",
+                "dataAcquisition": "WAVE24",
+                "realTimeDataTransfer": "ADSL link",
+                "type": "seismograph",
+                "lat": "43.576676",
+                "lon": "20.152395",
+                "altitude": "791"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.152395,
+                    43.576676
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "15",
+                "code": "TEKS",
+                "name": "Tekeriš-Šabac",
+                "latLonAlt": "44.549344\n19.528069\n249",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "LE-3D/5s MKIII",
+                "dataAcquisition": "WAVE32",
+                "realTimeDataTransfer": "Wireless link",
+                "type": "seismograph",
+                "lat": "44.549344",
+                "lon": "19.528069",
+                "altitude": "249"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.528069,
+                    44.549344
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "16",
+                "code": "KUBS",
+                "name": "Kučevo-Bukovska",
+                "latLonAlt": "44.41226\n21.67489\n390",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "LE-3D/5s MKIII",
+                "dataAcquisition": "WAVE32",
+                "realTimeDataTransfer": "Wireless link",
+                "type": "seismograph",
+                "lat": "44.41226",
+                "lon": "21.67489",
+                "altitude": "390"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.67489,
+                    44.41226
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "17",
+                "code": "BOVS",
+                "name": "Bovan-Soko Banja",
+                "latLonAlt": "43.635172\n21.705790\n271",
+                "seismographType": "BB",
+                "components": "3C",
+                "sensors": "PBB-200S",
+                "dataAcquisition": "K2",
+                "realTimeDataTransfer": "ADSL link",
+                "type": "seismograph",
+                "lat": "43.635172",
+                "lon": "21.705790",
+                "altitude": "271"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.70579,
+                    43.635172
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "18",
+                "code": "BOSS",
+                "name": "Bosilegrad",
+                "latLonAlt": "42.498250\n22.461010\n750",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "SM-3",
+                "dataAcquisition": "WAVE24",
+                "realTimeDataTransfer": "ADSL link",
+                "type": "seismograph",
+                "lat": "42.498250",
+                "lon": "22.461010",
+                "altitude": "750"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.46101,
+                    42.49825
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "19",
+                "code": "ZAGS",
+                "name": "Zaječar-Grlište",
+                "latLonAlt": "43.812589\n22.232787\n205",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "LE-3D/5s MKIII",
+                "dataAcquisition": "WAVE32",
+                "realTimeDataTransfer": "ADSL link",
+                "type": "seismograph",
+                "lat": "43.812589",
+                "lon": "22.232787",
+                "altitude": "205"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.232787,
+                    43.812589
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "20",
+                "code": "SUBS",
+                "name": "Subotica",
+                "latLonAlt": "46.11175\n19.65060\n118",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "SM-3",
+                "dataAcquisition": "WAVE24",
+                "realTimeDataTransfer": "Cable link",
+                "type": "seismograph",
+                "lat": "46.11175",
+                "lon": "19.65060",
+                "altitude": "118"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.6506,
+                    46.11175
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "21",
+                "code": "AVAS",
+                "name": "Avala",
+                "latLonAlt": "44.69595\n20.51315\n444",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "LE-3D/5s MKIII",
+                "dataAcquisition": "WAVE32",
+                "realTimeDataTransfer": "Wireless link",
+                "type": "seismograph",
+                "lat": "44.69595",
+                "lon": "20.51315",
+                "altitude": "444"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.51315,
+                    44.69595
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "22",
+                "code": "VRSS",
+                "name": "Vršački breg",
+                "latLonAlt": "45.12276\n21.32477\n346",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "LE-3D/5s MKIII",
+                "dataAcquisition": "WAVE32",
+                "realTimeDataTransfer": "Wireless link",
+                "type": "seismograph",
+                "lat": "45.12276",
+                "lon": "21.32477",
+                "altitude": "346"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.32477,
+                    45.12276
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "number": "23",
+                "code": "GOCS",
+                "name": "Goč-Kraljevo",
+                "latLonAlt": "43.56244\n20.87342\n1072",
+                "seismographType": "SP",
+                "components": "3C",
+                "sensors": "LE-3D/5s MKIII",
+                "dataAcquisition": "WAVE32",
+                "realTimeDataTransfer": "Wireless link",
+                "type": "seismograph",
+                "lat": "43.56244",
+                "lon": "20.87342",
+                "altitude": "1072"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.87342,
+                    43.56244
+                ]
+            }
+        }
+    ]
+}

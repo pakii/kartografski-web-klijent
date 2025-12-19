@@ -3,21 +3,21 @@
 
 @import './ol-override';
 
-@import './components';
 @import './utilities';
 
 * {
     box-sizing: border-box;
+    font-family: 'Roboto';
+    margin: 0;
+    padding: 0;
 }
 ul {
     list-style: none;
-    padding: 0;
 }
-button {
-    cursor: pointer;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+img {
+    width: 100%;
 }
+
 button[disabled] {
     cursor: not-allowed;
 }
@@ -27,7 +27,7 @@ input + label {
 html,
 body {
     margin: 0;
-    height: 100vh;
+    padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
         'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;

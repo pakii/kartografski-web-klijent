@@ -1,26 +1,44 @@
 import React from "react";
-import { mapService } from './shared/map-service';
+import { mapService } from './map-facade/map';
 
-import { ControlsMenu } from "./components/controls-menu";
+import { ControlsMenu } from "./components/controls";
 import { ToastContainer } from "react-toastify";
-import { SideBar } from "./components/side-bar";
-import LayerExplorer from "./components/layer-explorer";
-import { FeatureInfo } from "./components/feature-info";
-import { WMS_URL } from './constants/index';
+import { WMS_URL } from './shared/constants/index';
+import { BaseSwitcher } from "./components/base-map-switcher";
+import { SideBar, TopBar } from "./components/layout";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "./styles/theme";
+import { withRouter, WithRouterProps } from "./shared/router";
+import { SeismographProperties } from "./map-facade/layer-definitions/seismographs";
+import { SeismogramFeatureInfo } from "./components/feature-info/seismogram-feature-info-content";
+import { DraggableModal } from "./widgets/draggable-modal/draggable-modal";
+import { EarthquaqesList } from "./components/earthquaqes-list";
+import { EarthquaqeProperties } from "./shared/usgs";
+import { EarthquaqeFeatureInfo } from "./components/feature-info/earthquaqe-feature-info-content";
+import { wmsService } from "./map-facade";
 
-class App extends React.Component<{}, {
+export interface AppState {
     showSidebar: boolean;
     featureInfoOn: boolean;
-    featureInfo: string;
+    featureInfo: {
+        title: string;
+        body: any;
+    } | null;
     mapClickSubscriptions: number;
     wmsUrl: string;
-}> {
-    constructor(props: {}) {
+}
+interface AppProps {
+    router: WithRouterProps
+}
+class AppComponent extends React.Component<AppProps, AppState> {
+    wrapperRef: React.RefObject<any>;
+    constructor(props: AppProps) {
         super(props);
+        this.wrapperRef = React.createRef<any>();
         this.state = {
-            showSidebar: true,
+            showSidebar: false,
             featureInfoOn: true,
-            featureInfo: '',
+            featureInfo: null,
             mapClickSubscriptions: 0,
             wmsUrl: WMS_URL
         }
@@ -30,40 +48,92 @@ class App extends React.Component<{}, {
                 this.makeFeatureInfoSub();
             }
         });
+        this.makeVectorFeatureInfoSub();
     }
 
     componentDidMount() {
-        const map = mapService.getMap();
-        map.setTarget('map');
+        this.createMap();
         if (this.state.featureInfoOn) {
             this.makeFeatureInfoSub();
         }
     }
 
+    createMap(): void {
+        wmsService.getCapabilities(WMS_URL)
+        const map = mapService.getMap();
+        map.setTarget(this.wrapperRef.current);
+        const { searchParams } = this.props.router;
+        const center = searchParams.get('center');
+        const zoom = searchParams.get('zoom');
+        console.log(map.getView());
+
+        if (center) {
+            map.getView().setCenter(JSON.parse(decodeURIComponent(center)));
+        }
+        if (zoom) {
+            map.getView().setZoom(+zoom);
+        }
+    }
+
     makeFeatureInfoSub = () => {
-        mapService.subscribeToMapClick((event) => {
+        mapService.subscribeToMapClick('feature-info', (event) => {
             const wmsLayers = mapService.getExternalLayers();
             if (!wmsLayers.length) {
                 return
             }
             mapService.getTopLayerFeatureInfo(event).then((featureInfo) => {
                 if (featureInfo) {
-                    this.setState({ featureInfo });
+                    this.setState({
+                        featureInfo: {
+                            title: 'WMS Feature Info',
+                            body: featureInfo
+                        }
+                    });
                 }
             })
         })
     }
 
-    toggleSideBar() {
-        this.setState((prevState) => ({
-            showSidebar: !prevState.showSidebar
-        }))
+    makeVectorFeatureInfoSub = () => {
+        mapService.subscribeToVectorFeatureClick('AppCmp', (evt) => {
+            const [selected] = evt?.selected || [];
+            if (selected) {
+                if (selected.get('type') === 'seismograph') {
+                    const data: SeismographProperties = selected.getProperties() as SeismographProperties;
+                    this.setState({
+                        featureInfo: {
+                            title: `Ime stanice: ${selected.get('name')}`,
+                            body: < SeismogramFeatureInfo data={data} />
+                        }
+                    })
+                }
+                else if (selected.get('type') === 'earthquake') {
+                    const data: EarthquaqeProperties = selected.getProperties() as EarthquaqeProperties;
+                    
+                    this.setState({
+                        featureInfo: {
+                            title: selected.get('title'),
+                            body: < EarthquaqeFeatureInfo data={data} />
+                        }
+                    })
+                }
+            }
+            else {
+                this.setState({ featureInfo: null })
+            }
+        });
+    }
+
+    hideFeatureInfo() {
+        this.setState({ featureInfo: null });
+        mapService.select.getFeatures().clear();
+
     }
 
     toggleFeatureInfo() {
         this.setState((prevState) => {
             if (prevState.featureInfoOn) {
-                mapService.clearMapClickSubscriptions();
+                mapService.unsubscribeToMapClick('feature-info');
             }
             else {
                 this.makeFeatureInfoSub();
@@ -79,18 +149,35 @@ class App extends React.Component<{}, {
     render() {
         return (
             <>
-                <div id="map" style={{ width: window.innerWidth, height: window.innerHeight }}>
-                    <ControlsMenu featureInfoOn={this.state.featureInfoOn} toggleFeatureInfo={() => this.toggleFeatureInfo()}></ControlsMenu>
-                    <LayerExplorer show={() => this.toggleSideBar()} />
-                    {this.state.showSidebar && <SideBar hide={() => this.toggleSideBar()} changeWMSUrl={(e) => this.onWMSUrlChange(e)} wmsUrl={this.state.wmsUrl}/>}
-                    {this.state.featureInfoOn && this.state.featureInfo && (
-                        <FeatureInfo featureInfo={this.state.featureInfo} hide={() => this.setState({ featureInfo: '' })} />
-                    )}
-                </div>
+                <ThemeProvider theme={theme}>
+                    <TopBar />
+                    <SideBar close={() => this.createMap()}>
+                        <EarthquaqesList />
+                    </SideBar>
+                    <div ref={this.wrapperRef}
+                        id="map" style={{
+                            width: '100%',
+                            height: `calc(100vh - ${theme.mixins.toolbar.height}px)`,
+                            marginTop: theme.mixins.toolbar.height,
+                            boxSizing: 'border-box'
+                        }}>
+                        <ControlsMenu />
+                        {/* <LayerExplorer show={() => this.toggleSideBar()} /> */}
+                        {/* {this.state.showSidebar && <SideBar hide={() => this.toggleSideBar()} changeWMSUrl={(e) => this.onWMSUrlChange(e)} wmsUrl={this.state.wmsUrl} />}
+                        {this.state.featureInfoOn && this.state.featureInfo && (
+                            <FeatureInfo featureInfo={this.state.featureInfo} hide={() => this.setState({ featureInfo: '' })} />
+                        )} */}
+                    </div>
+                    <DraggableModal
+                        open={!!this.state.featureInfo}
+                        content={this.state.featureInfo}
+                        hide={() => this.hideFeatureInfo()} />
+                    <BaseSwitcher />
+                </ThemeProvider>
                 <ToastContainer />
             </>
         );
     }
 }
 
-export default App;
+export default withRouter(AppComponent);

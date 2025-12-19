@@ -1,0 +1,292 @@
+{
+    "type": "FeatureCollection",
+    "name": "Regional earthquakes - current month",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "date": "2022-07-17T07:25:21.700Z",
+                "tErrorS": 0.5,
+                "lat": "41.852",
+                "latErrorKm": "+/-1.984",
+                "lon": "22.840",
+                "lonErrorKm": "+/-2.341",
+                "hypocenterDepthKm": 3,
+                "richterMagnitude": 1.8,
+                "mercalliIntensity": "",
+                "regionName": "Severna Makedonija"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.84,
+                    41.852
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "date": "2022-07-16T07:39:21.000Z",
+                "tErrorS": 0.3,
+                "lat": "45.024",
+                "latErrorKm": "+/-1.157",
+                "lon": "23.329",
+                "lonErrorKm": "+/-1.223",
+                "hypocenterDepthKm": 13,
+                "richterMagnitude": 4,
+                "mercalliIntensity": "VI",
+                "regionName": "Rumunija"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.329,
+                    45.024
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "date": "2022-07-15T15:25:56.000Z",
+                "tErrorS": 0.4,
+                "lat": "43.241",
+                "latErrorKm": "+/-1.834",
+                "lon": "20.835",
+                "lonErrorKm": "+/-1.496",
+                "hypocenterDepthKm": 0,
+                "richterMagnitude": 1.7,
+                "mercalliIntensity": "",
+                "regionName": "Brzeće"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.835,
+                    43.241
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "date": "2022-07-15T08:49:15.600Z",
+                "tErrorS": 0.7,
+                "lat": "41.909",
+                "latErrorKm": "+/-2.345",
+                "lon": "21.804",
+                "lonErrorKm": "+/-2.805",
+                "hypocenterDepthKm": 7,
+                "richterMagnitude": 1.5,
+                "mercalliIntensity": "",
+                "regionName": "Severna Makedonija"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.804,
+                    41.909
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "date": "2022-07-15T02:44:17.400Z",
+                "tErrorS": 0.3,
+                "lat": "42.353",
+                "latErrorKm": "+/-1.294",
+                "lon": "23.123",
+                "lonErrorKm": "+/-1.540",
+                "hypocenterDepthKm": 1,
+                "richterMagnitude": 2.1,
+                "mercalliIntensity": "III",
+                "regionName": "Bugarska"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.123,
+                    42.353
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "date": "2022-07-14T23:50:14.400Z",
+                "tErrorS": 0.2,
+                "lat": "43.326",
+                "latErrorKm": "+/-1.000",
+                "lon": "20.708",
+                "lonErrorKm": "+/-1.014",
+                "hypocenterDepthKm": 3,
+                "richterMagnitude": 1.5,
+                "mercalliIntensity": "",
+                "regionName": "Jošanička Banja"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.708,
+                    43.326
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "date": "2022-07-14T23:12:24.200Z",
+                "tErrorS": 0.2,
+                "lat": "41.436",
+                "latErrorKm": "+/-0.969",
+                "lon": "19.929",
+                "lonErrorKm": "+/-1.474",
+                "hypocenterDepthKm": 17,
+                "richterMagnitude": 2.2,
+                "mercalliIntensity": "III",
+                "regionName": "Albanija"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.929,
+                    41.436
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "date": "2022-07-14T22:37:00.300Z",
+                "tErrorS": 0.3,
+                "lat": "42.609",
+                "latErrorKm": "+/-1.445",
+                "lon": "18.823",
+                "lonErrorKm": "+/-1.287",
+                "hypocenterDepthKm": 0,
+                "richterMagnitude": 1.5,
+                "mercalliIntensity": "",
+                "regionName": "Crna Gora"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    18.823,
+                    42.609
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "date": "2022-07-13T19:18:54.200Z",
+                "tErrorS": 0.3,
+                "lat": "41.159",
+                "latErrorKm": "+/-1.568",
+                "lon": "20.225",
+                "lonErrorKm": "+/-2.271",
+                "hypocenterDepthKm": 5,
+                "richterMagnitude": 3.1,
+                "mercalliIntensity": "IV",
+                "regionName": "Albanija"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.225,
+                    41.159
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "date": "2022-07-11T00:51:48.400Z",
+                "tErrorS": 0.2,
+                "lat": "42.785",
+                "latErrorKm": "+/-0.963",
+                "lon": "20.655",
+                "lonErrorKm": "+/-0.988",
+                "hypocenterDepthKm": 7,
+                "richterMagnitude": 3,
+                "mercalliIntensity": "IV",
+                "regionName": "Srbica"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.655,
+                    42.785
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "date": "2022-07-09T18:44:27.500Z",
+                "tErrorS": 0.2,
+                "lat": "44.078",
+                "latErrorKm": "+/-0.969",
+                "lon": "20.740",
+                "lonErrorKm": "+/-0.953",
+                "hypocenterDepthKm": 4,
+                "richterMagnitude": 2,
+                "mercalliIntensity": "III",
+                "regionName": "Kragujevac"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.74,
+                    44.078
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "date": "2022-07-03T08:21:18.800Z",
+                "tErrorS": 0.3,
+                "lat": "42.480",
+                "latErrorKm": "+/-1.499",
+                "lon": "20.986",
+                "lonErrorKm": "+/-1.381",
+                "hypocenterDepthKm": 3,
+                "richterMagnitude": 1.8,
+                "mercalliIntensity": "",
+                "regionName": "Štimlje"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.986,
+                    42.48
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "date": "2022-07-02T21:33:07.800Z",
+                "tErrorS": 0.3,
+                "lat": "44.085",
+                "latErrorKm": "+/-1.267",
+                "lon": "20.369",
+                "lonErrorKm": "+/-1.302",
+                "hypocenterDepthKm": 4,
+                "richterMagnitude": 1.8,
+                "mercalliIntensity": "",
+                "regionName": "Gornji Milanovac"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.369,
+                    44.085
+                ]
+            }
+        }
+    ]
+}

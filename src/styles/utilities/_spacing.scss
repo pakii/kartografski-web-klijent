@@ -1,4 +1,4 @@
-$sizes: 0, 1em, 2em, 3em, 4em, 5em !default;
+$sizes: 0, 0.5em, 1em, 2em, 3em, 4em !default;
 @function size($i) {
     @return nth($sizes, $i);
 }
